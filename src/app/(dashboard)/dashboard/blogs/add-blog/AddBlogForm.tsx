@@ -106,7 +106,7 @@ export function AddPostForm() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label className="mb-2" htmlFor="post_title">
-              Post Title
+              Blog Title
             </Label>
             <Input
               id="post_title"
@@ -119,7 +119,7 @@ export function AddPostForm() {
         </div>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label className="mb-2">Post Images</Label>
+            <Label className="mb-2">Blog Images</Label>
             <div>
               <div
                 {...getPostImageRootProps()}
@@ -156,7 +156,7 @@ export function AddPostForm() {
 
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label className="mb-2">Post Banner</Label>
+            <Label className="mb-2">Blog Thumbnail</Label>
             <div>
               <div
                 {...getPostBannerRootProps()}
@@ -190,7 +190,7 @@ export function AddPostForm() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label className="mb-2" htmlFor="post_subtitle">
-              Post Subtitle
+            Blog Subtitle
             </Label>
             <Input
               id="post_subtitle"
@@ -205,7 +205,7 @@ export function AddPostForm() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label className="mb-2" htmlFor="post-description">
-              Post Description
+            Blog Description
             </Label>
             <Input
               id="post-description"

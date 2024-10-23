@@ -8,9 +8,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import React from "react";
-import PostListContainer from "./BlogListContainer";
+
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import PostListContainer from "../blogs/BlogListContainer";
 
 const PostsPage = () => {
   return (

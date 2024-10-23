@@ -1,12 +1,4 @@
-import {
-  Tag,
-  Users,
-  Settings,
-  Bookmark,
-  SquarePen,
-  LayoutGrid,
-  LucideIcon,
-} from "lucide-react";
+import { SquarePen, LucideIcon } from "lucide-react";
 
 type Submenu = {
   href: string;
@@ -32,6 +24,24 @@ export function getMenuList(pathname: string): Group[] {
     {
       groupLabel: "Contents",
       menus: [
+        {
+          href: "",
+          label: "Resume",
+          active: pathname === "/resumes",
+          icon: SquarePen,
+          submenus: [
+            {
+              href: "/dashboard/resumes",
+              label: "All Blogs",
+              active: pathname === "/dashboard/resumes",
+            },
+            {
+              href: "/dashboard/blogs/add-resume",
+              label: "Add Blog",
+              active: pathname === "/dashboard/blogs/add-resume",
+            },
+          ],
+        },
         {
           href: "",
           label: "Blogs",
