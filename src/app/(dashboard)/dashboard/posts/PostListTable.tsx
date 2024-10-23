@@ -13,7 +13,6 @@ import {
 } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -21,7 +20,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -41,11 +39,7 @@ import { generateImage } from "@/lib/utils";
 import { deletePost } from "../../../../actions/post/delete-post";
 import { IPosts } from "@/interface/post.interface";
 
-
-
-
-
-export function PostListTable() {
+const PostListsTable = () => {
   // Explicitly define the state type as an array of Companies
   const [posts, setPosts] = useState<IPosts[] | []>([]);
 
@@ -56,17 +50,6 @@ export function PostListTable() {
   const [refetch, setRefetch] = useState<boolean>(false);
 
   //get All The Post And set To Post State
-  useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const response = await getAllPost();
-        setPosts(response?.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllPosts();
-  }, [refetch]);
 
   const handleDeletePost = async (id: string) => {
     const response = await deletePost(id);
@@ -77,7 +60,7 @@ export function PostListTable() {
     setRefetch(true);
   };
 
-  const data: IPosts[] = posts ?? [];
+  const data: IPosts[] = posts || [];
 
   const columns: ColumnDef<IPosts>[] = [
     {
@@ -210,16 +193,6 @@ export function PostListTable() {
   return (
     <div className="w-full ">
       <div className="flex items-center py-4">
-        {/* <Input
-          placeholder="Filter company names..."
-          value={
-            (table.getColumn("companyName")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("companyName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -300,4 +273,6 @@ export function PostListTable() {
       <DataTablePagination table={table} />
     </div>
   );
-}
+};
+
+export default PostListsTable;

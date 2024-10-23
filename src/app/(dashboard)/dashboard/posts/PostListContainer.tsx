@@ -1,5 +1,9 @@
 // import { PostListTable } from "./PostListTable";
 
+import PostListsTable from "./PostListTable";
+
+
+
 
 const PostListContainer = async () => {
  
@@ -8,7 +12,7 @@ const PostListContainer = async () => {
       <div className="flex items-center justify-between mb-6 space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Post List</h2>
       </div>
-      {/* <PostListTable /> */}
+      <PostListsTable />
       {/* <UserContentTable /> */}
     </div>
   );
