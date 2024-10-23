@@ -1,7 +1,7 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import React from "react";
-import AddPostContainer from "./AddPostContainer";
+import AddPostContainer from "./AddBlogContainer";
 
 const AddPostPage = () => {
   return (

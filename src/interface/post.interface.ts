@@ -1,4 +1,4 @@
-export interface IPosts {
+export interface IBlogs {
   _id: string;
   title: string;
   images: string[];

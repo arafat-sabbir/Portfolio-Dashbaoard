@@ -34,19 +34,19 @@ export function getMenuList(pathname: string): Group[] {
       menus: [
         {
           href: "",
-          label: "Posts",
-          active: pathname === "/posts",
+          label: "Blogs",
+          active: pathname === "/blogs",
           icon: SquarePen,
           submenus: [
             {
-              href: "/dashboard/posts",
-              label: "All Posts",
-              active: pathname === "/dashboard/posts",
+              href: "/dashboard/blogs",
+              label: "All Blogs",
+              active: pathname === "/dashboard/blogs",
             },
             {
-              href: "/dashboard/posts/add-post",
-              label: "Add Post",
-              active: pathname === "/dashboard/posts/add-post",
+              href: "/dashboard/blogs/add-blog",
+              label: "Add Blog",
+              active: pathname === "/dashboard/blogs/add-blog",
             },
           ],
         },

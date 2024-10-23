@@ -1,5 +1,5 @@
 import React from "react";
-import { AddPostForm } from "./AddPostForm";
+import { AddPostForm } from "./AddBlogForm";
 
 
 const AddPostContainer = () => {

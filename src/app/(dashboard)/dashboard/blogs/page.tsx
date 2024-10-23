@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import React from "react";
-import PostListContainer from "./PostListContainer";
+import PostListContainer from "./BlogListContainer";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 const PostsPage = () => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Posts">
+      <ContentLayout title="All Blogs">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -32,12 +32,12 @@ const PostsPage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/companies">Posts</Link>
+                <Link href="/dashboard/companies">Blogs</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Posts</BreadcrumbPage>
+              <BreadcrumbPage>All Blogs</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

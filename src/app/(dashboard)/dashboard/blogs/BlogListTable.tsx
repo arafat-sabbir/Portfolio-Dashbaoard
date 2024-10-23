@@ -32,16 +32,16 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
-import { getAllPost } from "../../../../actions/post/get-all-post";
+import { getAllBlog } from "../../../../actions/post/get-all-post";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { generateImage } from "@/lib/utils";
-import { deletePost } from "../../../../actions/post/delete-post";
-import { IPosts } from "@/interface/post.interface";
+import { deleteBlog } from "../../../../actions/post/delete-post";
+import { IBlogs } from "@/interface/post.interface";
 
-const PostListsTable = () => {
+const BlogListsTable = () => {
   // Explicitly define the state type as an array of Companies
-  const [posts, setPosts] = useState<IPosts[] | []>([]);
+  const [blogs, setBlogs] = useState<IBlogs[] | []>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -49,10 +49,10 @@ const PostListsTable = () => {
   const [rowSelection, setRowSelection] = useState({});
   const [refetch, setRefetch] = useState<boolean>(false);
 
-  //get All The Post And set To Post State
+  //get All The Blog And set To Blog State
 
-  const handleDeletePost = async (id: string) => {
-    const response = await deletePost(id);
+  const handleDeleteBlog = async (id: string) => {
+    const response = await deleteBlog(id);
     if (response?.error) {
       return toast.error(response?.error);
     }
@@ -60,9 +60,9 @@ const PostListsTable = () => {
     setRefetch(true);
   };
 
-  const data: IPosts[] = posts || [];
+  const data: IBlogs[] = blogs || [];
 
-  const columns: ColumnDef<IPosts>[] = [
+  const columns: ColumnDef<IBlogs>[] = [
     {
       accessorKey: "title",
       header: ({ column }) => {
@@ -71,7 +71,7 @@ const PostListsTable = () => {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Post Title
+            Blog Title
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -82,7 +82,7 @@ const PostListsTable = () => {
     },
     {
       accessorKey: "images",
-      header: "Post Images",
+      header: "Blog Images",
       cell: ({ row }) => (
         <div className="flex">
           {(row.getValue("images") as string[]).map(
@@ -101,28 +101,28 @@ const PostListsTable = () => {
     },
     {
       accessorKey: "banner",
-      header: "Post Banner",
+      header: "Blog Banner",
       cell: ({ row }) => (
         <div>
           <Image
             height={16}
             width={60}
             src={generateImage(row.getValue("banner"))}
-            alt={`Post Banner`}
+            alt={`Blog Banner`}
           />
         </div>
       ),
     },
     {
       accessorKey: "description",
-      header: "Post Description",
+      header: "Blog Description",
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue("description")}</div>
       ),
     },
     {
       accessorKey: "subtitle",
-      header: "Post Subtitle",
+      header: "Blog Subtitle",
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue("subtitle")}</div>
       ),
@@ -153,13 +153,13 @@ const PostListsTable = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link href={`/dashboard/posts/${row?.original?._id}/update-post`}>
+              <Link href={`/dashboard/blogs/${row?.original?._id}/update-blog`}>
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuItem
-                onClick={() => handleDeletePost(row?.original?._id)}
+                onClick={() => handleDeleteBlog(row?.original?._id)}
                 className="cursor-pointer"
               >
                 Delete
@@ -275,4 +275,4 @@ const PostListsTable = () => {
   );
 };
 
-export default PostListsTable;
+export default BlogListsTable;
