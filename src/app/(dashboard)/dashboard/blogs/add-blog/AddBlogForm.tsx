@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";

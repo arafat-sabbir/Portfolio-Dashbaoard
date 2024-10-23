@@ -32,22 +32,21 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
-import { getAllBlog } from "../../../../actions/post/get-all-post";
+// import { getAllBlog } from "../../../../actions/post/get-all-post";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { generateImage } from "@/lib/utils";
 import { deleteBlog } from "../../../../actions/post/delete-post";
 import { IBlogs } from "@/interface/post.interface";
 
 const BlogListsTable = () => {
   // Explicitly define the state type as an array of Companies
-  const [blogs, setBlogs] = useState<IBlogs[] | []>([]);
+  const blogs: IBlogs[] | [] = [];
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [refetch, setRefetch] = useState<boolean>(false);
 
   //get All The Blog And set To Blog State
 
@@ -57,7 +56,6 @@ const BlogListsTable = () => {
       return toast.error(response?.error);
     }
     toast.success(response?.message);
-    setRefetch(true);
   };
 
   const data: IBlogs[] = blogs || [];

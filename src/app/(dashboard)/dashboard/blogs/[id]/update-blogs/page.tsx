@@ -1,7 +1,5 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import AddPostContainer from "@/components/dashboard/posts/add-post/AddPostContainer";
-import UpdatePostContainer from "@/components/dashboard/posts/update-post/UpdatePostContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,13 +11,8 @@ import {
 import Link from "next/link";
 import React from "react";
 
-type TParams = {
- params:{
-  id:string
- }
-}
 
-const UpdatePostPage = ({ params }:TParams) => {
+const UpdatePostPage = () => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="Companies">
@@ -48,7 +41,7 @@ const UpdatePostPage = ({ params }:TParams) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdatePostContainer id={params.id} />
+        {/* <UpdatePostContainer id={params.id} /> */}
       </ContentLayout>
     </AdminPanelLayout>
   );

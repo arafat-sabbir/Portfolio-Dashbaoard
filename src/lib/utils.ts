@@ -16,7 +16,7 @@ export const getClientToken = () => {
   }
 };
 
-export const getDecodedUser = (token: string):{} => {
+export const getDecodedUser = (token: string) => {
   return jwtDecode(token);
 };
 
