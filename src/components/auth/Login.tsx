@@ -18,13 +18,13 @@ import { useRouter } from "next/navigation";
 import { loginAdmin } from "@/actions/auth/login-admin";
 
 export function Login() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //Form Submit Handler
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
     const form = e.currentTarget as HTMLFormElement;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
@@ -34,10 +34,11 @@ export function Login() {
         email,
         password,
       });
+      console.log(response);
       if (response.error) {
         return toast.error(response?.error);
       }
-      location.reload();
+      router.push("/dashboard");
       toast.success(response?.message);
     } catch (error) {
       console.log(error);
@@ -45,86 +46,94 @@ export function Login() {
       setLoading(false);
     }
   };
+
   return (
-    <Card className="w-full mx-4 md:max-w-96">
-      <form onSubmit={handleSubmit}>
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>Enter your email below to login</CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          {/* <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button variant="outline">
-            <Icons.google className="mr-2 h-4 w-4" />
-            Google
-          </Button>
-        </div> */}
-          {/* <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
-        </div> */}
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="example@student.com"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Input
-                placeholder="Enter Your Password"
-                name="password"
-                id="password"
-                type={showPassword ? "text" : "password"}
-              />
-              <Button
-                type="button"
-                className="absolute inset-y-0 right-0 px-3 bg-transparent dark:text-white text-black hover:bg-transparent"
-                onClick={() => setShowPassword(!showPassword)}
+    <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">
+      <Card className="w-full max-w-lg p-8 mx-4 shadow-lg rounded-lg bg-white dark:bg-gray-800">
+        <form onSubmit={handleSubmit}>
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-3xl font-semibold text-gray-800 dark:text-white">
+              Welcome Back
+            </CardTitle>
+            <CardDescription className="text-gray-600 dark:text-gray-400">
+              Sign in to your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid gap-2">
+              <Label
+                htmlFor="email"
+                className="text-sm text-gray-700 dark:text-gray-300"
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-              </Button>
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="example@student.com"
+                className="border-gray-300 dark:border-gray-700"
+                required
+              />
             </div>
-          </div>
-        </CardContent>
-        <CardFooter className="grid">
-          <Button disabled={loading} className="w-full">
-            Login{" "}
-            {loading && <Loader className="animate-spin ml-2" size={22} />}
-          </Button>
-          <small className="text-center mt-4">
-            Don&apos;t have an acoount?{" "}
-            <Link
-              className="underline hover:no-underline hover:text-[#22c55e]"
-              href={"/sign-up"}
-            >
-              Signup
-            </Link>
-          </small>
-          <small className="text-center mt-4">
-            <Link
-              className="underline hover:no-underline hover:text-[#22c55e]"
-              href={"/forgot-password"}
-            >
-              Forgot password?
-            </Link>
-          </small>
-        </CardFooter>
-      </form>
-    </Card>
+            <div className="grid gap-2">
+              <Label
+                htmlFor="password"
+                className="text-sm text-gray-700 dark:text-gray-300"
+              >
+                Password
+              </Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  type={showPassword ? "text" : "password"}
+                  className="border-gray-300 dark:border-gray-700"
+                  required
+                />
+                <Button
+                  type="button"
+                  className="absolute inset-y-0 right-0 px-3 bg-transparent hover:bg-transparent text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="space-y-4 flex flex-col">
+            <Button disabled={loading} className="w-full bg-primary">
+              {loading ? (
+                <>
+                  Logging in <Loader className="animate-spin ml-2" size={22} />
+                </>
+              ) : (
+                "Login"
+              )}
+            </Button>
+            <div className="text-center text-sm">
+              <p className="text-gray-700 dark:text-gray-400">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/sign-up"
+                  className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-500 underline"
+                >
+                  Signup
+                </Link>
+              </p>
+              <p className="text-gray-700 dark:text-gray-400">
+                <Link
+                  href="/forgot-password"
+                  className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-500 underline"
+                >
+                  Forgot password?
+                </Link>
+              </p>
+            </div>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
   );
 }

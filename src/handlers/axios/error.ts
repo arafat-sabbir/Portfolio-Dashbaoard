@@ -12,12 +12,7 @@ const handleAxiosError = (
       data.errors?.map((error: { message: string }) => error.message) || [];
 
     return {
-      error:
-        errorMessages.length > 1
-          ? errorMessages.join(" ")
-          : data.error ||
-            errorMessages[0] ||
-            "Something is wrong. Please try again later.",
+      error: data?.message || errorMessages,
     };
   }
 

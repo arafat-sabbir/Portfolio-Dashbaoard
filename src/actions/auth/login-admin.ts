@@ -9,12 +9,14 @@ import { cookies } from "next/headers";
 
 export const loginAdmin = async (data: ILogin) => {
   try {
-    const response = await axios.post(`/auth/login`, data);
+    const response = await axios.post(`/users/login`, data);
     cookies().set("accessToken", response?.data?.data.token, {
       maxAge: 30 * 24 * 60 * 60,
     });
+    console.log(response?.data);
     return response.data;
   } catch (error: any) {
+    console.log(error?.response?.data);
     return handleAxiosError(error as AxiosError<ErrorResponse>);
   }
 };

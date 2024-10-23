@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Loader } from "lucide-react";
@@ -28,18 +27,14 @@ export function CreateAccount() {
     e.preventDefault();
     setLoading(true);
     const form = e.currentTarget as HTMLFormElement;
-    const first_name = (
-      form.elements.namedItem("first_name") as HTMLInputElement
-    ).value;
-    const last_name = (form.elements.namedItem("last_name") as HTMLInputElement)
+    const name = (form.elements.namedItem("fullName") as HTMLInputElement)
       .value;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
     try {
       const response = await registerAdmin({
-        first_name,
-        last_name,
+        name,
         email,
         password,
       });
@@ -56,101 +51,109 @@ export function CreateAccount() {
   };
 
   return (
-    <Card className="w-full mx-4 md:max-w-96">
-      <form onSubmit={handleSubmit}>
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>
-            Enter your email below to create your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4">
-          {/* <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button variant="outline">
-            <Icons.google className="mr-2 h-4 w-4" />
-            Google
-          </Button>
-        </div>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div> */}
-          {/* </div> */}
-          <div className="grid gap-2">
-            <Label htmlFor="firstName">First Name</Label>
-            <Input
-              id="firstName"
-              name="first_name"
-              type="text"
-              required
-              placeholder="Enter First Name"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input
-              id="lastName"
-              name="last_name"
-              type="text"
-              required
-              placeholder="Enter Last Name"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="m@example@student.com"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Input
-                placeholder="Enter Password"
-                name="password"
-                id="password"
-                type={showPassword ? "text" : "password"}
-              />
-              <Button
-                type="button"
-                className="absolute inset-y-0 right-0 px-3 bg-transparent dark:text-white text-black hover:bg-transparent"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter className="grid">
-          <Button disabled={loading} type="submit" className="w-full">
-            Create account{" "}
-            {loading && <Loader className="animate-spin ml-2" size={22} />}
-          </Button>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Card className="w-full max-w-lg mx-4 p-6 shadow-lg rounded-lg bg-white dark:bg-gray-800">
+        <form onSubmit={handleSubmit}>
+          <CardHeader className="space-y-2 text-center">
+            <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white">
+              Create an Account
+            </CardTitle>
+            <CardDescription className="text-gray-600 dark:text-gray-300">
+              Enter your details below to create your account.
+            </CardDescription>
+          </CardHeader>
 
-          <small className="text-center mt-4">
-            Already have an acoount?{" "}
-            <Link
-              className="underline hover:no-underline hover:text-[#22c55e]"
-              href={"/sign-in"}
+          <CardContent className="space-y-4">
+            <div className="grid gap-2">
+              <Label
+                htmlFor="fullName"
+                className="text-gray-800 dark:text-gray-200"
+              >
+                First Name
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                required
+                placeholder="Enter Full Name"
+                className="border-gray-300 dark:border-gray-700"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label
+                htmlFor="email"
+                className="text-gray-800 dark:text-gray-200"
+              >
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="Enter Your Email"
+                className="border-gray-300 dark:border-gray-700"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label
+                htmlFor="password"
+                className="text-gray-800 dark:text-gray-200"
+              >
+                Password
+              </Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Your Password"
+                  className="border-gray-300 dark:border-gray-700"
+                />
+                <Button
+                  type="button"
+                  className="absolute inset-y-0 right-0 px-3 bg-transparent hover:bg-transparent focus:ring-0"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff
+                      size={16}
+                      className="text-gray-700 dark:text-gray-300"
+                    />
+                  ) : (
+                    <Eye
+                      size={16}
+                      className="text-gray-700 dark:text-gray-300"
+                    />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+
+          <CardFooter className="mt-6 grid gap-4">
+            <Button
+              type="submit"
+              className="w-full bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90 transition-all"
+              disabled={loading}
             >
-              Login
-            </Link>
-          </small>
-        </CardFooter>
-      </form>
-    </Card>
+              Create Account
+              {loading && <Loader className="animate-spin ml-2" size={22} />}
+            </Button>
+
+            <div className="text-center text-sm text-gray-600 dark:text-gray-300">
+              Already have an account?{" "}
+              <Link
+                href="/sign-in"
+                className="text-primary hover:text-primary/90"
+              >
+                Login
+              </Link>
+            </div>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
   );
 }
