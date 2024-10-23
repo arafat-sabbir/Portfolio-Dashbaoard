@@ -500,7 +500,7 @@
     "@ckeditor/ckeditor5-engine" "43.2.0"
     ckeditor5 "43.2.0"
 
-"@ckeditor/ckeditor5-react@^9.1.0":
+"@ckeditor/ckeditor5-react@^9.3.1":
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-react/-/ckeditor5-react-9.3.1.tgz#5ed94789eb5d26bf8d185185c7dfcc57f2bfb97d"
   integrity sha512-2lc1ICGCOZ0loC6DeMFwhkhrodLYUsOnC2wdgMiaXnEWRI/fU0SWBAoLbsMH7i6zpq29s+ZWMEImRVbly8SmEA==
@@ -2029,7 +2029,7 @@ chokidar@^3.5.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
-ckeditor5@43.2.0:
+ckeditor5@43.2.0, ckeditor5@^43.2.0:
   version "43.2.0"
   resolved "https://registry.yarnpkg.com/ckeditor5/-/ckeditor5-43.2.0.tgz#766dcb1f9ac29764114a63ac9afcdf87ef1e178f"
   integrity sha512-wtW2TICJiXoOPK2K4L1oiO+HWBS6ifVQW2k80DoQI7cDranUC0FKMNirYZZXNdK0SYH87RSLZR8hHAAdbbOPBA==
@@ -3836,7 +3836,7 @@ react-dropzone@^14.2.3:
     file-selector "^0.6.0"
     prop-types "^15.8.1"
 
-react-hook-form@^7.52.2:
+react-hook-form@^7.53.1:
   version "7.53.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.53.1.tgz#3f2cd1ed2b3af99416a4ac674da2d526625add67"
   integrity sha512-6aiQeBda4zjcuaugWvim9WsGqisoUk+etmFEsSUMm451/Ic8L/UAb7sRtMj3V+Hdzm6mMjU1VhiSzYUZeBm0Vg==

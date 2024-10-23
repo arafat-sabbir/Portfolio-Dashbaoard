@@ -1,82 +1,76 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use client";
+
 import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import "ckeditor5/ckeditor5.css";
 import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { addPost } from "../../../../../actions/post/create-post";
+import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
+import { LabelInputContainer } from "./LabelInputContainer";
+import { BottomGradient } from "@/components/BottomGradient";
+import { addBlog } from "@/actions/blog/create-blog";
 
-export function AddPostForm() {
+// Define Zod schema for validation
+const blogSchema = z.object({
+  title: z.string().nonempty("Blog title is required"),
+  category: z.string().nonempty("Category is required"),
+  content: z.string().nonempty("Content is required"),
+  photo: z.any(), // Will handle image separately
+});
+
+type BlogFormValues = z.infer<typeof blogSchema>;
+
+export function AddBlogForm() {
   const [loading, setLoading] = useState(false);
+  const [blogBanner, setBlogBanner] = useState<File | null>(null);
+  const [blogBannerPreview, setBlogBannerPreview] = useState<string | null>(null);
   const router = useRouter();
-  const [postImages, setPostImages] = useState<File[]>([]);
-  const [postImagesPreview, setPostImagesPreview] = useState<string[]>([]);
-  const [postBanner, setPostBanner] = useState<File | null>(null);
-  const [postBannerPreview, setPostBannerPreview] = useState<string | null>(
-    null
-  );
 
-  const handlePostImages = useCallback((acceptedFiles: File[]) => {
-    setPostImages((prev) => [...prev, ...acceptedFiles]);
-    setPostImagesPreview((prev) => [
-      ...prev,
-      ...acceptedFiles.map((file) => URL.createObjectURL(file)),
-    ]);
-  }, []);
+  const { register, handleSubmit, control, formState: { errors } } = useForm<BlogFormValues>({
+    resolver: zodResolver(blogSchema),
+  });
 
-  const handlePostBanner = useCallback((acceptedFiles: File[]) => {
+  const handleBlogBanner = useCallback((acceptedFiles: File[]) => {
     const bannerFile = acceptedFiles[0]; // Only allow one banner
-    setPostBanner(bannerFile);
-    setPostBannerPreview(URL.createObjectURL(bannerFile));
+    setBlogBanner(bannerFile);
+    setBlogBannerPreview(URL.createObjectURL(bannerFile));
   }, []);
 
-  const removePostImage = (index: number) => {
-    setPostImages((prev) => prev.filter((_, i) => i !== index));
-    setPostImagesPreview((prev) => prev.filter((_, i) => i !== index));
+  const removeBlogBanner = () => {
+    setBlogBanner(null);
+    setBlogBannerPreview(null);
   };
 
-  const removePostBanner = () => {
-    setPostBanner(null);
-    setPostBannerPreview(null);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!postBanner) {
-      return toast.error("Banner Is Required");
+  const onSubmit = async (data: BlogFormValues) => {
+    if (!blogBanner) {
+      return toast.error("Banner is required");
     }
     setLoading(true);
-    console.log("submiiti");
-
-    const form = e.currentTarget;
-    const postTitle = (form.elements.namedItem("postTitle") as HTMLInputElement)
-      .value;
-    const postSubtitle = (
-      form.elements.namedItem("postSubtitle") as HTMLInputElement
-    ).value;
-    const postDescription = (
-      form.elements.namedItem("postDescription") as HTMLInputElement
-    ).value;
 
     const formData = new FormData();
-    formData.append("title", postTitle);
-    postImages.forEach((image) => formData.append("images", image));
-    formData.append("banner", postBanner as any);
-    formData.append("subtitle", postSubtitle);
-    formData.append("description", postDescription);
+    formData.append("title", data.title);
+    formData.append("category", data.category);
+    formData.append("content", data.content);
+    formData.append("photo", blogBanner as any);
+
     try {
-      const response = await addPost(formData);
+      const response = await addBlog(formData);
       if (response?.error) {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/posts");
+      router.push("/dashboard/blogs");
     } catch (error) {
       console.log(error);
     } finally {
@@ -84,169 +78,92 @@ export function AddPostForm() {
     }
   };
 
-  const {
-    getRootProps: getPostImageRootProps,
-    getInputProps: getPostImageInputProps,
-  } = useDropzone({
-    onDrop: handlePostImages,
-    accept: { "image/*": [] },
-    multiple: true,
-  });
-
-  const {
-    getRootProps: getPostBannerRootProps,
-    getInputProps: getPostBannerInputProps,
-  } = useDropzone({
-    onDrop: handlePostBanner,
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleBlogBanner,
     accept: { "image/*": [] },
     multiple: false,
   });
 
   return (
     <div className="w-full mx-auto shadow-input p-6 bg-white dark:bg-[#0A0A0A] rounded-md">
-      <form className="space-y-10" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label className="mb-2" htmlFor="post_title">
-              Blog Title
-            </Label>
-            <Input
-              id="post_title"
-              name="postTitle"
-              placeholder="Enter Post Title"
-              type="text"
-              required
-            />
-          </LabelInputContainer>
-        </div>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label className="mb-2">Blog Images</Label>
-            <div>
-              <div
-                {...getPostImageRootProps()}
-                className="border border-dashed p-4 cursor-pointer rounded"
+      <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
+        {/* Blog Title */}
+        <LabelInputContainer>
+          <Label htmlFor="title">Blog Title</Label>
+          <Input
+            id="title"
+            placeholder="Enter Blog Title"
+            {...register("title")}
+            className={cn(errors.title && "border-red-500")}
+          />
+          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+        </LabelInputContainer>
+
+        {/* Blog Thumbnail */}
+        <LabelInputContainer>
+          <Label>Blog Thumbnail</Label>
+          <div {...getRootProps()} className="border border-dashed rounded p-4 cursor-pointer">
+            <input {...getInputProps()} />
+            <p>Drag and drop a banner image, or click to select a file</p>
+          </div>
+          {blogBannerPreview && (
+            <div className="relative mt-4 w-fit">
+              <Image
+                height={160}
+                width={80}
+                src={blogBannerPreview}
+                alt="Banner Preview"
+                className="w-40 h-20 object-cover rounded-md"
+              />
+              <button
+                type="button"
+                onClick={removeBlogBanner}
+                className="absolute top-0 right-0 h-6 w-6 flex items-center justify-center text-lg bg-black/50 hover:bg-black duration-300 text-white rounded-full"
               >
-                <input {...getPostImageInputProps()} />
-                <p>Drag n drop some files here, or click to select files</p>
-              </div>
-              {postImagesPreview.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {postImagesPreview.map((image, index) => (
-                    <div key={index} className="relative">
-                      <Image
-                        height={80}
-                        width={80}
-                        src={image}
-                        alt={`Preview ${index + 1}`}
-                        className="w-20 h-20 object-cover rounded-md"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removePostImage(index)}
-                        className="absolute top-0 right-0 h-6 w-6 flex items-center justify-center text-lg bg-black/50 hover:bg-black duration-300 text-white p-1 rounded-full"
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+                &times;
+              </button>
             </div>
-          </LabelInputContainer>
-        </div>
+          )}
+        </LabelInputContainer>
 
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label className="mb-2">Blog Thumbnail</Label>
-            <div>
-              <div
-                {...getPostBannerRootProps()}
-                className="border border-dashed rounded p-4 cursor-pointer"
-              >
-                <input {...getPostBannerInputProps()} />
-                <p>Drag n drop a banner image, or click to select a file</p>
-              </div>
-              {postBannerPreview && (
-                <div className="relative mt-4 w-fit">
-                  <Image
-                    height={160}
-                    width={80}
-                    src={postBannerPreview}
-                    alt="Banner Preview"
-                    className="w-40 h-20 object-cover rounded-md"
-                  />
-                  <button
-                    type="button"
-                    onClick={removePostBanner}
-                    className="absolute top-0 right-0 h-6 w-6 flex items-center justify-center text-lg bg-black/50 hover:bg-black duration-300 text-white rounded-full"
-                  >
-                    &times;
-                  </button>
-                </div>
-              )}
-            </div>
-          </LabelInputContainer>
-        </div>
+        {/* Blog Category */}
+        <LabelInputContainer>
+          <Label htmlFor="category">Blog Category</Label>
+          <Input
+            id="category"
+            placeholder="Enter Blog Category"
+            {...register("category")}
+            className={cn(errors.category && "border-red-500")}
+          />
+          {errors.category && <p className="text-red-500">{errors.category.message}</p>}
+        </LabelInputContainer>
 
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label className="mb-2" htmlFor="post_subtitle">
-            Blog Subtitle
-            </Label>
-            <Input
-              id="post_subtitle"
-              name="postSubtitle"
-              placeholder="Enter Post Subtitle"
-              type="text"
-              required
+        {/* Blog Content */}
+        <Controller
+          name="content"
+          control={control}
+          render={({ field }) => (
+            <CKEditor
+              editor={ClassicEditor}
+              config={{
+                toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
+              }}
+              data={field.value || ""}
+              onChange={(event, editor) => field.onChange(editor.getData())}
             />
-          </LabelInputContainer>
-        </div>
+          )}
+        />
+        {errors.content && <p className="text-red-500">{errors.content.message}</p>}
 
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label className="mb-2" htmlFor="post-description">
-            Blog Description
-            </Label>
-            <Input
-              id="post-description"
-              name="postDescription"
-              placeholder="Enter Post Description"
-              type="text"
-              required
-            />
-          </LabelInputContainer>
-        </div>
-
-        <button
+        {/* Submit Button */}
+        <Button
           disabled={loading}
           className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600  dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
-          type="submit"
         >
-          Submit {loading ? <Loader size={22} className="animate-spin"/> : <ArrowRight size={22} />}
+          Submit {loading ? <Loader size={22} className="animate-spin" /> : <ArrowRight size={22} />}
           <BottomGradient />
-        </button>
+        </Button>
       </form>
     </div>
   );
 }
-
-const BottomGradient = () => (
-  <>
-    <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-    <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-  </>
-);
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <div className={cn("flex flex-col space-y-2 w-full", className)}>
-    {children}
-  </div>
-);

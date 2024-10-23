@@ -34,14 +34,15 @@ import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 // import { getAllBlog } from "../../../../actions/post/get-all-post";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { generateImage } from "@/lib/utils";
-import { deleteBlog } from "../../../../actions/post/delete-post";
+import { deleteBlog } from "../../../../actions/blog/delete-post";
 import { IBlogs } from "@/interface/post.interface";
+import { getAllBlogs } from "@/actions/blog/get-all-blogs";
 
 const BlogListsTable = () => {
   // Explicitly define the state type as an array of Companies
-  const blogs: IBlogs[] | [] = [];
+  const [blogs, setBlogs] = useState<IBlogs[]>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -49,7 +50,16 @@ const BlogListsTable = () => {
   const [rowSelection, setRowSelection] = useState({});
 
   //get All The Blog And set To Blog State
-
+  useEffect(() => {
+    const getAllBlog = async () => {
+      const response = await getAllBlogs();
+      if (response?.error) {
+        return toast.error(response?.error);
+      }
+      setBlogs(response?.data);
+    };
+    getAllBlog();
+  }, []);
   const handleDeleteBlog = async (id: string) => {
     const response = await deleteBlog(id);
     if (response?.error) {
@@ -75,67 +85,25 @@ const BlogListsTable = () => {
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("title")}</div>
+        <div className="capitalize">{row.getValue("title")}</div>
       ),
     },
     {
-      accessorKey: "images",
-      header: "Blog Images",
+      accessorKey: "photo",
+      header: "Blog Thumbnail",
       cell: ({ row }) => (
-        <div className="flex">
-          {(row.getValue("images") as string[]).map(
-            (Img: string, index: number) => (
-              <Image
-                height={16}
-                width={60}
-                key={index}
-                src={generateImage(Img)}
-                alt={`Image ${index}`}
-              />
-            )
-          )}
-        </div>
+        <Image
+          height={16}
+          width={60}
+          src={generateImage(row.getValue("photo"))}
+          alt={`Blog Image`}
+        />
       ),
     },
     {
-      accessorKey: "banner",
-      header: "Blog Banner",
-      cell: ({ row }) => (
-        <div>
-          <Image
-            height={16}
-            width={60}
-            src={generateImage(row.getValue("banner"))}
-            alt={`Blog Banner`}
-          />
-        </div>
-      ),
-    },
-    {
-      accessorKey: "description",
-      header: "Blog Description",
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("description")}</div>
-      ),
-    },
-    {
-      accessorKey: "subtitle",
-      header: "Blog Subtitle",
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("subtitle")}</div>
-      ),
-    },
-    {
-      accessorKey: "created_by",
-      header: "Created By",
-      cell: ({ row }) => {
-        const createdBy = row.original.created_by;
-        return (
-          <div className="capitalize">
-            {createdBy?.first_name} {createdBy?.last_name}
-          </div>
-        );
-      },
+      accessorKey: "content",
+      header: "Blog Thumbnail",
+      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.getValue("content") }}></div>,
     },
     {
       id: "actions",
