@@ -1,5 +1,6 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import UpdateBlogContainer from "@/components/blogs/update-blog/UpdateBlogContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,7 +13,7 @@ import Link from "next/link";
 import React from "react";
 
 
-const UpdatePostPage = () => {
+const UpdatePostPage = ({params}:{params:{id:string}}) => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="Companies">
@@ -32,16 +33,16 @@ const UpdatePostPage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/posts">Posts</Link>
+                <Link href="/dashboard/posts">Blogs</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Update Post</BreadcrumbPage>
+              <BreadcrumbPage>Update Blog</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <UpdatePostContainer id={params.id} /> */}
+        <UpdateBlogContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -1,16 +1,15 @@
 import React from "react";
-import { UpdatePostForm } from "./UpdateBlogForm";
+import { UpdateBlogForm } from "./UpdateBlogForm";
 
-const UpdatePostContainer = ({id}:{id:string}) => {
-
+const UpdateBlogContainer = ({ id }: { id: string }) => {
   return (
     <div className="w-full py-4">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Update Post</h2>
+      <div className="flex items-center justify-between space-y-2 mb-6">
+        <h2 className="text-3xl font-bold tracking-tight">Update Blog</h2>
       </div>
-      <UpdatePostForm id={id} />
+      <UpdateBlogForm id={id} />
     </div>
   );
 };
 
-export default UpdatePostContainer;
+export default UpdateBlogContainer;

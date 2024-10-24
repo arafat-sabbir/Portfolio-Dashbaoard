@@ -2,12 +2,12 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
-export const getPost = async (id: string) => {
+export const getSingleBlog = async (id:string) => {
   try {
-    const response = await axios.get(`/post/get-post/${id}`);
+    const response = await axiosInstance.get(`/blogs/${id}`);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);
