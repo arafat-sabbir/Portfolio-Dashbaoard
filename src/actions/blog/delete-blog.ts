@@ -2,12 +2,12 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
-import { AxiosError } from "axios";
+import { axiosInstance } from "@/lib/axios";
+import  { AxiosError } from "axios";
 
 export const deleteBlog = async (id:string) => {
   try {
-    const response = await axios.delete(`/post/delete-post/${id}`);
+    const response = await axiosInstance.delete(`/blogs/${id}`);
     return response.data;
   } catch (error: any) {
 

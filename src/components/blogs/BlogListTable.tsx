@@ -48,7 +48,7 @@ const BlogListsTable = () => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-
+  const [refetch, setRefetch] = useState(false);
   //get All The Blog And set To Blog State
   useEffect(() => {
     const getAllBlog = async () => {
@@ -59,13 +59,17 @@ const BlogListsTable = () => {
       setBlogs(response?.data);
     };
     getAllBlog();
-  }, []);
+  }, [refetch]);
+
   const handleDeleteBlog = async (id: string) => {
+    const toastId = toast.loading("Deleting Blog..");
     const response = await deleteBlog(id);
+
     if (response?.error) {
       return toast.error(response?.error);
     }
-    toast.success(response?.message);
+    toast.success(response?.message, { id: toastId });
+    setRefetch(!refetch);
   };
 
   const data: IBlogs[] = blogs || [];
