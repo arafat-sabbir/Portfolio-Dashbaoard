@@ -7,19 +7,24 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "ckeditor5/ckeditor5.css";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
-import { LabelInputContainer } from "./LabelInputContainer";
 import { BottomGradient } from "@/components/BottomGradient";
 import { addBlog } from "@/actions/blog/create-blog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 
 // Define Zod schema for validation
 const blogSchema = z.object({
@@ -29,17 +34,25 @@ const blogSchema = z.object({
   photo: z.any(), // Will handle image separately
 });
 
-type BlogFormValues = z.infer<typeof blogSchema>;
-
 export function AddBlogForm() {
   const [loading, setLoading] = useState(false);
   const [blogBanner, setBlogBanner] = useState<File | null>(null);
-  const [blogBannerPreview, setBlogBannerPreview] = useState<string | null>(null);
+  const [blogBannerPreview, setBlogBannerPreview] = useState<string | null>(
+    null
+  );
   const router = useRouter();
 
-  const { register, handleSubmit, control, formState: { errors } } = useForm<BlogFormValues>({
+  const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
+    defaultValues: {
+      title: "",
+      category: "",
+      content: "",
+      photo: null,
+    },
   });
+
+  const { control, handleSubmit, formState: { errors } } = form;
 
   const handleBlogBanner = useCallback((acceptedFiles: File[]) => {
     const bannerFile = acceptedFiles[0]; // Only allow one banner
@@ -52,7 +65,7 @@ export function AddBlogForm() {
     setBlogBannerPreview(null);
   };
 
-  const onSubmit = async (data: BlogFormValues) => {
+  const onSubmit = async (data: z.infer<typeof blogSchema>) => {
     if (!blogBanner) {
       return toast.error("Banner is required");
     }
@@ -85,24 +98,24 @@ export function AddBlogForm() {
   });
 
   return (
-    <div className="w-full mx-auto shadow-input p-6 bg-white dark:bg-[#0A0A0A] rounded-md">
-      <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
         {/* Blog Title */}
-        <LabelInputContainer>
-          <Label htmlFor="title">Blog Title</Label>
-          <Input
-            id="title"
-            placeholder="Enter Blog Title"
-            {...register("title")}
-            className={cn(errors.title && "border-red-500")}
-          />
-          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-        </LabelInputContainer>
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={control}
+          name="title"
+          label="Blog Title"
+          placeholder="Enter your blog title"
+        />
 
         {/* Blog Thumbnail */}
-        <LabelInputContainer>
-          <Label>Blog Thumbnail</Label>
-          <div {...getRootProps()} className="border border-dashed rounded p-4 cursor-pointer">
+        <FormItem>
+          <FormLabel>Blog Thumbnail</FormLabel>
+          <div
+            {...getRootProps()}
+            className="border border-dashed rounded p-4 cursor-pointer"
+          >
             <input {...getInputProps()} />
             <p>Drag and drop a banner image, or click to select a file</p>
           </div>
@@ -124,46 +137,62 @@ export function AddBlogForm() {
               </button>
             </div>
           )}
-        </LabelInputContainer>
+        </FormItem>
 
         {/* Blog Category */}
-        <LabelInputContainer>
-          <Label htmlFor="category">Blog Category</Label>
-          <Input
-            id="category"
-            placeholder="Enter Blog Category"
-            {...register("category")}
-            className={cn(errors.category && "border-red-500")}
-          />
-          {errors.category && <p className="text-red-500">{errors.category.message}</p>}
-        </LabelInputContainer>
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={control}
+          name="category"
+          label="Blog Category"
+          placeholder="Enter your blog category"
+        />
 
         {/* Blog Content */}
-        <Controller
-          name="content"
+        <FormField
           control={control}
+          name="content"
           render={({ field }) => (
-            <CKEditor
-              editor={ClassicEditor}
-              config={{
-                toolbar: ["heading", "|", "bold", "italic", "link", "bulletedList", "numberedList", "blockQuote"],
-              }}
-              data={field.value || ""}
-              onChange={(event, editor) => field.onChange(editor.getData())}
-            />
+            <FormItem>
+              <FormLabel>Blog Content</FormLabel>
+              <FormControl>
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "blockQuote",
+                    ],
+                  }}
+                  data={field.value || ""}
+                  onChange={(event, editor) => field.onChange(editor.getData())}
+                />
+              </FormControl>
+              <FormMessage>{errors.content?.message}</FormMessage>
+            </FormItem>
           )}
         />
-        {errors.content && <p className="text-red-500">{errors.content.message}</p>}
 
         {/* Submit Button */}
         <Button
           disabled={loading}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600  dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
+          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
         >
-          Submit {loading ? <Loader size={22} className="animate-spin" /> : <ArrowRight size={22} />}
+          Submit{" "}
+          {loading ? (
+            <Loader size={22} className="animate-spin" />
+          ) : (
+            <ArrowRight size={22} />
+          )}
           <BottomGradient />
         </Button>
       </form>
-    </div>
+    </Form>
   );
 }

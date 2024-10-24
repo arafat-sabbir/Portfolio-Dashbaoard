@@ -1,16 +1,16 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import AddBlogContainer from "@/components/blogs/add-blog/AddBlogContainer";
 import React from "react";
-import AddPostContainer from "./AddBlogContainer";
 
-const AddPostPage = () => {
+const AddBlogPage = () => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="Add Post">
-        <AddPostContainer />
+      <ContentLayout title="Add Blog">
+        <AddBlogContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default AddPostPage;
+export default AddBlogPage;

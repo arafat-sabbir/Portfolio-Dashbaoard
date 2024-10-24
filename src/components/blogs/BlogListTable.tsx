@@ -36,9 +36,9 @@ import { DataTablePagination } from "@/components/table-pagination";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { generateImage } from "@/lib/utils";
-import { deleteBlog } from "../../../../actions/blog/delete-post";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllBlogs } from "@/actions/blog/get-all-blogs";
+import { deleteBlog } from "@/actions/blog/delete-blog";
 
 const BlogListsTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -93,8 +93,9 @@ const BlogListsTable = () => {
       header: "Blog Thumbnail",
       cell: ({ row }) => (
         <Image
-          height={16}
-          width={60}
+          className="rounded-md w-60 h-32 object-cover"
+          height={1000}
+          width={1000}
           src={generateImage(row.getValue("photo"))}
           alt={`Blog Image`}
         />
@@ -103,7 +104,11 @@ const BlogListsTable = () => {
     {
       accessorKey: "content",
       header: "Blog Thumbnail",
-      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.getValue("content") }}></div>,
+      cell: ({ row }) => (
+        <div
+          dangerouslySetInnerHTML={{ __html: row.getValue("content") }}
+        ></div>
+      ),
     },
     {
       id: "actions",
