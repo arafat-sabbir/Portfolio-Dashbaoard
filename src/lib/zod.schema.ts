@@ -21,3 +21,11 @@ export const editExperienceSchema = z.object({
   endDate: z.string().optional(),
 });
 
+
+export const editEducationSchema = z.object({
+  instituteName: z.string().optional(),
+  degreeName: z.string().optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+});
+
