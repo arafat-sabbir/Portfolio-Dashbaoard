@@ -1,3 +1,6 @@
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+import UpdateBlogContainer from "@/components/blogs/update-blog/UpdateBlogContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,14 +12,11 @@ import {
 import Link from "next/link";
 import React from "react";
 
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-import PostListContainer from "../blogs/BlogListContainer";
 
-const PostsPage = () => {
+const UpdatePostPage = ({params}:{params:{id:string}}) => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Blogs">
+      <ContentLayout title="Companies">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -33,20 +33,19 @@ const PostsPage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/blogs">Blogs</Link>
+                <Link href="/dashboard/posts">Blogs</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>Update Blog</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <PostListContainer />
+        <UpdateBlogContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default PostsPage;
+export default UpdatePostPage;

@@ -3,12 +3,12 @@
 import handleAxiosError from "@/handlers/axios/error";
 import { IRegister } from "@/interface/auth.interface";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
 export const registerAdmin = async (data: IRegister) => {
   try {
-    const response = await axios.post(`/users/create-user`,  data );
+    const response = await axiosInstance.post(`/users/create-user`,  data );
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

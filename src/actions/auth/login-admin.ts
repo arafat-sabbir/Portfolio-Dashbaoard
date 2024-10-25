@@ -3,13 +3,13 @@
 import handleAxiosError from "@/handlers/axios/error";
 import { ILogin } from "@/interface/auth.interface";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 
 export const loginAdmin = async (data: ILogin) => {
   try {
-    const response = await axios.post(`/users/login`, data);
+    const response = await axiosInstance.post(`/users/login`, data);
     cookies().set("accessToken", response?.data?.data.token, {
       maxAge: 30 * 24 * 60 * 60,
     });
