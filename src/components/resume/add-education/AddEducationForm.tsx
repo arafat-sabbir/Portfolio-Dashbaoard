@@ -14,6 +14,7 @@ import { addBlog } from "@/actions/blog/create-blog";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { addEducationSchema } from "@/lib/zod.schema";
+import { addEducation } from "@/actions/resume/education/add-new-education";
 
 export function AddEducationForm() {
   const [loading, setLoading] = useState(false);
@@ -38,12 +39,12 @@ export function AddEducationForm() {
   const onSubmit = async (data: z.infer<typeof addEducationSchema>) => {
     setLoading(true);
     try {
-      const response = await addBlog(data);
+      const response = await addEducation(data);
       if (response?.error) {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/blogs");
+      router.push("/dashboard/resume/educations");
     } catch (error) {
       console.log(error);
     } finally {

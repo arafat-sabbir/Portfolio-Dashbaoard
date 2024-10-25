@@ -14,6 +14,7 @@ import { addBlog } from "@/actions/blog/create-blog";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import {  addExperienceSchema } from "@/lib/zod.schema";
+import { addExperience } from "@/actions/resume/experience/add-new-experience";
 
 export function AddExperienceForm() {
   const [loading, setLoading] = useState(false);
@@ -38,12 +39,12 @@ export function AddExperienceForm() {
   const onSubmit = async (data: z.infer<typeof addExperienceSchema>) => {
     setLoading(true);
     try {
-      const response = await addBlog(data);
+      const response = await addExperience(data);
       if (response?.error) {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/blogs");
+      router.push("/dashboard/resume/experiences");
     } catch (error) {
       console.log(error);
     } finally {

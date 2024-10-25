@@ -1,13 +1,13 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import AddBlogContainer from "@/components/blogs/add-blog/AddBlogContainer";
+import ExperienceListContainer from "@/components/resume/experience/ExperienceListContainer";
 import React from "react";
 
 const Experiences = () => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="All Experiences">
-        <AddBlogContainer />
+        <ExperienceListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );
