@@ -39,6 +39,8 @@ import { generateImage } from "@/lib/utils";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllBlogs } from "@/actions/blog/get-all-blogs";
 import { deleteBlog } from "@/actions/blog/delete-blog";
+import { getAllExperiences } from "@/actions/resume/experience/get-all-experience";
+import { deleteExperience } from "@/actions/resume/experience/deleteExperience";
 
 const ExperienceListTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -51,19 +53,19 @@ const ExperienceListTable = () => {
   const [refetch, setRefetch] = useState(false);
   //get All The Blog And set To Blog State
   useEffect(() => {
-    const getAllBlog = async () => {
-      const response = await getAllBlogs();
+    const getAllExperiencesFromDb = async () => {
+      const response = await getAllExperiences();
       if (response?.error) {
         return toast.error(response?.error);
       }
       setBlogs(response?.data);
     };
-    getAllBlog();
+    getAllExperiencesFromDb();
   }, [refetch]);
 
-  const handleDeleteBlog = async (id: string) => {
-    const toastId = toast.loading("Deleting Blog..");
-    const response = await deleteBlog(id);
+  const handleDeleteExperience = async (id: string) => {
+    const toastId = toast.loading("Deleting Experience..");
+    const response = await deleteExperience(id);
 
     if (response?.error) {
       return toast.error(response?.error);
@@ -76,44 +78,45 @@ const ExperienceListTable = () => {
 
   const columns: ColumnDef<IBlogs>[] = [
     {
-      accessorKey: "title",
+      accessorKey: "companyName",
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Blog Title
+            Company Name
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("title")}</div>
+        <div className="capitalize">{row.getValue("companyName")}</div>
       ),
     },
     {
-      accessorKey: "photo",
-      header: "Blog Thumbnail",
+      accessorKey: "position",
+      header: "Position",
       cell: ({ row }) => (
-        <Image
-          className="rounded-md w-60 h-32 object-cover"
-          height={1000}
-          width={1000}
-          src={generateImage(row.getValue("photo"))}
-          alt={`Blog Image`}
-        />
+       <h1>{row.getValue("position")}</h1>
       ),
     },
     {
-      accessorKey: "content",
-      header: "Blog Thumbnail",
+      accessorKey: "startDate",
+      header: "joining Date",
       cell: ({ row }) => (
         <div
-          dangerouslySetInnerHTML={{ __html: row.getValue("content") }}
-        ></div>
+        >{row.getValue("startDate")}</div>
       ),
     },
+    {
+        accessorKey: "endDate",
+        header: "End Date",
+        cell: ({ row }) => (
+          <div
+          >{row.getValue("endDate")}</div>
+        ),
+      },
     {
       id: "actions",
       header: "Action",
@@ -128,13 +131,13 @@ const ExperienceListTable = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link href={`/dashboard/blogs/${row?.original?._id}/update-blog`}>
+              <Link href={`/dashboard/resume/${row?.original?._id}/update-experience`}>
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuItem
-                onClick={() => handleDeleteBlog(row?.original?._id)}
+                onClick={() => handleDeleteExperience(row?.original?._id)}
                 className="cursor-pointer"
               >
                 Delete

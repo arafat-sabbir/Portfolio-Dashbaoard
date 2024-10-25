@@ -14,3 +14,10 @@ export const addExperienceSchema = z.object({
   endDate: z.date({ required_error: "End date is required" }),
 });
 
+export const editExperienceSchema = z.object({
+  companyName: z.string().optional(),
+  position: z.string().optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+});
+
