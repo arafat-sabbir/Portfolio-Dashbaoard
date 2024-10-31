@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
-import { addBlog } from "@/actions/blog/create-blog";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { addEducationSchema } from "@/lib/zod.schema";
@@ -23,17 +22,16 @@ export function AddEducationForm() {
   const form = useForm<z.infer<typeof addEducationSchema>>({
     resolver: zodResolver(addEducationSchema),
     defaultValues: {
-      title: "",
-      category: "",
-      content: "",
-      photo: null,
+      instituteName: "",
+      degreeName: "",
+      startDate: new Date(),
+      endDate: new Date(),
     },
   });
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
   } = form;
 
   const onSubmit = async (data: z.infer<typeof addEducationSchema>) => {

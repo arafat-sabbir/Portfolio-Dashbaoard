@@ -1,12 +1,9 @@
-export interface IUser {
-  first_name: string;
-  last_name: string;
+export type TUser = {
+  name: string;
+  phone: string;
   email: string;
-  user_id: string;
-  avatar: string;
-  iat: string;
-  exp: string;
-  role: string;
+  location: string;
   designation: string;
-  bio: string;
-}
+  photo: string;
+  dob: Date|string|undefined;
+};

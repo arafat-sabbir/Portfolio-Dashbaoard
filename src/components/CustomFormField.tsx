@@ -92,7 +92,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
             className={cn("input-phone", className)}
             numberInputProps={{
               className:
-                "rounded-md px-4 focus:outline-none w-1/2 bg-transparent dark:bg-transparent text-xl text-gray-500",
+                "rounded-md px-4 focus:outline-none w-1/2 bg-transparent dark:bg-transparent text-sm  text-gray-500",
             }}
           />
         </FormControl>

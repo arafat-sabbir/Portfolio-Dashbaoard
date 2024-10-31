@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
-import { addBlog } from "@/actions/blog/create-blog";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import {  addExperienceSchema } from "@/lib/zod.schema";
@@ -33,7 +32,6 @@ export function AddExperienceForm() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
   } = form;
 
   const onSubmit = async (data: z.infer<typeof addExperienceSchema>) => {

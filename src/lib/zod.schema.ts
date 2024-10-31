@@ -21,7 +21,6 @@ export const editExperienceSchema = z.object({
   endDate: z.string().optional(),
 });
 
-
 export const editEducationSchema = z.object({
   instituteName: z.string().optional(),
   degreeName: z.string().optional(),
@@ -29,3 +28,11 @@ export const editEducationSchema = z.object({
   endDate: z.string().optional(),
 });
 
+export const updateUserSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
+  location: z.string().optional(),
+  designation: z.string().optional(),
+  dob: z.string().optional(),
+});
