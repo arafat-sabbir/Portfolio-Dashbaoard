@@ -30,9 +30,10 @@ export const editEducationSchema = z.object({
 
 export const updateUserSchema = z.object({
   name: z.string().optional(),
-  email: z.string().email().optional(),
+  displayEmail: z.string().email().optional(),
   phone: z.string().optional(),
   location: z.string().optional(),
   designation: z.string().optional(),
-  dob: z.string().optional(),
+  dob: z.any().optional(),
+  photo:z.any().optional(),
 });

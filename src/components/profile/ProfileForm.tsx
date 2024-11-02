@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -14,6 +14,9 @@ import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { TUser } from "@/interface/user.interface";
 import { updateUserSchema } from "@/lib/zod.schema"; // Adjust the schema import
 import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import { updateProfile } from "@/actions/auth/update-profile";
+import { generateImage } from "@/lib/utils";
 
 const UserProfileForm = ({ user }: { user: TUser }) => {
   const [loading, setLoading] = useState(false);
@@ -26,19 +29,14 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
     defaultValues: {
       name: user?.name || "",
       phone: user?.phone || "",
-      email: user?.email || "",
+      displayEmail: user?.email || "",
       location: user?.location || "",
       designation: user?.designation || "",
       dob: (user?.dob as any) || "",
     },
   });
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = form;
+  console.log(user);
+  const { control, handleSubmit, setValue } = form;
 
   const onDrop = (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -52,14 +50,33 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
 
   const onSubmit = async (data: z.infer<typeof updateUserSchema>) => {
     setLoading(true);
+
+    // Log the incoming `data` to see if it contains expected values
+    console.log("Form Data:", data);
+
+    const form = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        form.append(key, value.toString()); // Convert non-string values to string
+      }
+    });
+
+    if (file) {
+      form.append("photo", file);
+    } else {
+      console.warn("No file selected.");
+    }
+
+    // Check what values are appended to FormData
+    Object.keys(data).forEach((key) => {
+      console.log(key, ":", form.get(key));
+    });
+
     try {
-      // Replace this with your update logic
-      // const response = await updateProfile(data);
-      // if (response.error) {
-      //   return toast.error(response.error);
-      // }
+      const response = await updateProfile(form);
+      console.log(response?.data);
       toast.success("Profile updated successfully!");
-      router.push("/profile"); // Adjust the route as needed
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while updating your profile.");
@@ -70,36 +87,50 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        
-        <div className="flex items-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6 max-w-4xl mx-auto min-h-[90vh] flex flex-col justify-center "
+      >
+        <div className="flex items-center justify-center">
           <div className="relative">
             <div
               {...getRootProps()}
-              className={`border-dashed border-2 border-gray-300 p-4 rounded-md flex items-center justify-center ${isEditing ? "cursor-pointer" : "cursor-default"}`}
+              className={`border-dashed border-2 border-gray-300 size-40 rounded-full flex items-center justify-center ${
+                isEditing ? "cursor-pointer" : "cursor-default"
+              }`}
             >
-              <input {...getInputProps()} accept="image/*" disabled={!isEditing} />
-              {file ? (
-                <img src={URL.createObjectURL(file)} alt="Profile" className="w-32 h-32 rounded-full object-cover" />
-              ) : (
-                <p className="text-gray-500">Drag & drop your photo here, or click to select</p>
-              )}
+              <input
+                {...getInputProps()}
+                accept="image/*"
+                disabled={!isEditing}
+              />
+              <Image
+                width={1000}
+                height={1000}
+                src={
+                  file ? URL.createObjectURL(file) : generateImage(user?.photo)
+                }
+                alt="Profile"
+                className="size-40 rounded-full object-cover"
+              />
               {isEditing && (
-                <div className="absolute top-2 right-2 p-1 bg-white rounded-full shadow-lg">
-                  <Pencil size={20} className="text-gray-600" />
+                <div className="absolute p-1 z-50 bg-gray-800 size-40 bg-opacity-20 rounded-full shadow-lg">
+                  <Pencil
+                    size={20}
+                    className="text-gray-600 absolute top-[40%] right-[40%]"
+                  />
                 </div>
               )}
             </div>
           </div>
         </div>
-
         <CustomFormField
+          disabled={!isEditing}
           fieldType={FormFieldType.INPUT}
           control={control}
           name="name"
           label="Name"
           placeholder="Enter Your Name"
-          disabled={!isEditing}
         />
         <CustomFormField
           fieldType={FormFieldType.PHONE_INPUT}
@@ -112,9 +143,17 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={control}
-          name="email"
-          label="Email"
+          name="displayEmail"
+          label="Display Email"
           placeholder="Enter Your Email"
+          disabled={!isEditing}
+        />
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={control}
+          name="location"
+          label="Location"
+          placeholder="Enter Your Location"
           disabled={!isEditing}
         />
         <CustomFormField
@@ -133,7 +172,7 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
           placeholder="Enter Your Date of Birth"
           disabled={!isEditing}
         />
-        
+
         <div className="flex justify-between">
           <Button
             type="button"

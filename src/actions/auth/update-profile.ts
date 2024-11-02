@@ -2,13 +2,13 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
-export const updateProfile = async (data: {first_name:string,last_name:string,email:string,bio:string,designation:string}) => {
+export const updateProfile = async (data: FormData) => {
   try {
     console.log(data);
-    const response = await axios.put(`/user/update-user`, data);
+    const response = await axiosInstance.patch(`/user/update`, data);
     console.log(response?.data);
     return response.data;
   } catch (error: any) {

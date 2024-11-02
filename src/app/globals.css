@@ -13,6 +13,7 @@ body {
 }
 .ck-editor__editable {
   min-height: 150px !important; /* Or whatever height you want */
+  background-color: #2b201a;
 }
 
 .input-phone {

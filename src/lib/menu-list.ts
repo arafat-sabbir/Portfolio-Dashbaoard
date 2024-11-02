@@ -70,6 +70,24 @@ export function getMenuList(pathname: string): Group[] {
             },
           ],
         },
+        {
+          href: "",
+          label: "Portfolios",
+          active: pathname === "/blogs",
+          icon: TableOfContents,
+          submenus: [
+            {
+              href: "/dashboard/blogs",
+              label: "All Portfolios",
+              active: pathname === "/dashboard/blogs",
+            },
+            {
+              href: "/dashboard/blogs/add-blog",
+              label: "Add Portfolio",
+              active: pathname === "/dashboard/blogs/add-blog",
+            },
+          ],
+        },
       ],
     },
   ];

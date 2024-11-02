@@ -52,7 +52,6 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { iconSrc, iconAlt, fieldType, placeholder, className, onChange } =
     props;
-
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -69,6 +68,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
           <FormControl>
             <Input
               placeholder={placeholder}
+              disabled={props.disabled}
               {...field}
               className={cn(
                 "border-0 focus:ring-0 focus:outline-none",
@@ -87,6 +87,8 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
             defaultCountry="BD"
             placeholder={placeholder}
             international
+            disabled={props.disabled}
+            {...field}
             withCountryCallingCode
             value={field.value as E164Number | undefined}
             className={cn("input-phone", className)}
@@ -103,9 +105,9 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
         <FormControl>
           <Textarea
             placeholder={placeholder}
+            disabled={props.disabled}
             {...field}
             className={cn("border focus:ring-0 focus:outline-none", className)}
-            disabled={props.disabled}
           />
         </FormControl>
       );
@@ -135,7 +137,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
       return (
         <FormControl>
           <Popover open={isOpen} onOpenChange={setIsOpen}>
-            <PopoverTrigger asChild>
+            <PopoverTrigger asChild disabled={props.disabled}>
               <Button
                 variant={"outline"}
                 className={cn(
@@ -163,7 +165,12 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
                   field.onChange(e);
                   setIsOpen(false);
                 }}
-                disabled={(date) => date > new Date()}
+                disabled={(date) => {
+                  // If props.disabled is true, disable all dates by returning true
+                  if (props.disabled) return true;
+                  // Otherwise, disable dates based on your original logic (if any)
+                  return date > new Date();
+                }}
                 fromYear={1900}
                 toYear={moment().year()}
                 initialFocus
@@ -178,7 +185,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
 };
 
 const CustomFormField = (props: CustomProps) => {
-  const { control, fieldType, label, name, onChange } = props;
+  const { control, label, name } = props;
 
   return (
     <FormField

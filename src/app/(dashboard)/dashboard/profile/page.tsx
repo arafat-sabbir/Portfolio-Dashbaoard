@@ -1,6 +1,7 @@
+import { getUser } from "@/actions/auth/get-admin";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import ProfileContainer from "@/components/profile/ProfileContainer";
+import UserProfileForm from "@/components/profile/ProfileForm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,10 +10,19 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { TUser } from "@/interface/user.interface";
 import Link from "next/link";
 import React from "react";
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  let user;
+  try {
+    const response = await getUser();
+    user = response?.data as TUser;
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(user);
   return (
     <AdminPanelLayout>
       <ContentLayout title="All FAQs">
@@ -35,7 +45,7 @@ const ProfilePage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <ProfileContainer />
+        <UserProfileForm user={user as TUser} />
       </ContentLayout>
     </AdminPanelLayout>
   );
