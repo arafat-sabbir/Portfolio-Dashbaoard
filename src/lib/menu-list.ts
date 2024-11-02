@@ -73,18 +73,18 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Portfolios",
-          active: pathname === "/blogs",
+          active: pathname === "/portfolios",
           icon: TableOfContents,
           submenus: [
             {
-              href: "/dashboard/blogs",
+              href: "/dashboard/portfolios",
               label: "All Portfolios",
-              active: pathname === "/dashboard/blogs",
+              active: pathname === "/dashboard/portfolios",
             },
             {
-              href: "/dashboard/blogs/add-blog",
+              href: "/dashboard/portfolios/add-portfolio",
               label: "Add Portfolio",
-              active: pathname === "/dashboard/blogs/add-blog",
+              active: pathname === "/dashboard/portfolios/add-portfolio",
             },
           ],
         },
