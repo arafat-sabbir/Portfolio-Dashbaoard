@@ -5,7 +5,8 @@ interface ContentLayoutProps {
   children: React.ReactNode;
 }
 
-export function ContentLayout({ title, children }: ContentLayoutProps) {
+export async function ContentLayout({ title, children }: ContentLayoutProps) {
+  
   return (
     <div>
       <Navbar title={title} />

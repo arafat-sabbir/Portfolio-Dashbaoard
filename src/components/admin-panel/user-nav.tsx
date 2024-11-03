@@ -21,10 +21,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IUser } from "@/interface/user.interface";
+import { TUser } from "@/interface/user.interface";
 import { generateImage } from "@/lib/utils";
 
-export function UserNav({ user }: { user: IUser }) {
+export function UserNav({ user }: { user: TUser }) {
   const handleLogout = () => {
     Cookies.remove("accessToken");
     window.location.reload();
@@ -41,9 +41,9 @@ export function UserNav({ user }: { user: IUser }) {
                 className="relative h-8 w-8 rounded-full"
               >
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={generateImage(user?.avatar)} alt="Avatar" />
+                  <AvatarImage src={generateImage(user?.photo)} alt="Avatar" />
                   <AvatarFallback className="bg-transparent">
-                    {user?.first_name?.charAt(0) || "A"}
+                    {user?.name?.charAt(0) || "A"}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -57,7 +57,7 @@ export function UserNav({ user }: { user: IUser }) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {user && user?.first_name + " " + user?.last_name}
+              {user && user?.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
               {user?.email || ""}
