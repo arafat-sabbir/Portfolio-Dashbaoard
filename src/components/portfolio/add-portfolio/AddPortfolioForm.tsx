@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
-import { Form, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { portfolioSchema } from "@/lib/zod.schema";
 import { addPortfolio } from "@/actions/portfolio/add-portfolio";
@@ -35,7 +35,6 @@ export function AddPortfolioForm() {
       features: [],
       livePreview: "",
       sourceCode: "",
-      thumbnail: "",
       startDate: "",
       endDate: "",
       currentlyWorking: false,
@@ -45,7 +44,6 @@ export function AddPortfolioForm() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
     watch,
   } = form;
 
@@ -200,7 +198,6 @@ export function AddPortfolioForm() {
               </button>
             </div>
           )}
-          <FormMessage>{errors.thumbnail?.message}</FormMessage>
         </FormItem>
 
         {/* Duration */}

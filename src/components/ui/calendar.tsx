@@ -55,12 +55,12 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
       components={{
         Dropdown: ({ value, onChange, children, ...props }) => {
           const options = React.Children.toArray(children);
-          const selected = options.find((child) => child.props.value === value);
+          const selected = options.find((child) => (child as any).props.value === value);
           const handleChange = (value) => {
             const changeEvent = {
               target: { value },
             };
-            onChange?.(changeEvent);
+            onChange?.(changeEvent as any);
           };
           return (
             <Select
@@ -71,16 +71,16 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
               {...props}
             >
               <SelectTrigger className="pl-2 pr-1.5 py-1 gap-0.5 h-auto focus:ring-0">
-                <SelectValue>{selected?.props?.children}</SelectValue>
+                <SelectValue>{(selected as any)?.props?.children}</SelectValue>
               </SelectTrigger>
               <SelectContent position="popper">
                 <ScrollArea className="h-80">
                   {options?.map((option, id) => (
                     <SelectItem
-                      key={`${option.props.value}-${id}`}
-                      value={option.props.value?.toString() ?? ""}
+                      key={`${(option as any).props.value}-${id}`}
+                      value={(option as any).props.value?.toString() ?? ""}
                     >
-                      {option.props.children}
+                      {(option as any).props.children}
                     </SelectItem>
                   ))}
                 </ScrollArea>

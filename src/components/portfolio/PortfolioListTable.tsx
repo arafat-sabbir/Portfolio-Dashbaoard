@@ -52,6 +52,7 @@ interface TPortfolio {
   currentlyWorking?: boolean;
   startDate?: Date;
   endDate?: Date;
+  _id:string;
 }
 
 const PortfolioListsTable = () => {
@@ -122,9 +123,14 @@ const PortfolioListsTable = () => {
       accessorKey: "technologiesUsed",
       header: "Technologies Used",
       cell: ({ row }) => (
-        <div> {row.getValue("technologiesUsed").map((feature: string, index: number) => (
-          <li key={index}>{feature||"N/A"}</li>
-        ))}</div>
+        <div>
+          {" "}
+          {(row.getValue("technologiesUsed") as any).map(
+            (feature: string, index: number) => (
+              <li key={index}>{feature || "N/A"}</li>
+            )
+          )}
+        </div>
       ),
     },
     {
@@ -132,9 +138,11 @@ const PortfolioListsTable = () => {
       header: "Features",
       cell: ({ row }) => (
         <ul className="list-disc pl-5">
-          {row.getValue("features").map((feature: string, index: number) => (
-            <li key={index}>{feature}</li>
-          ))}
+          {(row.getValue("features") as any).map(
+            (feature: string, index: number) => (
+              <li key={index}>{feature}</li>
+            )
+          )}
         </ul>
       ),
     },
@@ -173,7 +181,9 @@ const PortfolioListsTable = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <Link href={`/dashboard/portfolios/${row?.original?._id}/update`}>
-              <DropdownMenuItem className="cursor-pointer">Edit</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                Edit
+              </DropdownMenuItem>
             </Link>
             <DropdownMenuItem
               onClick={() => handleDeletePortfolio(row?.original?._id)}
@@ -241,7 +251,10 @@ const PortfolioListsTable = () => {
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -250,17 +263,26 @@ const PortfolioListsTable = () => {
           <TableBody>
             {table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>

@@ -181,7 +181,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0 shadow-md rounded-lg">
               <Calendar
-                mode={"single"}
+                mode="single"
                 defaultMonth={
                   field?.value ? moment(field.value).toDate() : null
                 }
@@ -202,6 +202,8 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
                 fromYear={1900}
                 toYear={moment().year()}
                 initialFocus
+                className="" // Add this line to satisfy the expected prop
+                classNames={{}} // Add this line to satisfy the expected prop
               />
             </PopoverContent>
           </Popover>

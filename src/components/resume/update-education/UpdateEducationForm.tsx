@@ -25,16 +25,12 @@ export function UpdateEducationForm({ id }: { id: string }) {
     defaultValues: {
       instituteName: "",
       degreeName: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: "",
+      endDate: "",
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-  } = form;
+  const { control, handleSubmit, reset } = form;
   useEffect(() => {
     const getSingleBlogDetails = async () => {
       try {

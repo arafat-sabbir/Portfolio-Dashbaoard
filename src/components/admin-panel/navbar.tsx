@@ -1,27 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserNav } from "@/components/admin-panel/user-nav";
 import { SheetMenu } from "@/components/admin-panel/sheet-menu";
 import { ModeToggle } from "../mode-toggle";
-import { useEffect, useState } from "react";
 import { getUser } from "@/actions/auth/get-admin";
+import { TUser } from "@/interface/user.interface";
 
 interface NavbarProps {
   title: string;
 }
 
-export function Navbar({ title }: NavbarProps) {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const res = await getUser();
-        setUser(res?.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserData();
-  }, []);
+export async function Navbar({ title }: NavbarProps) {
+  let user;
+  try {
+    const res = await getUser();
+    user = res?.data as TUser;
+  } catch (error) {
+    console.log(error);
+  }
   return (
     <header className="sticky top-0 z-10 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
       <div className="mx-4 sm:mx-8 flex h-14 items-center">
