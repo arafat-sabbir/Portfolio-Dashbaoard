@@ -29,16 +29,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 // import { getAllBlog } from "../../../../actions/post/get-all-post";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { generateImage } from "@/lib/utils";
 import { IBlogs } from "@/interface/post.interface";
-import { getAllBlogs } from "@/actions/blog/get-all-blogs";
-import { deleteBlog } from "@/actions/blog/delete-blog";
 import { getAllExperiences } from "@/actions/resume/experience/get-all-experience";
 import { deleteExperience } from "@/actions/resume/experience/deleteExperience";
 

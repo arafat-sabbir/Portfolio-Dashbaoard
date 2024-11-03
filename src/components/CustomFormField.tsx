@@ -15,18 +15,23 @@ import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"; // Import Popover component
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { format } from "date-fns";
-import { Calendar } from "./ui/calendar"; // Import Calendar component
+import { Calendar } from "./ui/calendar";
 import { CalendarIcon } from "lucide-react";
+import { TagsInput } from "react-tag-input-component";
 import { Button } from "./ui/button";
+import { Checkbox } from "@/components/ui/checkbox"; // Import Checkbox
 import moment from "moment";
+
 export enum FormFieldType {
   INPUT = "input",
   TEXTAREA = "text_area",
   PHONE_INPUT = "phone_input",
   SELECT = "select",
-  CALENDAR = "calendar", // Add calendar type
+  CALENDAR = "calendar",
+  TAGS = "tags",
+  CHECKBOX = "checkbox", // Add checkbox type
 }
 
 interface CustomProps {
@@ -43,15 +48,16 @@ interface CustomProps {
   showTimeSelect?: boolean;
   children?: ReactNode;
   iconAlt?: string;
+  calendarMode?: string;
   className?: string;
   renderSkeleton?: (filed: any) => ReactNode;
 }
 
 const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
-  // Manage the open state locally
   const [isOpen, setIsOpen] = useState(false);
   const { iconSrc, iconAlt, fieldType, placeholder, className, onChange } =
     props;
+
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -112,6 +118,26 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
         </FormControl>
       );
 
+    case FormFieldType.TAGS:
+      return (
+        <FormControl>
+          <TagsInput
+            value={field.value || []}
+            onChange={(newTags) => {
+              field.onChange(newTags);
+              if (onChange) onChange(newTags);
+            }}
+            name="tags"
+            classNames={{
+              input:
+                "rounded-md px-4 outline-none border-0 focus:border-0 focus:ring-0 focus:ring-none focus:outline-none w-1/2 bg-transparent text-sm  text-gray-500 text-sm placeholder:text-sm",
+              tag: "rounded-md bg-transparent dark:bg-gray-600 text-sm",
+            }}
+            placeHolder={props.placeholder || "Enter Tags"}
+          />
+        </FormControl>
+      );
+
     case FormFieldType.SELECT:
       return (
         <FormControl>
@@ -155,7 +181,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0 shadow-md rounded-lg">
               <Calendar
-                mode="single"
+                mode={"single"}
                 defaultMonth={
                   field?.value ? moment(field.value).toDate() : null
                 }
@@ -166,10 +192,12 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
                   setIsOpen(false);
                 }}
                 disabled={(date) => {
-                  // If props.disabled is true, disable all dates by returning true
                   if (props.disabled) return true;
-                  // Otherwise, disable dates based on your original logic (if any)
-                  return date > new Date();
+
+                  const tomorrow = new Date();
+                  tomorrow.setDate(tomorrow.getDate());
+
+                  return date >= tomorrow;
                 }}
                 fromYear={1900}
                 toYear={moment().year()}
@@ -177,6 +205,22 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
               />
             </PopoverContent>
           </Popover>
+        </FormControl>
+      );
+
+    case FormFieldType.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              checked={field.value}
+              onCheckedChange={(checked) => field.onChange(checked)}
+              disabled={props.disabled}
+            />
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              {placeholder}
+            </span>
+          </div>
         </FormControl>
       );
 

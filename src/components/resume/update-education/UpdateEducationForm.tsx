@@ -13,9 +13,6 @@ import { BottomGradient } from "@/components/BottomGradient";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { editEducationSchema, editExperienceSchema } from "@/lib/zod.schema";
-// import { addExperience } from "@/actions/resume/experience/add-new-experience";
-import { getSingleExperience } from "@/actions/resume/experience/get-single-experience";
-import { editExperience } from "@/actions/resume/experience/edit-experience";
 import { getSingleEducation } from "@/actions/resume/education/get-single-education";
 import { editEducation } from "@/actions/resume/education/edit-education";
 
@@ -37,7 +34,6 @@ export function UpdateEducationForm({ id }: { id: string }) {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
   } = form;
   useEffect(() => {
     const getSingleBlogDetails = async () => {

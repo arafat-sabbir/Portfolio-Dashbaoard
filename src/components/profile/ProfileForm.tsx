@@ -6,7 +6,6 @@ import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Loader, Pencil } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
 import { Form } from "@/components/ui/form";
@@ -22,7 +21,6 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),

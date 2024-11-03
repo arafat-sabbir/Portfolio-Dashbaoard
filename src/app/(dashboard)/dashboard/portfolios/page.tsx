@@ -10,7 +10,7 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import BlogListContainer from "@/components/blogs/BlogListContainer";
+import PortfolioListContainer from "@/components/portfolio/PortfolioListContainer";
 
 const PostsPage = () => {
   return (
@@ -37,12 +37,11 @@ const PostsPage = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>All Portfolios</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <BlogListContainer />
+        <PortfolioListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );

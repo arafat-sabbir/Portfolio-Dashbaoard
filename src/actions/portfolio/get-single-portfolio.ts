@@ -2,15 +2,14 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
-export const getAllService = async () => {
+export const getSinglePortfolio = async (id:string) => {
   try {
-    const response = await axios.get(`/service/get-all-service`);
+    const response = await axiosInstance.get(`/portfolios/${id}`);
     return response.data;
   } catch (error: any) {
-;
     return handleAxiosError(error as AxiosError<ErrorResponse>);
   }
 };

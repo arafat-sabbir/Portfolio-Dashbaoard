@@ -13,7 +13,6 @@ import { BottomGradient } from "@/components/BottomGradient";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { editExperienceSchema } from "@/lib/zod.schema";
-import { addExperience } from "@/actions/resume/experience/add-new-experience";
 import { getSingleExperience } from "@/actions/resume/experience/get-single-experience";
 import { editExperience } from "@/actions/resume/experience/edit-experience";
 
@@ -26,8 +25,8 @@ export function UpdateExperienceForm({ id }: { id: string }) {
     defaultValues: {
       companyName: "",
       position: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: "",
+      endDate: "",
     },
   });
 
@@ -35,7 +34,6 @@ export function UpdateExperienceForm({ id }: { id: string }) {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
   } = form;
   useEffect(() => {
     const getSingleBlogDetails = async () => {

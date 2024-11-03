@@ -2,12 +2,12 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import axios from "@/lib/axios";
+import {axiosInstance} from "@/lib/axios";
 import { AxiosError } from "axios";
 
 export const resetPassword = async (new_password:string, resetPasswordToken:string) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `/auth/reset-password?resetPasswordToken=${resetPasswordToken}`,
       {new_password}
     );

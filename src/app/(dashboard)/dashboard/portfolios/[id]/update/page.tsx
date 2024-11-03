@@ -1,6 +1,6 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdateBlogContainer from "@/components/blogs/update-blog/UpdateBlogContainer";
+import UpdatePortfolioContainer from "@/components/portfolio/update-portfolio/UpdatePortfolioContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,10 +13,10 @@ import Link from "next/link";
 import React from "react";
 
 
-const UpdatePostPage = ({params}:{params:{id:string}}) => {
+const UpdatePortfolioPage = ({params}:{params:{id:string}}) => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="Companies">
+      <ContentLayout title="Update Portfolio">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -33,19 +33,19 @@ const UpdatePostPage = ({params}:{params:{id:string}}) => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/posts">Blogs</Link>
+                <Link href="/dashboard/portfolios">Portfolios</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Update Blog</BreadcrumbPage>
+              <BreadcrumbPage>Update Portfolio</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateBlogContainer id={params.id} />
+        <UpdatePortfolioContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default UpdatePostPage;
+export default UpdatePortfolioPage;

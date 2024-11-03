@@ -35,5 +35,22 @@ export const updateUserSchema = z.object({
   location: z.string().optional(),
   designation: z.string().optional(),
   dob: z.any().optional(),
-  photo:z.any().optional(),
+  photo: z.any().optional(),
+});
+
+export const portfolioSchema = z.object({
+  title: z.string({ required_error: "Title is required" }),
+  category: z.string({ required_error: "Category is required" }),
+  description: z.string({ required_error: "Description is required" }),
+  technologiesUsed: z
+    .array(z.string())
+    .min(1, { message: "At least one technology is required" }),
+  features: z
+    .array(z.string())
+    .min(1, { message: "At least one feature is required" }),
+  livePreview: z.string().url().optional(),
+  sourceCode: z.string({ required_error: "Source code is required" }),
+  startDate: z.any().optional(),
+  endDate: z.any().optional(),
+  currentlyWorking: z.boolean().optional(),
 });

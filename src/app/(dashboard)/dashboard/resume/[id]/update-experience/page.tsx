@@ -1,6 +1,5 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdateBlogContainer from "@/components/blogs/update-blog/UpdateBlogContainer";
 import UpdateExperienceContainer from "@/components/resume/update-experience/UpdateExperienceContainer";
 import {
   Breadcrumb,

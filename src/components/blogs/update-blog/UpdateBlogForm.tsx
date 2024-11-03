@@ -14,7 +14,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
-import { addBlog } from "@/actions/blog/create-blog";
 import {
   Form,
   FormControl,

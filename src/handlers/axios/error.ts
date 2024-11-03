@@ -6,6 +6,7 @@ const handleAxiosError = (
   error: AxiosError<ErrorResponse>
 ): { error: string } => {
   const { response, request, message } = error;
+  console.log(response);
   if (response) {
     const data = response?.data as any;
     const errorMessages =
