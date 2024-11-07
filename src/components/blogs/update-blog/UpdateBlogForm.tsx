@@ -97,7 +97,7 @@ export function UpdateBlogForm({ id }: { id: string }) {
   };
 
   const onSubmit = async (data: z.infer<typeof blogSchema>) => {
-    if (!blogBanner&&!serverBannerPreview) {
+    if (!blogBanner && !serverBannerPreview) {
       return toast.error("Banner is required");
     }
     setLoading(true);
@@ -111,7 +111,7 @@ export function UpdateBlogForm({ id }: { id: string }) {
     }
 
     try {
-      const response = await editBlog(id,formData);
+      const response = await editBlog(id, formData);
       if (response?.error) {
         return toast.error(response?.error);
       }

@@ -29,10 +29,7 @@ export function AddEducationForm() {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-  } = form;
+  const { control, handleSubmit } = form;
 
   const onSubmit = async (data: z.infer<typeof addEducationSchema>) => {
     setLoading(true);

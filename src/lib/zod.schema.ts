@@ -58,6 +58,7 @@ export const portfolioSchema = z.object({
 export const skillSchema = z.object({
   skill: z.string({ required_error: "Skill is required" }),
   level: z.number({ required_error: "Level is required" }),
+  photo: z.any().optional(),
 });
 
 export const registerUserSchema = z.object({

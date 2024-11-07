@@ -46,12 +46,7 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    reset,
-  } = form;
+  const { control, handleSubmit, watch, reset } = form;
   useEffect(() => {
     const getSingleBlogDetails = async () => {
       try {

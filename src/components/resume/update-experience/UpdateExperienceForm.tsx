@@ -30,11 +30,7 @@ export function UpdateExperienceForm({ id }: { id: string }) {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-  } = form;
+  const { control, handleSubmit, reset } = form;
   useEffect(() => {
     const getSingleBlogDetails = async () => {
       try {

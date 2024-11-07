@@ -107,7 +107,9 @@ const EducationListTable = () => {
     {
       accessorKey: "endDate",
       header: "End Date",
-      cell: ({ row }) => <div>{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>,
+      cell: ({ row }) => (
+        <div>{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>
+      ),
     },
     {
       id: "actions",

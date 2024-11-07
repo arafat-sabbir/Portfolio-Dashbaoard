@@ -94,26 +94,22 @@ const ExperienceListTable = () => {
     {
       accessorKey: "position",
       header: "Position",
-      cell: ({ row }) => (
-       <h1>{row.getValue("position")}</h1>
-      ),
+      cell: ({ row }) => <h1>{row.getValue("position")}</h1>,
     },
     {
       accessorKey: "startDate",
       header: "joining Date",
       cell: ({ row }) => (
-        <div
-        >{moment(row.getValue("startDate")).format("DD-MMM-YYYY")}</div>
+        <div>{moment(row.getValue("startDate")).format("DD-MMM-YYYY")}</div>
       ),
     },
     {
-        accessorKey: "endDate",
-        header: "End Date",
-        cell: ({ row }) => (
-          <div
-          >{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>
-        ),
-      },
+      accessorKey: "endDate",
+      header: "End Date",
+      cell: ({ row }) => (
+        <div>{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>
+      ),
+    },
     {
       id: "actions",
       header: "Action",
@@ -128,7 +124,9 @@ const ExperienceListTable = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link href={`/dashboard/resume/${row?.original?._id}/update-experience`}>
+              <Link
+                href={`/dashboard/resume/${row?.original?._id}/update-experience`}
+              >
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
                 </DropdownMenuItem>

@@ -41,11 +41,7 @@ export function AddPortfolioForm() {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-  } = form;
+  const { control, handleSubmit, watch } = form;
 
   // Watch the currentlyWorking field
   const currentlyWorking = watch("currentlyWorking");

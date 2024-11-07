@@ -12,7 +12,7 @@ import { ArrowRight, Loader } from "lucide-react";
 import { BottomGradient } from "@/components/BottomGradient";
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
-import {  addExperienceSchema } from "@/lib/zod.schema";
+import { addExperienceSchema } from "@/lib/zod.schema";
 import { addExperience } from "@/actions/resume/experience/add-new-experience";
 
 export function AddExperienceForm() {
@@ -29,10 +29,7 @@ export function AddExperienceForm() {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-  } = form;
+  const { control, handleSubmit } = form;
 
   const onSubmit = async (data: z.infer<typeof addExperienceSchema>) => {
     setLoading(true);

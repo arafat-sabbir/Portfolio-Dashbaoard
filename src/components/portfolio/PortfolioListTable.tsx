@@ -52,7 +52,7 @@ interface TPortfolio {
   currentlyWorking?: boolean;
   startDate?: Date;
   endDate?: Date;
-  _id:string;
+  _id: string;
 }
 
 const PortfolioListsTable = () => {

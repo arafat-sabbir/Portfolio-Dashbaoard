@@ -52,7 +52,11 @@ export function AddBlogForm() {
     },
   });
 
-  const { control, handleSubmit, formState: { errors } } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
   const handleBlogBanner = useCallback((acceptedFiles: File[]) => {
     const bannerFile = acceptedFiles[0]; // Only allow one banner

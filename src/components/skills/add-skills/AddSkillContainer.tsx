@@ -1,5 +1,5 @@
 import React from "react";
-import { AddSkillForm } from "./AddSkill";
+import { AddSkillForm } from "./AddSkillForm";
 
 const AddSkillContainer = () => {
   return (
