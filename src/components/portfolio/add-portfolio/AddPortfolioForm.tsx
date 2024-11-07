@@ -6,13 +6,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "ckeditor5/ckeditor5.css";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader } from "lucide-react";
-import { BottomGradient } from "@/components/BottomGradient";
+
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { portfolioSchema } from "@/lib/zod.schema";

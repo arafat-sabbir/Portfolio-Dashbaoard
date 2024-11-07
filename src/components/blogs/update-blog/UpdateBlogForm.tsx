@@ -7,13 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "ckeditor5/ckeditor5.css";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader } from "lucide-react";
-import { BottomGradient } from "@/components/BottomGradient";
+
 import {
   Form,
   FormControl,

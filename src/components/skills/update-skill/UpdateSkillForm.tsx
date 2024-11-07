@@ -79,7 +79,7 @@ export function UpdateSkillForm({ id }: { id: string }) {
       if (data[key] != null || data[key] != undefined)
         formData.append(key, value);
     });
-    photo && formData.append("photo", photo as File);
+    formData.append("photo", photo as File);
     try {
       const response = await updateSkill(id, formData);
       if (response?.error) {
