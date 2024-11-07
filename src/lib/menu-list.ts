@@ -132,6 +132,20 @@ export function getMenuList(pathname: string): Group[] {
             },
           ],
         },
+        {
+          href: "",
+          label: "Socials",
+          active: pathname === "/socials",
+          icon: LiaProjectDiagramSolid as any,
+          submenus: [
+            {
+              href: "/dashboard/socials",
+              label: "Manage Socials",
+              active: pathname === "/dashboard/socials",
+              subIcon: MdOutlineFormatListBulleted as any,
+            },
+          ],
+        },
       ],
     },
   ];
