@@ -37,6 +37,7 @@ import { useEffect, useState } from "react";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllExperiences } from "@/actions/resume/experience/get-all-experience";
 import { deleteExperience } from "@/actions/resume/experience/deleteExperience";
+import moment from "moment";
 
 const ExperienceListTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -102,7 +103,7 @@ const ExperienceListTable = () => {
       header: "joining Date",
       cell: ({ row }) => (
         <div
-        >{row.getValue("startDate")}</div>
+        >{moment(row.getValue("startDate")).format("DD-MMM-YYYY")}</div>
       ),
     },
     {
@@ -110,7 +111,7 @@ const ExperienceListTable = () => {
         header: "End Date",
         cell: ({ row }) => (
           <div
-          >{row.getValue("endDate")}</div>
+          >{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>
         ),
       },
     {

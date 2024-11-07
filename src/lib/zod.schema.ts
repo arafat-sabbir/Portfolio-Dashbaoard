@@ -54,3 +54,29 @@ export const portfolioSchema = z.object({
   endDate: z.any().optional(),
   currentlyWorking: z.boolean().optional(),
 });
+
+export const skillSchema = z.object({
+  skill: z.string({ required_error: "Skill is required" }),
+  level: z.number({ required_error: "Level is required" }),
+});
+
+export const registerUserSchema = z.object({
+  name: z.string({ required_error: "Name is required" }).min(3, {
+    message: "Name must be at least 3 characters",
+  }),
+  email: z.string({ required_error: "Email is required" }).email({
+    message: "Please Provide A Valid Email",
+  }),
+  password: z.string({ required_error: "Password is required" }).min(6, {
+    message: "Password must be at least 6 characters",
+  }),
+});
+
+export const loginUserSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Please Provide A Valid Email" }),
+  password: z.string({ required_error: "Password is required" }).min(6, {
+    message: "Password must be at least 6 characters",
+  }),
+});

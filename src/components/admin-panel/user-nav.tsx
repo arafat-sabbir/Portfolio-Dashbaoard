@@ -40,8 +40,8 @@ export function UserNav({ user }: { user: TUser }) {
                 variant="outline"
                 className="relative h-8 w-8 rounded-full"
               >
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={generateImage(user?.photo)} alt="Avatar" />
+                <Avatar className="h-8 w-8 object-cover">
+                  <AvatarImage src={generateImage(user?.photo)} alt="Avatar" className="object-cover"/>
                   <AvatarFallback className="bg-transparent">
                     {user?.name?.charAt(0) || "A"}
                   </AvatarFallback>

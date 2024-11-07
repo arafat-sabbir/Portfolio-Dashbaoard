@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronDown, Dot, LucideIcon } from "lucide-react";
+import { ChevronDown, LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,7 @@ type Submenu = {
   href: string;
   label: string;
   active: boolean;
+  subIcon: LucideIcon | any;
 };
 
 interface CollapseMenuButtonProps {
@@ -98,7 +99,7 @@ export function CollapseMenuButton({
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
-        {submenus.map(({ href, label, active }, index) => (
+        {submenus.map(({ href, label, active,subIcon: SubIcon }, index) => (
           <Button
             key={index}
             variant={active ? "secondary" : "ghost"}
@@ -107,7 +108,7 @@ export function CollapseMenuButton({
           >
             <Link href={href}>
               <span className="mr-4 ml-2">
-                <Dot size={18} />
+                <SubIcon size={18} />
               </span>
               <p
                 className={cn(

@@ -18,7 +18,7 @@ import { Textarea } from "./ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { format } from "date-fns";
 import { Calendar } from "./ui/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Eye, EyeOff } from "lucide-react";
 import { TagsInput } from "react-tag-input-component";
 import { Button } from "./ui/button";
 import { Checkbox } from "@/components/ui/checkbox"; // Import Checkbox
@@ -32,6 +32,7 @@ export enum FormFieldType {
   CALENDAR = "calendar",
   TAGS = "tags",
   CHECKBOX = "checkbox", // Add checkbox type
+  PASSWORD = "PASSWORD",
 }
 
 interface CustomProps {
@@ -50,13 +51,22 @@ interface CustomProps {
   iconAlt?: string;
   calendarMode?: string;
   className?: string;
+  type?: string;
   renderSkeleton?: (filed: any) => ReactNode;
 }
 
 const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { iconSrc, iconAlt, fieldType, placeholder, className, onChange } =
-    props;
+  const {
+    iconSrc,
+    iconAlt,
+    fieldType,
+    placeholder,
+    className,
+    type,
+    onChange,
+  } = props;
 
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -76,12 +86,42 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
               placeholder={placeholder}
               disabled={props.disabled}
               {...field}
+              type={type}
               className={cn(
                 "border-0 focus:ring-0 focus:outline-none",
                 className
               )}
             />
           </FormControl>
+        </div>
+      );
+
+    case FormFieldType.PASSWORD:
+      return (
+        <div className={cn("flex rounded-md border items-center", className)}>
+          <FormControl>
+            <Input
+              placeholder={placeholder}
+              disabled={props.disabled}
+              {...field}
+              type={showPassword ? "text" : "password"}
+              className={cn(
+                "border-0 focus:ring-0 focus:outline-none flex-1 focus-visible:ring-0",
+                className
+              )}
+            />
+          </FormControl>
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="px-2 focus:outline-none "
+          >
+            {showPassword ? (
+              <EyeOff className="text-gray-500" size={20} />
+            ) : (
+              <Eye className="text-gray-500" size={20} />
+            )}
+          </button>
         </div>
       );
 

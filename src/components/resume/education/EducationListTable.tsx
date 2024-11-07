@@ -38,6 +38,7 @@ import { useEffect, useState } from "react";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllEducations } from "@/actions/resume/education/get-all-education";
 import { deleteEducation } from "@/actions/resume/education/delete-education";
+import moment from "moment";
 
 const EducationListTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -94,26 +95,20 @@ const EducationListTable = () => {
     {
       accessorKey: "degreeName",
       header: "Degree Name",
-      cell: ({ row }) => (
-       <h1>{row.getValue("degreeName")}</h1>
-      ),
+      cell: ({ row }) => <h1>{row.getValue("degreeName")}</h1>,
     },
     {
       accessorKey: "startDate",
       header: "joining Date",
       cell: ({ row }) => (
-        <div
-        >{row.getValue("startDate")}</div>
+        <div>{moment(row.getValue("startDate")).format("DD-MMM-YYYY")}</div>
       ),
     },
     {
-        accessorKey: "endDate",
-        header: "End Date",
-        cell: ({ row }) => (
-          <div
-          >{row.getValue("endDate")}</div>
-        ),
-      },
+      accessorKey: "endDate",
+      header: "End Date",
+      cell: ({ row }) => <div>{moment(row.getValue("endDate")).format("DD-MMM-YYYY")}</div>,
+    },
     {
       id: "actions",
       header: "Action",
@@ -128,7 +123,9 @@ const EducationListTable = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <Link href={`/dashboard/resume/update-education/${row?.original?._id}`}>
+              <Link
+                href={`/dashboard/resume/update-education/${row?.original?._id}`}
+              >
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
                 </DropdownMenuItem>

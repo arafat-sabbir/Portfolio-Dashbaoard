@@ -1,7 +1,7 @@
 import { permanentRedirect } from "next/navigation";
 
 const DashboardPage = () => {
-  return permanentRedirect("/dashboard/blogs");
+  return permanentRedirect("/dashboard/resume/educations");
 };
 
 export default DashboardPage;
