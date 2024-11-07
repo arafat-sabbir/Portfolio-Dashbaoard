@@ -33,12 +33,12 @@ import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { deletePortfolio } from "@/actions/portfolio/delete-portfolio";
 import { skillSchema } from "@/lib/zod.schema";
 import { z } from "zod";
 import { getAllSkills } from "@/actions/skill/get-all-skill";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
+import { deleteSkill } from "@/actions/skill/delete-skill";
 
 type TSkill = z.infer<typeof skillSchema> & { _id: string };
 
@@ -61,9 +61,9 @@ const SkillListsTable = () => {
     getAllSkillData();
   }, [refetch]);
 
-  const handleDeletePortfolio = async (id: string) => {
+  const handleDeleteSkill = async (id: string) => {
     const toastId = toast.loading("Deleting Skills...");
-    const response = await deletePortfolio(id);
+    const response = await deleteSkill(id);
 
     if (response?.error) {
       return toast.error(response?.error);
@@ -125,7 +125,7 @@ const SkillListsTable = () => {
               </DropdownMenuItem>
             </Link>
             <DropdownMenuItem
-              onClick={() => handleDeletePortfolio(row?.original?._id)}
+              onClick={() => handleDeleteSkill(row?.original?._id)}
               className="cursor-pointer"
             >
               Delete
@@ -222,7 +222,7 @@ const SkillListsTable = () => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No Skill Found.
                 </TableCell>
               </TableRow>
             )}
