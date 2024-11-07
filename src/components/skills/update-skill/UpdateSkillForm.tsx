@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader } from "lucide-react";
-import { BottomGradient } from "@/components/BottomGradient";
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { skillSchema } from "@/lib/zod.schema";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { addSkill } from "@/actions/skill/add-skill";
+import { getSingleSkill } from "@/actions/skill/get-single-skill";
+import { generateImage } from "@/lib/utils";
+import { updateSkill } from "@/actions/skill/update-skill";
+import SubmitButton from "@/components/SubmitButton";
 
 // Define Zod schema for validation
 
@@ -24,6 +24,9 @@ export function UpdateSkillForm({ id }: { id: string }) {
   const router = useRouter();
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [serverPhotoPreview, setServerPhotoPreview] = useState<string | null>(
+    null
+  );
   const form = useForm<z.infer<typeof skillSchema>>({
     resolver: zodResolver(skillSchema),
     defaultValues: {
@@ -35,29 +38,26 @@ export function UpdateSkillForm({ id }: { id: string }) {
   const { control, handleSubmit, reset } = form;
 
   useEffect(() => {
-    const getSingleBlogDetails = async () => {
+    const getSingleSkillDetails = async () => {
       try {
-        const response = await getSingleBlog(id);
+        const response = await getSingleSkill(id);
         if (response?.error) {
           return toast.error(response?.error);
         }
-        setServerBannerPreview(response?.data?.photo);
+        setServerPhotoPreview(response?.data?.photo);
 
         // Reset form values after fetching data
         reset({
-          title: response?.data?.title || "",
-          category: response?.data?.category || "",
-          content: response?.data?.content || "",
-          photo: null,
+          skill: response?.data?.skill || "",
+          level: response?.data?.level || 0,
         });
       } catch (error) {
         console.log(error);
       }
     };
-    getSingleBlogDetails();
+    getSingleSkillDetails();
   }, [id, reset]);
 
-  
   const handleSkillPhoto = useCallback((acceptedFiles: File[]) => {
     const photoFile = acceptedFiles[0]; // Only allow one banner
     setPhoto(photoFile);
@@ -67,11 +67,11 @@ export function UpdateSkillForm({ id }: { id: string }) {
   const removeBlogBanner = () => {
     setPhoto(null);
     setPhotoPreview(null);
+    setServerPhotoPreview(null);
   };
   const onSubmit = async (data: z.infer<typeof skillSchema>) => {
-    data.level = Number(data.level);
-    if (!photo) {
-      toast.error("Skill Photo Is Required");
+    if (!photo && !serverPhotoPreview) {
+      return toast.error("Skill Photo Is Required");
     }
     setLoading(true);
     const formData = new FormData();
@@ -79,9 +79,9 @@ export function UpdateSkillForm({ id }: { id: string }) {
       if (data[key] != null || data[key] != undefined)
         formData.append(key, value);
     });
-    formData.append("photo", photo as File);
+    photo && formData.append("photo", photo as File);
     try {
-      const response = await addSkill(formData);
+      const response = await updateSkill(id, formData);
       if (response?.error) {
         return toast.error(response?.error);
       }
@@ -148,20 +148,27 @@ export function UpdateSkillForm({ id }: { id: string }) {
               </button>
             </div>
           )}
+          {serverPhotoPreview && (
+            <div className="relative mt-4 w-fit">
+              <Image
+                height={160}
+                width={80}
+                src={generateImage(serverPhotoPreview)}
+                alt="Banner Preview"
+                className="w-40 h-20 object-cover rounded-md"
+              />
+              <button
+                type="button"
+                onClick={removeBlogBanner}
+                className="absolute top-0 right-0 h-6 w-6 flex items-center justify-center text-lg bg-black/50 hover:bg-black duration-300 text-white rounded-full"
+              >
+                &times;
+              </button>
+            </div>
+          )}
         </FormItem>
         {/* Submit Button */}
-        <Button
-          disabled={loading}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
-        >
-          Submit{" "}
-          {loading ? (
-            <Loader size={22} className="animate-spin" />
-          ) : (
-            <ArrowRight size={22} />
-          )}
-          <BottomGradient />
-        </Button>
+        <SubmitButton loading={loading} />
       </form>
     </Form>
   );

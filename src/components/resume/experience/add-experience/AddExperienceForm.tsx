@@ -14,6 +14,7 @@ import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { addExperienceSchema } from "@/lib/zod.schema";
 import { addExperience } from "@/actions/resume/experience/add-new-experience";
+import SubmitButton from "@/components/SubmitButton";
 
 export function AddExperienceForm() {
   const [loading, setLoading] = useState(false);
@@ -81,18 +82,7 @@ export function AddExperienceForm() {
           placeholder="Enter End Date"
         />
         {/* Submit Button */}
-        <Button
-          disabled={loading}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
-        >
-          Submit{" "}
-          {loading ? (
-            <Loader size={22} className="animate-spin" />
-          ) : (
-            <ArrowRight size={22} />
-          )}
-          <BottomGradient />
-        </Button>
+        <SubmitButton loading={loading} />
       </form>
     </Form>
   );

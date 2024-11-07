@@ -62,7 +62,7 @@ const SkillListsTable = () => {
   }, [refetch]);
 
   const handleDeletePortfolio = async (id: string) => {
-    const toastId = toast.loading("Deleting Portfolio...");
+    const toastId = toast.loading("Deleting Skills...");
     const response = await deletePortfolio(id);
 
     if (response?.error) {

@@ -17,6 +17,7 @@ import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { portfolioSchema } from "@/lib/zod.schema";
 import { addPortfolio } from "@/actions/portfolio/add-portfolio";
+import SubmitButton from "@/components/SubmitButton";
 
 // Define Zod schema for validation
 
@@ -224,18 +225,7 @@ export function AddPortfolioForm() {
         )}
 
         {/* Submit Button */}
-        <Button
-          disabled={loading}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
-        >
-          Submit{" "}
-          {loading ? (
-            <Loader size={22} className="animate-spin" />
-          ) : (
-            <ArrowRight size={22} />
-          )}
-          <BottomGradient />
-        </Button>
+        <SubmitButton loading={loading} />
       </form>
     </Form>
   );

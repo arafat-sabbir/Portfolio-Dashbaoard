@@ -16,6 +16,7 @@ import { skillSchema } from "@/lib/zod.schema";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { addSkill } from "@/actions/skill/add-skill";
+import SubmitButton from "@/components/SubmitButton";
 
 // Define Zod schema for validation
 
@@ -125,18 +126,7 @@ export function AddSkillForm() {
           )}
         </FormItem>
         {/* Submit Button */}
-        <Button
-          disabled={loading}
-          className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
-        >
-          Submit{" "}
-          {loading ? (
-            <Loader size={22} className="animate-spin" />
-          ) : (
-            <ArrowRight size={22} />
-          )}
-          <BottomGradient />
-        </Button>
+        <SubmitButton loading={loading} />
       </form>
     </Form>
   );
