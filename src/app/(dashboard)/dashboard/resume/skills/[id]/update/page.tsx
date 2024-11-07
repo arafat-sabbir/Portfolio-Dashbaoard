@@ -1,6 +1,6 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdatePortfolioContainer from "@/components/portfolio/update-portfolio/UpdatePortfolioContainer";
+import UpdateSkillContainer from "@/components/skills/update-skill/UpdateSkillContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -41,7 +41,7 @@ const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdatePortfolioContainer id={params.id} />
+        <UpdateSkillContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -1,5 +1,3 @@
-// import { PostListTable } from "./PostListTable";
-
 import SkillListsTable from "./SkillListTable";
 
 const SkillListContainer = async () => {

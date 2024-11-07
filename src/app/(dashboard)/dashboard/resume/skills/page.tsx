@@ -11,6 +11,7 @@ import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import PortfolioListContainer from "@/components/portfolio/PortfolioListContainer";
+import SkillListContainer from "@/components/skills/SkillListContainer";
 
 const SkillsPage = () => {
   return (
@@ -41,7 +42,7 @@ const SkillsPage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <PortfolioListContainer />
+        <SkillListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -29,34 +29,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { generateImage } from "@/lib/utils";
-import { getAllPortfolios } from "@/actions/portfolio/get-all-portfolios";
 import { deletePortfolio } from "@/actions/portfolio/delete-portfolio";
+import { skillSchema } from "@/lib/zod.schema";
+import { z } from "zod";
+import { getAllSkills } from "@/actions/skill/get-all-skill";
+import Image from "next/image";
+import { generateImage } from "@/lib/utils";
 
-interface TPortfolio {
-  title: string;
-  category: string;
-  description: string;
-  technologiesUsed: string[];
-  features: string[];
-  livePreview?: string;
-  sourceCode: string;
-  thumbnail: string;
-  duration?: string;
-  reviews: string[];
-  currentlyWorking?: boolean;
-  startDate?: Date;
-  endDate?: Date;
-  _id: string;
-}
+type TSkill = z.infer<typeof skillSchema> & { _id: string };
 
 const SkillListsTable = () => {
-  const [portfolios, setPortfolios] = useState<TPortfolio[]>([]);
+  const [skills, setSkills] = useState<TSkill[]>();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -64,14 +51,14 @@ const SkillListsTable = () => {
   const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
-    const getAllPortfolio = async () => {
-      const response = await getAllPortfolios();
+    const getAllSkillData = async () => {
+      const response = await getAllSkills();
       if (response?.error) {
         return toast.error(response?.error);
       }
-      setPortfolios(response?.data);
+      setSkills(response?.data);
     };
-    getAllPortfolio();
+    getAllSkillData();
   }, [refetch]);
 
   const handleDeletePortfolio = async (id: string) => {
@@ -85,86 +72,38 @@ const SkillListsTable = () => {
     setRefetch(!refetch);
   };
 
-  const columns: ColumnDef<TPortfolio>[] = [
+  const columns: ColumnDef<TSkill>[] = [
     {
-      accessorKey: "title",
+      accessorKey: "skill",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Skill Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("title")}</div>
+        <div className="capitalize">{row.getValue("skill")}</div>
       ),
     },
     {
-      accessorKey: "category",
-      header: "Category",
-      cell: ({ row }) => <div>{row.getValue("category")}</div>,
+      accessorKey: "level",
+      header: "Skill Level",
+      cell: ({ row }) => <div>{row.getValue("level")}</div>,
     },
     {
-      accessorKey: "thumbnail",
-      header: "Thumbnail",
+      accessorKey: "photo",
+      header: "Skill Photo",
       cell: ({ row }) => (
         <Image
           className="rounded-md w-60 h-32 object-cover"
           height={1000}
           width={1000}
-          src={generateImage(row.getValue("thumbnail"))}
-          alt={`Thumbnail`}
+          src={generateImage(row.getValue("photo"))}
+          alt={`Blog Image`}
         />
-      ),
-    },
-    {
-      accessorKey: "technologiesUsed",
-      header: "Technologies Used",
-      cell: ({ row }) => (
-        <div>
-          {" "}
-          {(row.getValue("technologiesUsed") as any).map(
-            (feature: string, index: number) => (
-              <li key={index}>{feature || "N/A"}</li>
-            )
-          )}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "features",
-      header: "Features",
-      cell: ({ row }) => (
-        <ul className="list-disc pl-5">
-          {(row.getValue("features") as any).map(
-            (feature: string, index: number) => (
-              <li key={index}>{feature}</li>
-            )
-          )}
-        </ul>
-      ),
-    },
-    {
-      accessorKey: "livePreview",
-      header: "Live Preview",
-      cell: ({ row }) =>
-        row.getValue("livePreview") ? (
-          <Link href={row.getValue("livePreview")} target="_blank">
-            Live Link
-          </Link>
-        ) : (
-          "N/A"
-        ),
-    },
-    {
-      accessorKey: "sourceCode",
-      header: "Source Code",
-      cell: ({ row }) => (
-        <Link href={row.getValue("sourceCode")} target="_blank">
-          Source Link
-        </Link>
       ),
     },
     {
@@ -180,7 +119,7 @@ const SkillListsTable = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/dashboard/portfolios/${row?.original?._id}/update`}>
+            <Link href={`/dashboard/resume/skills/${row?.original?._id}/update`}>
               <DropdownMenuItem className="cursor-pointer">
                 Edit
               </DropdownMenuItem>
@@ -198,7 +137,7 @@ const SkillListsTable = () => {
   ];
 
   const table = useReactTable({
-    data: portfolios,
+    data: skills || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
