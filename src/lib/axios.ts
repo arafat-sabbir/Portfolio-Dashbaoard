@@ -3,7 +3,7 @@ import { getClientToken } from "./utils";
 import { getServerToken } from "./get-server-token";
 
 const instance = axios.create({
-  baseURL: `https://api.portfolio.finaltry-innovations.site/api/v1`,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api/v1`,
 });
 
 instance.interceptors.request.use(

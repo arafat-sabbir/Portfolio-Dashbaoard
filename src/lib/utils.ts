@@ -27,6 +27,6 @@ export const generateImage = (path: string) => {
     return "";
   }
 
-  return `https://api.portfolio.finaltry-innovations.site${path}`;
+  return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 };
 
