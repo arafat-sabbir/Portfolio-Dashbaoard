@@ -170,6 +170,22 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
           placeholder="Enter Your Date of Birth"
           disabled={!isEditing}
         />
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={control}
+          name="locationLink"
+          label="Google Map Location Link"
+          placeholder="Enter Your Location Google Map Link"
+          disabled={!isEditing}
+        />
+        <CustomFormField
+          fieldType={FormFieldType.TEXTAREA}
+          control={control}
+          name="bio"
+          label="Enter Your Bio"
+          placeholder="Enter A Short Description About Yourself"
+          disabled={!isEditing}
+        />
 
         <div className="flex justify-between">
           <Button

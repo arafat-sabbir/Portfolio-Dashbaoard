@@ -39,6 +39,8 @@ import { generateImage } from "@/lib/utils";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllBlogs } from "@/actions/blog/get-all-blogs";
 import { deleteBlog } from "@/actions/blog/delete-blog";
+import { FiPlus } from "react-icons/fi";
+import AddButton from "../AddButton";
 
 const BlogListsTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -166,7 +168,7 @@ const BlogListsTable = () => {
   });
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="flex items-center py-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -246,6 +248,7 @@ const BlogListsTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
+      <AddButton text="Add Blog" href="/dashboard/blogs/add-blog"/>
     </div>
   );
 };

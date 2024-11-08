@@ -1,6 +1,14 @@
-import { LucideIcon, FileUser } from "lucide-react";
+import {
+  LucideIcon,
+  FileUser,
+  BadgeInfo,
+  FilePen,
+  BookOpenText,
+  Computer,
+  CircleUserRound,
+} from "lucide-react";
 import { LiaBlogSolid, LiaProjectDiagramSolid } from "react-icons/lia";
-import { MdOutlineFormatListBulleted } from "react-icons/md"
+import { MdOutlineFormatListBulleted } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 
 type Submenu = {
@@ -30,9 +38,29 @@ export function getMenuList(pathname: string): Group[] {
       menus: [
         {
           href: "",
+          label: "Profile",
+          active: pathname === "/socials",
+          icon: CircleUserRound as any,
+          submenus: [
+            {
+              href: "/dashboard/profile",
+              label: "Manage Profile",
+              active: pathname === "/dashboard/profile",
+              subIcon: MdOutlineFormatListBulleted as any,
+            },
+            {
+              href: "/dashboard/socials",
+              label: "Manage Social",
+              active: pathname === "/dashboard/socials",
+              subIcon: MdOutlineFormatListBulleted as any,
+            },
+          ],
+        },
+        {
+          href: "",
           label: "About",
           active: pathname === "/blogs",
-          icon: LiaBlogSolid as any,
+          icon: BadgeInfo as any,
           submenus: [
             {
               href: "/dashboard/blogs",
@@ -42,9 +70,9 @@ export function getMenuList(pathname: string): Group[] {
             },
             {
               href: "/dashboard/blogs/add-blog",
-              label: "Add Client",
+              label: "Manage Work",
               active: pathname === "/dashboard/blogs/add-blog",
-              subIcon: FiPlus as any,
+              subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
         },
@@ -52,7 +80,7 @@ export function getMenuList(pathname: string): Group[] {
           href: "",
           label: "Resume",
           active: pathname === "/resumes",
-          icon: FileUser,
+          icon: FilePen,
           submenus: [
             {
               href: "/dashboard/resume/educations",
@@ -72,31 +100,31 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname === "/dashboard/resume/skills",
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            {
-              href: "/dashboard/resume/add-experience",
-              label: "Add Experience",
-              active: pathname === "/dashboard/resume/add-experience",
-              subIcon: FiPlus as any,
-            },
-            {
-              href: "/dashboard/resume/add-education",
-              label: "Add Education",
-              active: pathname === "/dashboard/resume/add-education",
-              subIcon: FiPlus as any,
-            },
-            {
-              href: "/dashboard/resume/add-skill",
-              label: "Add Skill",
-              active: pathname === "/dashboard/resume/add-skill",
-              subIcon: FiPlus as any,
-            },
+            // {
+            //   href: "/dashboard/resume/add-experience",
+            //   label: "Add Experience",
+            //   active: pathname === "/dashboard/resume/add-experience",
+            //   subIcon: FiPlus as any,
+            // },
+            // {
+            //   href: "/dashboard/resume/add-education",
+            //   label: "Add Education",
+            //   active: pathname === "/dashboard/resume/add-education",
+            //   subIcon: FiPlus as any,
+            // },
+            // {
+            //   href: "/dashboard/resume/add-skill",
+            //   label: "Add Skill",
+            //   active: pathname === "/dashboard/resume/add-skill",
+            //   subIcon: FiPlus as any,
+            // },
           ],
         },
         {
           href: "",
-          label: "Blogs",
+          label: "Blog",
           active: pathname === "/blogs",
-          icon: LiaBlogSolid as any,
+          icon: BookOpenText as any,
           submenus: [
             {
               href: "/dashboard/blogs",
@@ -104,46 +132,32 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname === "/dashboard/blogs",
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            {
-              href: "/dashboard/blogs/add-blog",
-              label: "Add Blog",
-              active: pathname === "/dashboard/blogs/add-blog",
-              subIcon: FiPlus as any,
-            },
+            // {
+            //   href: "/dashboard/blogs/add-blog",
+            //   label: "Add Blog",
+            //   active: pathname === "/dashboard/blogs/add-blog",
+            //   subIcon: FiPlus as any,
+            // },
           ],
         },
         {
           href: "",
-          label: "Portfolios",
+          label: "Portfolio",
           active: pathname === "/portfolios",
-          icon: LiaProjectDiagramSolid as any,
+          icon: Computer as any,
           submenus: [
             {
               href: "/dashboard/portfolios",
               label: "Manage Portfolios",
-              active: pathname === "/dashboard/portfolios",
+              active: pathname.startsWith("/dashboard/portfolios"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            {
-              href: "/dashboard/portfolios/add-portfolio",
-              label: "Add Portfolio",
-              active: pathname === "/dashboard/portfolios/add-portfolio",
-              subIcon: FiPlus as any,
-            },
-          ],
-        },
-        {
-          href: "",
-          label: "Socials",
-          active: pathname === "/socials",
-          icon: LiaProjectDiagramSolid as any,
-          submenus: [
-            {
-              href: "/dashboard/socials",
-              label: "Manage Socials",
-              active: pathname === "/dashboard/socials",
-              subIcon: MdOutlineFormatListBulleted as any,
-            },
+            // {
+            //   href: "/dashboard/portfolios/add-portfolio",
+            //   label: "Add Portfolio",
+            //   active: pathname === "/dashboard/portfolios/add-portfolio",
+            //   subIcon: FiPlus as any,
+            // },
           ],
         },
       ],
