@@ -37,14 +37,14 @@ import { z } from "zod";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
 import AddButton from "@/components/AddButton";
-import { deleteClient } from "@/actions/client/delete-client";
 import { getAllWorks } from "@/actions/work/get-all-work";
 import { workSchema } from "@/lib/zod.schema";
+import { deleteWork } from "@/actions/work/delete-work";
 
-type TClient = z.infer<typeof workSchema> & { _id: string };
+type TWork = z.infer<typeof workSchema> & { _id: string };
 
 const WorkListsTable = () => {
-  const [clients, setClients] = useState<TClient[]>();
+  const [works, setWorks] = useState<TWork[]>();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -58,14 +58,14 @@ const WorkListsTable = () => {
       if (response?.error) {
         return toast.error(response?.error);
       }
-      setClients(response?.data);
+      setWorks(response?.data);
     };
     getAllWorkData();
   }, [refetch]);
 
   const handleDeleteSkill = async (id: string) => {
-    const toastId = toast.loading("Deleting Client...");
-    const response = await deleteClient(id);
+    const toastId = toast.loading("Deleting Work...");
+    const response = await deleteWork(id);
 
     if (response?.error) {
       return toast.error(response?.error);
@@ -74,7 +74,7 @@ const WorkListsTable = () => {
     setRefetch(!refetch);
   };
 
-  const columns: ColumnDef<TClient>[] = [
+  const columns: ColumnDef<TWork>[] = [
     {
       accessorKey: "photo",
       header: "Work Photo | Logo",
@@ -129,7 +129,7 @@ const WorkListsTable = () => {
   ];
 
   const table = useReactTable({
-    data: clients || [],
+    data: works || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -214,7 +214,7 @@ const WorkListsTable = () => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No Clients Found.
+                  No Works Found.
                 </TableCell>
               </TableRow>
             )}
@@ -222,7 +222,7 @@ const WorkListsTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
-      <AddButton text="Add Client" href="/dashboard/about/work/add-work" />
+      <AddButton text="Add Work" href="/dashboard/about/work/add-work" />
     </div>
   );
 };
