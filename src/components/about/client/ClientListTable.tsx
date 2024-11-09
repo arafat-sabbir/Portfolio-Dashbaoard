@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown, MoreHorizontal } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -33,18 +33,18 @@ import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { skillSchema } from "@/lib/zod.schema";
+import { clientSchema } from "@/lib/zod.schema";
 import { z } from "zod";
-import { getAllSkills } from "@/actions/skill/get-all-skill";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
-import { deleteSkill } from "@/actions/skill/delete-skill";
 import AddButton from "@/components/AddButton";
+import { deleteClient } from "@/actions/client/delete-client";
+import { getAllClients } from "@/actions/client/get-all-client";
 
-type TSkill = z.infer<typeof skillSchema> & { _id: string };
+type TClient = z.infer<typeof clientSchema> & { _id: string };
 
 const ClientListsTable = () => {
-  const [skills, setSkills] = useState<TSkill[]>();
+  const [clients, setClients] = useState<TClient[]>();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -52,19 +52,20 @@ const ClientListsTable = () => {
   const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
-    const getAllSkillData = async () => {
-      const response = await getAllSkills();
+    const getAllClientData = async () => {
+      const response = await getAllClients();
+      console.log(response?.data);
       if (response?.error) {
         return toast.error(response?.error);
       }
-      setSkills(response?.data);
+      setClients(response?.data);
     };
-    getAllSkillData();
+    getAllClientData();
   }, [refetch]);
 
   const handleDeleteSkill = async (id: string) => {
-    const toastId = toast.loading("Deleting Skills...");
-    const response = await deleteSkill(id);
+    const toastId = toast.loading("Deleting Client...");
+    const response = await deleteClient(id);
 
     if (response?.error) {
       return toast.error(response?.error);
@@ -73,30 +74,10 @@ const ClientListsTable = () => {
     setRefetch(!refetch);
   };
 
-  const columns: ColumnDef<TSkill>[] = [
-    {
-      accessorKey: "skill",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Skill Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("skill")}</div>
-      ),
-    },
-    {
-      accessorKey: "level",
-      header: "Skill Level",
-      cell: ({ row }) => <div>{row.getValue("level")}</div>,
-    },
+  const columns: ColumnDef<TClient>[] = [
     {
       accessorKey: "photo",
-      header: "Skill Photo",
+      header: "Client Photo | Logo",
       cell: ({ row }) => (
         <Image
           className="rounded-md w-60 h-32 object-cover"
@@ -138,7 +119,7 @@ const ClientListsTable = () => {
   ];
 
   const table = useReactTable({
-    data: skills || [],
+    data: clients || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -223,7 +204,7 @@ const ClientListsTable = () => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No Skill Found.
+                  No Clients Found.
                 </TableCell>
               </TableRow>
             )}
