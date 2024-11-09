@@ -10,7 +10,7 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import ClientListContainer from "@/components/about/client/ClientListContainer";
+import WorkListContainer from "@/components/about/work/WorkListContainer";
 
 const SkillsPage = () => {
   return (
@@ -41,7 +41,7 @@ const SkillsPage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <ClientListContainer />
+        <WorkListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );

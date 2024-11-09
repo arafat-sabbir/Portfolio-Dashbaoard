@@ -1,6 +1,6 @@
+import UpdateWorkContainer from "@/components/about/work/update-work/UpdateWorkContainer";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdateSkillContainer from "@/components/skill/update-skill/UpdateSkillContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -41,7 +41,7 @@ const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateSkillContainer id={params.id} />
+        <UpdateWorkContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );
