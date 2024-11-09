@@ -1,6 +1,7 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import AddEducationContainer from "@/components/resume/education/add-education/AddEducationContainer";
+import Container from "@/components/Container";
+import { AddEducationForm } from "@/components/resume/education/add-education/AddEducationForm";
 
 import React from "react";
 
@@ -8,7 +9,9 @@ const AddEducation = () => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="Add Education">
-        <AddEducationContainer />
+        <Container title="Add Education">
+          <AddEducationForm />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

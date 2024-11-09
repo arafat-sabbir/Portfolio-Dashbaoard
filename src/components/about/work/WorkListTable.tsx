@@ -54,7 +54,6 @@ const WorkListsTable = () => {
   useEffect(() => {
     const getAllWorkData = async () => {
       const response = await getAllWorks();
-      console.log(response?.data);
       if (response?.error) {
         return toast.error(response?.error);
       }

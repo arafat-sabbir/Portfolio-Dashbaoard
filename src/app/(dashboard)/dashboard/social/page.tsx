@@ -1,6 +1,7 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import SocialListContainer from "@/components/social/SocialsListContainer";
+import Container from "@/components/Container";
+import SocialListTable from "@/components/social/SocialsListTable";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -41,7 +42,9 @@ const SocialsPage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <SocialListContainer />
+        <Container title="Manage Social">
+          <SocialListTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

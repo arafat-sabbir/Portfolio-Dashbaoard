@@ -48,7 +48,7 @@ export function AddExperienceForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="form-background">
         {/* Blog Title */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}

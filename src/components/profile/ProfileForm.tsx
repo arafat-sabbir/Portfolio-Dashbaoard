@@ -52,7 +52,6 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
     setLoading(true);
 
     // Log the incoming `data` to see if it contains expected values
-    console.log("Form Data:", data);
 
     const form = new FormData();
 
@@ -67,12 +66,6 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
     } else {
       console.warn("No file selected.");
     }
-
-    // Check what values are appended to FormData
-    Object.keys(data).forEach((key) => {
-      console.log(key, ":", form.get(key));
-    });
-
     try {
       const response = await updateProfile(form);
       if (response?.error) {

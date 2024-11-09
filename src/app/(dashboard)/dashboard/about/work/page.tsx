@@ -11,6 +11,8 @@ import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import WorkListContainer from "@/components/about/work/WorkListContainer";
+import Container from "@/components/Container";
+import WorkListsTable from "@/components/about/work/WorkListTable";
 
 const SkillsPage = () => {
   return (
@@ -41,7 +43,9 @@ const SkillsPage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <WorkListContainer />
+        <Container title="All Work">
+          <WorkListsTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

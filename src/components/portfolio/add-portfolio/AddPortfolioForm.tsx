@@ -101,7 +101,7 @@ export function AddPortfolioForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="form-background">
         {/* Project Title */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}

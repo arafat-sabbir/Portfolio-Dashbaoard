@@ -10,7 +10,8 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import PortfolioListContainer from "@/components/portfolio/PortfolioListContainer";
+import Container from "@/components/Container";
+import PortfolioListsTable from "@/components/portfolio/PortfolioListTable";
 
 const PostsPage = () => {
   return (
@@ -41,7 +42,9 @@ const PostsPage = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <PortfolioListContainer />
+        <Container title="All Portfolio">
+          <PortfolioListsTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

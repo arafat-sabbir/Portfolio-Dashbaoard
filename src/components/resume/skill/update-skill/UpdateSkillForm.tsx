@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { skillSchema } from "@/lib/zod.schema";
@@ -19,7 +19,8 @@ import SubmitButton from "@/components/SubmitButton";
 
 // Define Zod schema for validation
 
-export function UpdateSkillForm({ id }: { id: string }) {
+export function UpdateSkillForm() {
+  const id = useParams().id;
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [photo, setPhoto] = useState<File | null>(null);

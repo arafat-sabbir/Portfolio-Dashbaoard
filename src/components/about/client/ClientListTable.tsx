@@ -54,7 +54,6 @@ const ClientListsTable = () => {
   useEffect(() => {
     const getAllClientData = async () => {
       const response = await getAllClients();
-      console.log(response?.data);
       if (response?.error) {
         return toast.error(response?.error);
       }

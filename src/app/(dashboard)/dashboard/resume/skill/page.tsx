@@ -10,7 +10,8 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import SkillListContainer from "@/components/resume/skill/SkillListContainer";
+import Container from "@/components/Container";
+import SkillListsTable from "@/components/resume/skill/SkillListTable";
 
 const SkillsPage = () => {
   return (
@@ -29,19 +30,14 @@ const SkillsPage = () => {
                 <Link href="/dashboard">Dashboard</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/dashboard/skills">Skills</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>All Skills</BreadcrumbPage>
+              <BreadcrumbPage>All Skill</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <SkillListContainer />
+        <Container title="All Skill">
+          <SkillListsTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

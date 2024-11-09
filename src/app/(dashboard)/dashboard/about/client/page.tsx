@@ -10,7 +10,8 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import ClientListContainer from "@/components/about/client/ClientListContainer";
+import ClientListsTable from "@/components/about/client/ClientListTable";
+import Container from "@/components/Container";
 
 const SkillsPage = () => {
   return (
@@ -29,19 +30,14 @@ const SkillsPage = () => {
                 <Link href="/dashboard">Dashboard</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/dashboard/skills">Skills</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>All Skills</BreadcrumbPage>
+              <BreadcrumbPage>All Client</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <ClientListContainer />
+        <Container title="All Client">
+          <ClientListsTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

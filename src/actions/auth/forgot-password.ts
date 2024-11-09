@@ -8,10 +8,8 @@ import { AxiosError } from "axios";
 export const forgotPassword = async (data: {email:string}) => {
   try {
     const response = await axiosInstance.post(`/auth/forget-password`, data);
-    console.log(response?.data);
     return response.data;
   } catch (error: any) {
-    console.log(error?.data);
     return handleAxiosError(error as AxiosError<ErrorResponse>);
   }
 };

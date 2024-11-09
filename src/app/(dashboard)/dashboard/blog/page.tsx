@@ -10,12 +10,13 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import BlogListContainer from "@/components/blog/BlogListContainer";
+import Container from "@/components/Container";
+import BlogListsTable from "@/components/blog/BlogListTable";
 
 const PostsPage = () => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Blogs">
+      <ContentLayout title="All Blog">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -29,20 +30,14 @@ const PostsPage = () => {
                 <Link href="/dashboard">Dashboard</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/dashboard/blogs">Blogs</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>All Blog</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <BlogListContainer />
+        <Container title="All Blog">
+          <BlogListsTable />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -109,7 +109,7 @@ const BlogListsTable = () => {
     },
     {
       accessorKey: "content",
-      header: "Blog Thumbnail",
+      header: "Blog Content",
       cell: ({ row }) => (
         <div
           dangerouslySetInnerHTML={{ __html: row.getValue("content") }}

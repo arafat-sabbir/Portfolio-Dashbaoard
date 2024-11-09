@@ -13,10 +13,8 @@ export const loginAdmin = async (data: ILogin) => {
     cookies().set("accessToken", response?.data?.data.token, {
       maxAge: 30 * 24 * 60 * 60,
     });
-    console.log(response?.data);
     return response.data;
   } catch (error: any) {
-    console.log(error?.response?.data);
     return handleAxiosError(error as AxiosError<ErrorResponse>);
   }
 };

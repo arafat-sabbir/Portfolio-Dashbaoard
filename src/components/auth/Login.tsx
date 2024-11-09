@@ -40,7 +40,6 @@ export function Login() {
     setLoading(true);
     try {
       const response = await loginAdmin(data);
-      console.log(response);
       if (response.error) {
         return toast.error(response?.error);
       }
