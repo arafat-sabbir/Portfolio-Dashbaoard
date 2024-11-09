@@ -39,6 +39,7 @@ import { IBlogs } from "@/interface/post.interface";
 import { getAllEducations } from "@/actions/resume/education/get-all-education";
 import { deleteEducation } from "@/actions/resume/education/delete-education";
 import moment from "moment";
+import AddButton from "@/components/AddButton";
 
 const EducationListTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -245,6 +246,7 @@ const EducationListTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
+      <AddButton href="/dashboard/resume/educations/add-education" text="Add Education" />
     </div>
   );
 };

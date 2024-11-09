@@ -7,9 +7,7 @@ import {
   Computer,
   CircleUserRound,
 } from "lucide-react";
-import { LiaBlogSolid, LiaProjectDiagramSolid } from "react-icons/lia";
 import { MdOutlineFormatListBulleted } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
 
 type Submenu = {
   href: string;
@@ -85,39 +83,21 @@ export function getMenuList(pathname: string): Group[] {
             {
               href: "/dashboard/resume/educations",
               label: "Manage Educations",
-              active: pathname === "/dashboard/resume/educations",
+              active: pathname.startsWith("/dashboard/resume/educations"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
               href: "/dashboard/resume/experiences",
               label: "Manage Experiences",
-              active: pathname === "/dashboard/resume/experiences",
+              active: pathname.startsWith("/dashboard/resume/experiences"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
               href: "/dashboard/resume/skills",
               label: "Manage Skills",
-              active: pathname === "/dashboard/resume/skills",
+              active: pathname.startsWith("/dashboard/resume/skills"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            // {
-            //   href: "/dashboard/resume/add-experience",
-            //   label: "Add Experience",
-            //   active: pathname === "/dashboard/resume/add-experience",
-            //   subIcon: FiPlus as any,
-            // },
-            // {
-            //   href: "/dashboard/resume/add-education",
-            //   label: "Add Education",
-            //   active: pathname === "/dashboard/resume/add-education",
-            //   subIcon: FiPlus as any,
-            // },
-            // {
-            //   href: "/dashboard/resume/add-skill",
-            //   label: "Add Skill",
-            //   active: pathname === "/dashboard/resume/add-skill",
-            //   subIcon: FiPlus as any,
-            // },
           ],
         },
         {
@@ -129,15 +109,9 @@ export function getMenuList(pathname: string): Group[] {
             {
               href: "/dashboard/blogs",
               label: "Manage Blogs",
-              active: pathname === "/dashboard/blogs",
+              active: pathname.startsWith("/dashboard/blogs"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            // {
-            //   href: "/dashboard/blogs/add-blog",
-            //   label: "Add Blog",
-            //   active: pathname === "/dashboard/blogs/add-blog",
-            //   subIcon: FiPlus as any,
-            // },
           ],
         },
         {
@@ -152,12 +126,6 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname.startsWith("/dashboard/portfolios"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
-            // {
-            //   href: "/dashboard/portfolios/add-portfolio",
-            //   label: "Add Portfolio",
-            //   active: pathname === "/dashboard/portfolios/add-portfolio",
-            //   subIcon: FiPlus as any,
-            // },
           ],
         },
       ],

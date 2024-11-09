@@ -38,6 +38,7 @@ import { IBlogs } from "@/interface/post.interface";
 import { getAllExperiences } from "@/actions/resume/experience/get-all-experience";
 import { deleteExperience } from "@/actions/resume/experience/deleteExperience";
 import moment from "moment";
+import AddButton from "@/components/AddButton";
 
 const ExperienceListTable = () => {
   // Explicitly define the state type as an array of Companies
@@ -244,6 +245,10 @@ const ExperienceListTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
+      <AddButton
+        text="Add Experience"
+        href="/dashboard/resume/experiences/add-experience"
+      />
     </div>
   );
 };

@@ -39,6 +39,7 @@ import { getAllSkills } from "@/actions/skill/get-all-skill";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
 import { deleteSkill } from "@/actions/skill/delete-skill";
+import AddButton from "../AddButton";
 
 type TSkill = z.infer<typeof skillSchema> & { _id: string };
 
@@ -119,7 +120,9 @@ const SkillListsTable = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/dashboard/resume/skills/${row?.original?._id}/update`}>
+            <Link
+              href={`/dashboard/resume/skills/${row?.original?._id}/update`}
+            >
               <DropdownMenuItem className="cursor-pointer">
                 Edit
               </DropdownMenuItem>
@@ -230,6 +233,7 @@ const SkillListsTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
+      <AddButton text="Add Skill" href="/dashboard/resume/skills/add-skill" />
     </div>
   );
 };
