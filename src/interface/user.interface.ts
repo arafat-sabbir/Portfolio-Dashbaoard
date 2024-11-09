@@ -5,5 +5,7 @@ export type TUser = {
   location: string;
   designation: string;
   photo: string;
-  dob: Date|string|undefined;
+  dob: Date | string | undefined;
+  bio: string;
+  locationLink: string;
 };

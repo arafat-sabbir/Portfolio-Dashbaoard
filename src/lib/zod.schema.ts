@@ -36,6 +36,8 @@ export const updateUserSchema = z.object({
   designation: z.string().optional(),
   dob: z.any().optional(),
   photo: z.any().optional(),
+  locationLink: z.string().optional(),
+  bio: z.string().optional(),
 });
 
 export const portfolioSchema = z.object({
@@ -80,4 +82,8 @@ export const loginUserSchema = z.object({
   password: z.string({ required_error: "Password is required" }).min(6, {
     message: "Password must be at least 6 characters",
   }),
+});
+
+export const clientSchema = z.object({
+  photo: z.any().optional(),
 });

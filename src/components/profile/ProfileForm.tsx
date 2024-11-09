@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {  z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -31,6 +31,8 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
       location: user?.location || "",
       designation: user?.designation || "",
       dob: (user?.dob as any) || "",
+      locationLink: user.locationLink || "",
+      bio: user?.bio || "",
     },
   });
   console.log(user);
@@ -73,13 +75,16 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
 
     try {
       const response = await updateProfile(form);
-      console.log(response?.data);
+      if (response?.error) {
+        return toast.error(response?.error);
+      }
       toast.success("Profile updated successfully!");
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while updating your profile.");
     } finally {
       setLoading(false);
+      setIsEditing(false);
     }
   };
 

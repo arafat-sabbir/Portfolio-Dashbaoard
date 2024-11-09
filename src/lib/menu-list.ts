@@ -61,15 +61,15 @@ export function getMenuList(pathname: string): Group[] {
           icon: BadgeInfo as any,
           submenus: [
             {
-              href: "/dashboard/blog",
+              href: "/dashboard/about/client",
               label: "Manage Client",
-              active: pathname === "/dashboard/blog",
+              active: pathname === "/dashboard/about/client",
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
-              href: "/dashboard/blogs/add-blog",
+              href: "/dashboard/about/work",
               label: "Manage Work",
-              active: pathname === "/dashboard/blogs/add-blog",
+              active: pathname === "/dashboard/about/work",
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
