@@ -10,7 +10,7 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import SkillListContainer from "@/components/skill/SkillListContainer";
+import SkillListContainer from "@/components/resume/skill/SkillListContainer";
 
 const SkillsPage = () => {
   return (

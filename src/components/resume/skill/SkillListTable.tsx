@@ -39,7 +39,9 @@ import { getAllSkills } from "@/actions/skill/get-all-skill";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
 import { deleteSkill } from "@/actions/skill/delete-skill";
-import AddButton from "../AddButton";
+import AddButton from "@/components/AddButton";
+
+
 
 type TSkill = z.infer<typeof skillSchema> & { _id: string };
 
@@ -92,7 +94,7 @@ const SkillListsTable = () => {
     {
       accessorKey: "level",
       header: "Skill Level",
-      cell: ({ row }) => <div>{row.getValue("level")}</div>,
+      cell: ({ row }) => <div>{row.getValue("level")}%</div>,
     },
     {
       accessorKey: "photo",

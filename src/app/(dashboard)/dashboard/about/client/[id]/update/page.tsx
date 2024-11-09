@@ -1,3 +1,4 @@
+import UpdateClientContainer from "@/components/about/client/update-client/UpdateClientContainer";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import {
@@ -40,7 +41,7 @@ const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateClic id={params.id} />
+        <UpdateClientContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );
