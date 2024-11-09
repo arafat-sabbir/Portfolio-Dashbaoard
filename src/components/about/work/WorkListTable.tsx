@@ -111,7 +111,7 @@ const WorkListsTable = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/dashboard/about/client/${row?.original?._id}/update`}>
+            <Link href={`/dashboard/about/work/${row?.original?._id}/update`}>
               <DropdownMenuItem className="cursor-pointer">
                 Edit
               </DropdownMenuItem>

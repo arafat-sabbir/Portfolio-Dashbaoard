@@ -12,14 +12,14 @@ import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { workSchema } from "@/lib/zod.schema";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
-import { getSingleSkill } from "@/actions/skill/get-single-skill";
 import { generateImage } from "@/lib/utils";
-import { updateSkill } from "@/actions/skill/update-skill";
 import SubmitButton from "@/components/SubmitButton";
+import { getSingleWork } from "@/actions/work/get-single-work";
+import { updateWork } from "@/actions/work/update-work";
 
 // Define Zod schema for validation
 
-export function UpdateSkillForm({ id }: { id: string }) {
+export function UpdateWorkForm({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [photo, setPhoto] = useState<File | null>(null);
@@ -40,7 +40,7 @@ export function UpdateSkillForm({ id }: { id: string }) {
   useEffect(() => {
     const getSingleSkillDetails = async () => {
       try {
-        const response = await getSingleSkill(id);
+        const response = await getSingleWork(id);
         if (response?.error) {
           return toast.error(response?.error);
         }
@@ -62,6 +62,7 @@ export function UpdateSkillForm({ id }: { id: string }) {
     const photoFile = acceptedFiles[0]; // Only allow one banner
     setPhoto(photoFile);
     setPhotoPreview(URL.createObjectURL(photoFile));
+    setServerPhotoPreview(null);
   }, []);
 
   const removeBlogBanner = () => {
@@ -71,7 +72,7 @@ export function UpdateSkillForm({ id }: { id: string }) {
   };
   const onSubmit = async (data: z.infer<typeof workSchema>) => {
     if (!photo && !serverPhotoPreview) {
-      return toast.error("Skill Photo Is Required");
+      return toast.error("Work Photo Is Required");
     }
     setLoading(true);
     const formData = new FormData();
@@ -81,12 +82,12 @@ export function UpdateSkillForm({ id }: { id: string }) {
     });
     formData.append("photo", photo as File);
     try {
-      const response = await updateSkill(id, formData);
+      const response = await updateWork(id, formData);
       if (response?.error) {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/resume/skill");
+      router.push("/dashboard/about/work");
     } catch (error) {
       console.log(error);
     } finally {
