@@ -27,7 +27,7 @@ body {
   @apply w-full p-6 bg-primary-background rounded-md;
 }
 
-.update-form-background {
+.form-background {
   @apply space-y-10 primary-background;
 }
 

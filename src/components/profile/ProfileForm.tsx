@@ -189,6 +189,7 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
           name="bio"
           label="Enter Your Bio"
           placeholder="Enter A Short Description About Yourself"
+          className="min-h-40"
           disabled={!isEditing}
         />
 

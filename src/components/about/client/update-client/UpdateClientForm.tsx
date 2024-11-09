@@ -41,7 +41,7 @@ export function UpdateClientForm({ id }: { id: string }) {
     const photoFile = acceptedFiles[0]; // Only allow one banner
     setPhoto(photoFile);
     setPhotoPreview(URL.createObjectURL(photoFile));
-    setServerPhotoPreview(null)
+    setServerPhotoPreview(null);
   }, []);
 
   const removeBlogBanner = () => {
@@ -78,7 +78,7 @@ export function UpdateClientForm({ id }: { id: string }) {
   });
 
   return (
-    <form onSubmit={onSubmit} className="update-form-background">
+    <form onSubmit={onSubmit} className="form-background">
       <label>Skill Logo</label>
       <div
         {...getRootProps()}

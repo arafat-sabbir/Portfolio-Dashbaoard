@@ -44,7 +44,7 @@ export function AddSkillForm() {
   const onSubmit = async (data: z.infer<typeof skillSchema>) => {
     data.level = Number(data.level);
     if (!photo) {
-      toast.error("Skill Photo Is Required");
+      return toast.error("Skill Photo Is Required");
     }
     setLoading(true);
     const formData = new FormData();
@@ -88,7 +88,7 @@ export function AddSkillForm() {
           fieldType={FormFieldType.RANGE}
           control={control}
           name="level"
-          label="Enter Your Skill Level (1%-100%)"
+          label="Skill Level"
           placeholder="Enter your Skill Level (1-100%)"
         />
         <FormItem>

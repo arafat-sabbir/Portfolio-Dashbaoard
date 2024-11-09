@@ -68,7 +68,7 @@ export function UpdateEducationForm({ id }: { id: string }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="update-form-background">
+      <form onSubmit={handleSubmit(onSubmit)} className="form-background">
         {/* Blog Title */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}

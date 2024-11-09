@@ -33,15 +33,15 @@ import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { clientSchema } from "@/lib/zod.schema";
 import { z } from "zod";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
 import AddButton from "@/components/AddButton";
 import { deleteClient } from "@/actions/client/delete-client";
-import { getAllClients } from "@/actions/client/get-all-client";
+import { getAllWorks } from "@/actions/work/get-all-work";
+import { workSchema } from "@/lib/zod.schema";
 
-type TClient = z.infer<typeof clientSchema> & { _id: string };
+type TClient = z.infer<typeof workSchema> & { _id: string };
 
 const WorkListsTable = () => {
   const [clients, setClients] = useState<TClient[]>();
@@ -52,15 +52,15 @@ const WorkListsTable = () => {
   const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
-    const getAllClientData = async () => {
-      const response = await getAllClients();
+    const getAllWorkData = async () => {
+      const response = await getAllWorks();
       console.log(response?.data);
       if (response?.error) {
         return toast.error(response?.error);
       }
       setClients(response?.data);
     };
-    getAllClientData();
+    getAllWorkData();
   }, [refetch]);
 
   const handleDeleteSkill = async (id: string) => {
@@ -77,7 +77,7 @@ const WorkListsTable = () => {
   const columns: ColumnDef<TClient>[] = [
     {
       accessorKey: "photo",
-      header: "Client Photo | Logo",
+      header: "Work Photo | Logo",
       cell: ({ row }) => (
         <Image
           className="rounded-md w-60 h-32 object-cover"
@@ -87,6 +87,16 @@ const WorkListsTable = () => {
           alt={`Blog Image`}
         />
       ),
+    },
+    {
+      accessorKey: "title",
+      header: "Work Name|Title",
+      cell: ({ row }) => <h1>{row.getValue("title")}</h1>,
+    },
+    {
+      accessorKey: "description",
+      header: "Work Description",
+      cell: ({ row }) => <p>{row.getValue("description")}</p>,
     },
     {
       id: "actions",
@@ -212,7 +222,7 @@ const WorkListsTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
-      <AddButton text="Add Client" href="/dashboard/about/client/add-client" />
+      <AddButton text="Add Client" href="/dashboard/about/work/add-work" />
     </div>
   );
 };

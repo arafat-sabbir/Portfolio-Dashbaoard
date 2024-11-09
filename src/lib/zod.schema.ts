@@ -87,3 +87,9 @@ export const loginUserSchema = z.object({
 export const clientSchema = z.object({
   photo: z.any().optional(),
 });
+
+export const workSchema = z.object({
+  title: z.string({ required_error: "Title is required" }),
+  description: z.string({ required_error: "Description is required" }),
+  photo: z.any().optional(),
+});
