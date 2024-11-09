@@ -126,7 +126,7 @@ const ExperienceListTable = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <Link
-                href={`/dashboard/resume/${row?.original?._id}/update-experience`}
+                href={`/dashboard/resume/experience/update-experience/${row?.original?._id}`}
               >
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
@@ -165,7 +165,7 @@ const ExperienceListTable = () => {
   });
 
   return (
-    <div className="w-full ">
+    <div className="primary-background">
       <div className="flex items-center py-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -247,7 +247,7 @@ const ExperienceListTable = () => {
       <DataTablePagination table={table} />
       <AddButton
         text="Add Experience"
-        href="/dashboard/resume/experiences/add-experience"
+        href="/dashboard/resume/experience/add-experience"
       />
     </div>
   );

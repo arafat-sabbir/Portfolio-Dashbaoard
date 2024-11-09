@@ -12,7 +12,7 @@ import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import BlogListContainer from "@/components/blog/BlogListContainer";
 
-const ResumePage = () => {
+const PostsPage = () => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="All Blogs">
@@ -48,4 +48,4 @@ const ResumePage = () => {
   );
 };
 
-export default ResumePage;
+export default PostsPage;

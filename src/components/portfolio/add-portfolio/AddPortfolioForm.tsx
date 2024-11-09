@@ -85,7 +85,7 @@ export function AddPortfolioForm() {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/portfolios");
+      router.push("/dashboard/portfolio");
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,30 +10,50 @@ import { useRouter } from "next/navigation";
 
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
-import { addExperienceSchema } from "@/lib/zod.schema";
-import { addExperience } from "@/actions/resume/experience/add-new-experience";
+import { editExperienceSchema } from "@/lib/zod.schema";
+import { getSingleExperience } from "@/actions/resume/experience/get-single-experience";
+import { editExperience } from "@/actions/resume/experience/edit-experience";
 import SubmitButton from "@/components/SubmitButton";
 
-export function AddExperienceForm() {
+export function UpdateExperienceForm({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof addExperienceSchema>>({
-    resolver: zodResolver(addExperienceSchema),
+  const form = useForm<z.infer<typeof editExperienceSchema>>({
+    resolver: zodResolver(editExperienceSchema),
     defaultValues: {
       companyName: "",
       position: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: "",
+      endDate: "",
     },
   });
 
-  const { control, handleSubmit } = form;
-
-  const onSubmit = async (data: z.infer<typeof addExperienceSchema>) => {
+  const { control, handleSubmit, reset } = form;
+  useEffect(() => {
+    const getSingleBlogDetails = async () => {
+      try {
+        const response = await getSingleExperience(id);
+        if (response?.error) {
+          return toast.error(response?.error);
+        }
+        // Reset form values after fetching data
+        reset({
+          companyName: response?.data?.companyName || "",
+          position: response?.data?.position || "",
+          startDate: response?.data?.startDate || "",
+          endDate: response?.data?.endDate || "",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getSingleBlogDetails();
+  }, [id, reset]);
+  const onSubmit = async (data: z.infer<typeof editExperienceSchema>) => {
     setLoading(true);
     try {
-      const response = await addExperience(data);
+      const response = await editExperience(id, data);
       if (response?.error) {
         return toast.error(response?.error);
       }
@@ -48,7 +68,10 @@ export function AddExperienceForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="update-form-background"
+      >
         {/* Blog Title */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}

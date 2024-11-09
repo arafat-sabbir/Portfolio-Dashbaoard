@@ -32,53 +32,40 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { DataTablePagination } from "@/components/table-pagination";
+// import { getAllBlog } from "../../../../actions/post/get-all-post";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { generateImage } from "@/lib/utils";
-import { getAllPortfolios } from "@/actions/portfolio/get-all-portfolios";
-import { deletePortfolio } from "@/actions/portfolio/delete-portfolio";
+import { IBlogs } from "@/interface/post.interface";
+import { getAllBlogs } from "@/actions/blog/get-all-blogs";
+import { deleteBlog } from "@/actions/blog/delete-blog";
 import { FiPlus } from "react-icons/fi";
 import AddButton from "../AddButton";
 
-interface TPortfolio {
-  title: string;
-  category: string;
-  description: string;
-  technologiesUsed: string[];
-  features: string[];
-  livePreview?: string;
-  sourceCode: string;
-  thumbnail: string;
-  duration?: string;
-  reviews: string[];
-  currentlyWorking?: boolean;
-  startDate?: Date;
-  endDate?: Date;
-  _id: string;
-}
+const BlogListsTable = () => {
+  // Explicitly define the state type as an array of Companies
+  const [blogs, setBlogs] = useState<IBlogs[]>([]);
 
-const PortfolioListsTable = () => {
-  const [portfolios, setPortfolios] = useState<TPortfolio[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [refetch, setRefetch] = useState(false);
-
+  //get All The Blog And set To Blog State
   useEffect(() => {
-    const getAllPortfolio = async () => {
-      const response = await getAllPortfolios();
+    const getAllBlog = async () => {
+      const response = await getAllBlogs();
       if (response?.error) {
         return toast.error(response?.error);
       }
-      setPortfolios(response?.data);
+      setBlogs(response?.data);
     };
-    getAllPortfolio();
+    getAllBlog();
   }, [refetch]);
 
-  const handleDeletePortfolio = async (id: string) => {
-    const toastId = toast.loading("Deleting Portfolio...");
-    const response = await deletePortfolio(id);
+  const handleDeleteBlog = async (id: string) => {
+    const toastId = toast.loading("Deleting Blog..");
+    const response = await deleteBlog(id);
 
     if (response?.error) {
       return toast.error(response?.error);
@@ -87,120 +74,82 @@ const PortfolioListsTable = () => {
     setRefetch(!refetch);
   };
 
-  const columns: ColumnDef<TPortfolio>[] = [
+  const data: IBlogs[] = blogs || [];
+
+  const columns: ColumnDef<IBlogs>[] = [
     {
       accessorKey: "title",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Blog Title
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("title")}</div>
       ),
     },
     {
-      accessorKey: "category",
-      header: "Category",
-      cell: ({ row }) => <div>{row.getValue("category")}</div>,
-    },
-    {
-      accessorKey: "thumbnail",
-      header: "Thumbnail",
+      accessorKey: "photo",
+      header: "Blog Thumbnail",
       cell: ({ row }) => (
         <Image
           className="rounded-md w-60 h-32 object-cover"
           height={1000}
           width={1000}
-          src={generateImage(row.getValue("thumbnail"))}
-          alt={`Thumbnail`}
+          src={generateImage(row.getValue("photo"))}
+          alt={`Blog Image`}
         />
       ),
     },
     {
-      accessorKey: "technologiesUsed",
-      header: "Technologies Used",
+      accessorKey: "content",
+      header: "Blog Thumbnail",
       cell: ({ row }) => (
-        <div>
-          {" "}
-          {(row.getValue("technologiesUsed") as any).map(
-            (feature: string, index: number) => (
-              <li key={index}>{feature || "N/A"}</li>
-            )
-          )}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "features",
-      header: "Features",
-      cell: ({ row }) => (
-        <ul className="list-disc pl-5">
-          {(row.getValue("features") as any).map(
-            (feature: string, index: number) => (
-              <li key={index}>{feature}</li>
-            )
-          )}
-        </ul>
-      ),
-    },
-    {
-      accessorKey: "livePreview",
-      header: "Live Preview",
-      cell: ({ row }) =>
-        row.getValue("livePreview") ? (
-          <Link href={row.getValue("livePreview")} target="_blank">
-            Live Link
-          </Link>
-        ) : (
-          "N/A"
-        ),
-    },
-    {
-      accessorKey: "sourceCode",
-      header: "Source Code",
-      cell: ({ row }) => (
-        <Link href={row.getValue("sourceCode")} target="_blank">
-          Source Link
-        </Link>
+        <div
+          dangerouslySetInnerHTML={{ __html: row.getValue("content") }}
+        ></div>
       ),
     },
     {
       id: "actions",
       header: "Action",
       enableHiding: false,
-      cell: ({ row }) => (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <Link href={`/dashboard/portfolio/${row?.original?._id}/update`}>
-              <DropdownMenuItem className="cursor-pointer">
-                Edit
+      cell: ({ row }) => {
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <Link href={`/dashboard/blog/${row?.original?._id}/update-blog`}>
+                <DropdownMenuItem className="cursor-pointer">
+                  Edit
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem
+                onClick={() => handleDeleteBlog(row?.original?._id)}
+                className="cursor-pointer"
+              >
+                Delete
               </DropdownMenuItem>
-            </Link>
-            <DropdownMenuItem
-              onClick={() => handleDeletePortfolio(row?.original?._id)}
-              className="cursor-pointer"
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ),
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
     },
   ];
 
   const table = useReactTable({
-    data: portfolios,
+    data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -231,16 +180,20 @@ const PortfolioListsTable = () => {
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className="capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -249,16 +202,18 @@ const PortfolioListsTable = () => {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
             ))}
           </TableHeader>
@@ -293,12 +248,9 @@ const PortfolioListsTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
-      <AddButton
-        text="Add Portfolio"
-        href="/dashboard/portfolio/add-portfolio"
-      />
+      <AddButton text="Add Blog" href="/dashboard/blog/add-blog" />
     </div>
   );
 };
 
-export default PortfolioListsTable;
+export default BlogListsTable;

@@ -1,12 +1,12 @@
 import {
   LucideIcon,
-  FileUser,
   BadgeInfo,
   FilePen,
   BookOpenText,
   Computer,
   CircleUserRound,
 } from "lucide-react";
+
 import { MdOutlineFormatListBulleted } from "react-icons/md";
 
 type Submenu = {
@@ -37,7 +37,7 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Profile",
-          active: pathname === "/socials",
+          active: pathname === "/social",
           icon: CircleUserRound as any,
           submenus: [
             {
@@ -47,9 +47,9 @@ export function getMenuList(pathname: string): Group[] {
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
-              href: "/dashboard/socials",
+              href: "/dashboard/social",
               label: "Manage Social",
-              active: pathname === "/dashboard/socials",
+              active: pathname === "/dashboard/social",
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
@@ -57,13 +57,13 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "About",
-          active: pathname === "/blogs",
+          active: pathname === "/blog",
           icon: BadgeInfo as any,
           submenus: [
             {
-              href: "/dashboard/blogs",
+              href: "/dashboard/blog",
               label: "Manage Client",
-              active: pathname === "/dashboard/blogs",
+              active: pathname === "/dashboard/blog",
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
@@ -81,21 +81,21 @@ export function getMenuList(pathname: string): Group[] {
           icon: FilePen,
           submenus: [
             {
-              href: "/dashboard/resume/educations",
-              label: "Manage Educations",
-              active: pathname.startsWith("/dashboard/resume/educations"),
+              href: "/dashboard/resume/education",
+              label: "Manage Education",
+              active: pathname.startsWith("/dashboard/resume/education"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
-              href: "/dashboard/resume/experiences",
-              label: "Manage Experiences",
-              active: pathname.startsWith("/dashboard/resume/experiences"),
+              href: "/dashboard/resume/experience",
+              label: "Manage Experience",
+              active: pathname.startsWith("/dashboard/resume/experience"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
-              href: "/dashboard/resume/skills",
-              label: "Manage Skills",
-              active: pathname.startsWith("/dashboard/resume/skills"),
+              href: "/dashboard/resume/skill",
+              label: "Manage Skill",
+              active: pathname.startsWith("/dashboard/resume/skill"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
@@ -103,13 +103,13 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Blog",
-          active: pathname === "/blogs",
+          active: pathname === "/blog",
           icon: BookOpenText as any,
           submenus: [
             {
-              href: "/dashboard/blogs",
-              label: "Manage Blogs",
-              active: pathname.startsWith("/dashboard/blogs"),
+              href: "/dashboard/blog",
+              label: "Manage Blog",
+              active: pathname.startsWith("/dashboard/blog"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
@@ -117,13 +117,13 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Portfolio",
-          active: pathname === "/portfolios",
+          active: pathname === "/portfolio",
           icon: Computer as any,
           submenus: [
             {
-              href: "/dashboard/portfolios",
-              label: "Manage Portfolios",
-              active: pathname.startsWith("/dashboard/portfolios"),
+              href: "/dashboard/portfolio",
+              label: "Manage Portfolio",
+              active: pathname.startsWith("/dashboard/portfolio"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],

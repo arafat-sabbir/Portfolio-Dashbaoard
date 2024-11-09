@@ -15,8 +15,6 @@ body {
   min-height: 150px !important; /* Or whatever height you want */
 }
 
-
-
 .input-phone {
   @apply flex h-9 w-full text-sm rounded-md border-input bg-transparent px-3 py-1 border shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground  focus-visible:ring-1 focus-visible:ring-ring   focus:ring-0 focus:outline-none placeholder:text-muted-foreground focus-visible:outline-none   disabled:cursor-not-allowed disabled:opacity-50 !important;
 }
@@ -24,10 +22,19 @@ body {
 .rti--container {
   @apply flex rounded-md border bg-transparent dark:bg-transparent ring-0 focus:ring-0 focus:outline-none focus:border-gray-200;
 }
+
+.primary-background {
+  @apply w-full p-6 bg-primary-background rounded-md;
+}
+
+.update-form-background {
+  @apply space-y-10 primary-background;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --primary-background: 18, 20%, 4%;
+    --primary-background: 0, 0%, 100%;
     --card-body: #2b201a;
     --card-background: 19, 22%, 23%;
     --foreground: 0 0% 3.9%;

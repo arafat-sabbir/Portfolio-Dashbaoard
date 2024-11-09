@@ -12,7 +12,7 @@ const SubmitButton = ({
   return (
     <Button
       disabled={loading}
-      className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
+      className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32 ml-auto"
     >
       {children || "Submit"}
       {loading ? (

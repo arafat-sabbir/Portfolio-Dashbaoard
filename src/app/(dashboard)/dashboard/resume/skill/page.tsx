@@ -10,12 +10,12 @@ import Link from "next/link";
 import React from "react";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import BlogListContainer from "@/components/blog/BlogListContainer";
+import SkillListContainer from "@/components/skill/SkillListContainer";
 
-const ResumePage = () => {
+const SkillsPage = () => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Blogs">
+      <ContentLayout title="All Skills">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -32,20 +32,19 @@ const ResumePage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/blogs">Blogs</Link>
+                <Link href="/dashboard/skills">Skills</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>All Skills</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <BlogListContainer />
+        <SkillListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default ResumePage;
+export default SkillsPage;

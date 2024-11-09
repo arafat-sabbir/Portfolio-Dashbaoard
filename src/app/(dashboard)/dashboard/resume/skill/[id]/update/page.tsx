@@ -1,3 +1,6 @@
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+import UpdateSkillContainer from "@/components/skill/update-skill/UpdateSkillContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,14 +11,11 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import React from "react";
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-import BlogListContainer from "@/components/blog/BlogListContainer";
 
-const ResumePage = () => {
+const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Blogs">
+      <ContentLayout title="Update Skill">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -32,20 +32,19 @@ const ResumePage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/blogs">Blogs</Link>
+                <Link href="/dashboard/skills">Skills</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>Update Skill</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <BlogListContainer />
+        <UpdateSkillContainer id={params.id} />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default ResumePage;
+export default UpdateSkillPage;

@@ -127,7 +127,7 @@ const EducationListTable = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <Link
-                href={`/dashboard/resume/update-education/${row?.original?._id}`}
+                href={`/dashboard/resume/education/update-education/${row?.original?._id}`}
               >
                 <DropdownMenuItem className="cursor-pointer">
                   Edit
@@ -166,7 +166,7 @@ const EducationListTable = () => {
   });
 
   return (
-    <div className="w-full ">
+    <div className="primary-background">
       <div className="flex items-center py-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -246,7 +246,10 @@ const EducationListTable = () => {
         </Table>
       </div>
       <DataTablePagination table={table} />
-      <AddButton href="/dashboard/resume/educations/add-education" text="Add Education" />
+      <AddButton
+        href="/dashboard/resume/education/add-education"
+        text="Add Education"
+      />
     </div>
   );
 };

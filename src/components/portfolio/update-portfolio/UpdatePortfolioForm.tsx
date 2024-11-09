@@ -112,7 +112,7 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
-      router.push("/dashboard/portfolios");
+      router.push("/dashboard/portfolio");
     } catch (error) {
       console.log(error);
     } finally {
@@ -131,7 +131,10 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
   });
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="update-form-background"
+      >
         {/* Project Title */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}

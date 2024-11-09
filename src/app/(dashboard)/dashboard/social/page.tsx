@@ -1,3 +1,6 @@
+import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
+import { ContentLayout } from "@/components/admin-panel/content-layout";
+import SocialListContainer from "@/components/social/SocialsListContainer";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,14 +11,11 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import React from "react";
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
-import BlogListContainer from "@/components/blog/BlogListContainer";
 
-const ResumePage = () => {
+const SocialsPage = () => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="All Blogs">
+      <ContentLayout title="All Posts">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -32,20 +32,19 @@ const ResumePage = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/dashboard/blogs">Blogs</Link>
+                <Link href="/dashboard/socials">Socials</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>All Blogs</BreadcrumbPage>
+              <BreadcrumbPage>All Socials</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* <PlaceholderContent /> */}
-        <BlogListContainer />
+        <SocialListContainer />
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default ResumePage;
+export default SocialsPage;
