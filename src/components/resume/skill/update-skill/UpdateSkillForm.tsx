@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { useParams, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { skillSchema } from "@/lib/zod.schema";

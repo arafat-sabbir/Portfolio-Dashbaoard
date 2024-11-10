@@ -39,7 +39,6 @@ import { generateImage } from "@/lib/utils";
 import { IBlogs } from "@/interface/post.interface";
 import { getAllBlogs } from "@/actions/blog/get-all-blogs";
 import { deleteBlog } from "@/actions/blog/delete-blog";
-import { FiPlus } from "react-icons/fi";
 import AddButton from "../AddButton";
 
 const BlogListsTable = () => {
