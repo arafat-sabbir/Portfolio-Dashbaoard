@@ -63,13 +63,13 @@ export function getMenuList(pathname: string): Group[] {
             {
               href: "/dashboard/about/client",
               label: "Manage Client",
-              active: pathname === "/dashboard/about/client",
+              active: pathname.startsWith("/dashboard/about/client"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
             {
               href: "/dashboard/about/work",
               label: "Manage Work",
-              active: pathname === "/dashboard/about/work",
+              active: pathname.startsWith("/dashboard/about/work"),
               subIcon: MdOutlineFormatListBulleted as any,
             },
           ],
