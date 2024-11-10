@@ -37,7 +37,6 @@ import { useEffect, useState } from "react";
 import { generateImage } from "@/lib/utils";
 import { getAllPortfolios } from "@/actions/portfolio/get-all-portfolios";
 import { deletePortfolio } from "@/actions/portfolio/delete-portfolio";
-import { FiPlus } from "react-icons/fi";
 import AddButton from "../AddButton";
 
 interface TPortfolio {

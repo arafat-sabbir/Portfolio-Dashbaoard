@@ -22,7 +22,6 @@ const ProfilePage = async () => {
   } catch (error) {
     console.log(error);
   }
-  console.log(user);
   return (
     <AdminPanelLayout>
       <ContentLayout title="All FAQs">

@@ -1,6 +1,7 @@
-import UpdateClientContainer from "@/components/about/client/update-client/UpdateClientContainer";
+import { UpdateClientForm } from "@/components/about/client/update-client/UpdateClientForm";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import Container from "@/components/Container";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,10 +13,10 @@ import {
 import Link from "next/link";
 import React from "react";
 
-const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
+const UpdateClientPage = ({ params }: { params: { id: string } }) => {
   return (
     <AdminPanelLayout>
-      <ContentLayout title="Update Skill">
+      <ContentLayout title="Update Client">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -37,14 +38,16 @@ const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Update Skill</BreadcrumbPage>
+              <BreadcrumbPage>Update Client</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateClientContainer id={params.id} />
+        <Container title="Update Client">
+          <UpdateClientForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );
 };
 
-export default UpdateSkillPage;
+export default UpdateClientPage;

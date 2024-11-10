@@ -1,6 +1,8 @@
 import UpdateWorkContainer from "@/components/about/work/update-work/UpdateWorkContainer";
+import { UpdateWorkForm } from "@/components/about/work/update-work/UpdateWorkForm";
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import Container from "@/components/Container";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -41,7 +43,9 @@ const UpdateSkillPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateWorkContainer id={params.id} />
+        <Container title="Update Work">
+          <UpdateWorkForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -1,6 +1,8 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import Container from "@/components/Container";
 import UpdateExperienceContainer from "@/components/resume/experience/update-experience/UpdateExperienceContainer";
+import { UpdateExperienceForm } from "@/components/resume/experience/update-experience/UpdateExperienceForm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,8 +14,7 @@ import {
 import Link from "next/link";
 import React from "react";
 
-
-const UpdatePostPage = ({params}:{params:{id:string}}) => {
+const UpdatePostPage = ({ params }: { params: { id: string } }) => {
   return (
     <AdminPanelLayout>
       <ContentLayout title="Companies">
@@ -42,7 +43,9 @@ const UpdatePostPage = ({params}:{params:{id:string}}) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateExperienceContainer id={params.id} />
+        <Container title="Update Experience">
+          <UpdateExperienceForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

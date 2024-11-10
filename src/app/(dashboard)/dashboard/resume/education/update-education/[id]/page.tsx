@@ -1,6 +1,8 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import Container from "@/components/Container";
 import UpdateEducationContainer from "@/components/resume/education/update-education/UpdateEducationContainer";
+import { UpdateEducationForm } from "@/components/resume/education/update-education/UpdateEducationForm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -42,7 +44,9 @@ const UpdateEducationPage = ({params}:{params:{id:string}}) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateEducationContainer id={params.id} />
+        <Container title="Update Education">
+          <UpdateEducationForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

@@ -8,7 +8,6 @@ import { AxiosError } from "axios";
 export const updatePassword = async (data: any) => {
   try {
     const response = await axiosInstance.post(`/auth/update-password`, data);
-    console.log(response?.data);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

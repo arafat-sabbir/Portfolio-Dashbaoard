@@ -35,7 +35,6 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
       bio: user?.bio || "",
     },
   });
-  console.log(user);
   const { control, handleSubmit, setValue } = form;
 
   const onDrop = (acceptedFiles: File[]) => {
@@ -172,8 +171,8 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
           fieldType={FormFieldType.INPUT}
           control={control}
           name="locationLink"
-          label="Google Map Location Link"
-          placeholder="Enter Your Location Google Map Link"
+          label="Google Map Location Iframe Link"
+          placeholder="Enter Your Location Google Map Location Iframe Link"
           disabled={!isEditing}
         />
         <CustomFormField

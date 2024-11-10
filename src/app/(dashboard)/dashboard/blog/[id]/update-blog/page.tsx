@@ -1,6 +1,7 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdateBlogContainer from "@/components/blog/update-blog/UpdateBlogContainer";
+import { UpdateBlogForm } from "@/components/blog/update-blog/UpdateBlogForm";
+import Container from "@/components/Container";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -41,7 +42,9 @@ const UpdatePostPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdateBlogContainer id={params.id} />
+        <Container title="Update Blog">
+          <UpdateBlogForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

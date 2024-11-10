@@ -1,6 +1,7 @@
 import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import UpdatePortfolioContainer from "@/components/portfolio/update-portfolio/UpdatePortfolioContainer";
+import Container from "@/components/Container";
+import { UpdatePortfolioForm } from "@/components/portfolio/update-portfolio/UpdatePortfolioForm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -42,7 +43,9 @@ const UpdatePortfolioPage = ({params}:{params:{id:string}}) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <UpdatePortfolioContainer id={params.id} />
+        <Container title="Update Portfolio">
+          <UpdatePortfolioForm id={params.id} />
+        </Container>
       </ContentLayout>
     </AdminPanelLayout>
   );

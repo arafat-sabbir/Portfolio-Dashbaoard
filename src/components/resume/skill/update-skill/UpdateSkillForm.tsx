@@ -19,8 +19,7 @@ import SubmitButton from "@/components/SubmitButton";
 
 // Define Zod schema for validation
 
-export function UpdateSkillForm() {
-  const id = useParams().id;
+export function UpdateSkillForm({ id }: { id: string }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [photo, setPhoto] = useState<File | null>(null);

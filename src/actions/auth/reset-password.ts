@@ -11,7 +11,6 @@ export const resetPassword = async (new_password:string, resetPasswordToken:stri
       `/auth/reset-password?resetPasswordToken=${resetPasswordToken}`,
       {new_password}
     );
-    console.log(response?.data);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);
