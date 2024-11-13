@@ -34,8 +34,6 @@ export function AddPortfolioForm() {
       features: [],
       livePreview: "",
       sourceCode: "",
-      startDate: "",
-      endDate: "",
       currentlyWorking: false,
     },
   });
@@ -74,8 +72,8 @@ export function AddPortfolioForm() {
     formData.append("livePreview", data.livePreview || "");
     formData.append("sourceCode", data.sourceCode);
     formData.append("photo", thumbnail as any);
-    formData.append("startDate", data.startDate);
-    formData.append("endDate", data.endDate);
+    formData.append("startDate", data.startDate as any);
+    formData.append("endDate", data.endDate as any);
     formData.append("currentlyWorking", JSON.stringify(data.currentlyWorking));
 
     try {

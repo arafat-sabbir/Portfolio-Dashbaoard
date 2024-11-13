@@ -24,8 +24,6 @@ export function UpdateExperienceForm({ id }: { id: string }) {
     defaultValues: {
       companyName: "",
       position: "",
-      startDate: "",
-      endDate: "",
     },
   });
 

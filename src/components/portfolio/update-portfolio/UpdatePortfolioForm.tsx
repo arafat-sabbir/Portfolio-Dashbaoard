@@ -39,8 +39,6 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
       features: [],
       livePreview: "",
       sourceCode: "",
-      startDate: "",
-      endDate: "",
       currentlyWorking: false,
     },
   });
