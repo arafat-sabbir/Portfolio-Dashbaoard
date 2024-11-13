@@ -32,29 +32,6 @@ body {
 }
 
 /* Dark mode styling for CKEditor */
-.ck-editor__editable_inline {
-  background-color: #2e2e2e !important; /* Dark background */
-  color: #ffffff !important; /* Light text */
-}
-
-.ck .ck-toolbar {
-  background-color: #333333 !important;
-  color: #ffffff !important;
-}
-
-.ck .ck-button {
-  color: #ffffff !important;
-}
-
-.ck .ck-button:hover, .ck .ck-button.ck-on {
-  background-color: #444444 !important;
-}
-
-.ck .ck-dropdown__panel {
-  background-color: #333333 !important;
-  color: #ffffff !important;
-}
-
 
 @layer base {
   :root {
@@ -90,6 +67,29 @@ body {
     --radius: 0.5rem;
   }
   .dark {
+    .ck-editor__editable_inline {
+      background-color: #0C0908 !important; /* Dark background */
+      color: #ffffff !important; /* Light text */
+    }
+
+    .ck .ck-toolbar {
+      background-color: #0C0908 !important;
+      color: #ffffff !important;
+    }
+
+    .ck .ck-button {
+      color: #ffffff !important;
+    }
+
+    .ck .ck-button:hover,
+    .ck .ck-button.ck-on {
+      background-color: #0C0908 !important;
+    }
+
+    .ck .ck-dropdown__panel {
+      background-color: #0C0908 !important;
+      color: #ffffff !important;
+    }
     --background: 0 0% 3.9%;
     --primary-background: 18, 20%, 4%;
     --foreground: 0 0% 98%;
