@@ -41,8 +41,8 @@ export function UpdateExperienceForm({ id }: { id: string }) {
         reset({
           companyName: response?.data?.companyName || "",
           position: response?.data?.position || "",
-          startDate: response?.data?.startDate || "",
-          endDate: response?.data?.endDate || "",
+          startDate: new Date(response?.data?.startDate) as Date,
+          endDate: new Date(response?.data?.endDate) as Date,
         });
       } catch (error) {
         console.log(error);

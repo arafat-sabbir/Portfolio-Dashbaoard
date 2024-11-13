@@ -5,12 +5,9 @@ import { ErrorResponse } from "@/interface/error";
 import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
-export const updateSocial = async (
-  data: { name: string; url: string }
-) => {
-  console.log(data);
+export const deleteSocial = async (id: string) => {
   try {
-    const response = await axiosInstance.patch(`/socials`, data);
+    const response = await axiosInstance.delete(`/socials/${id}`);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

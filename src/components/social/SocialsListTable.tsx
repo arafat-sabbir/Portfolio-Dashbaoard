@@ -1,6 +1,7 @@
 "use client";
 
 import { createSocial } from "@/actions/social/create-social";
+import { deleteSocial } from "@/actions/social/delete-social";
 import { getAllSocial } from "@/actions/social/get-all-social";
 import { updateSocial } from "@/actions/social/update-social";
 import { Button } from "@/components/ui/button";
@@ -45,6 +46,16 @@ const SocialListTable = () => {
     youtube: false,
   });
 
+  // Deleting state for each platform
+  const [deleting, setDeleting] = useState<Record<string, boolean>>({
+    facebook: false,
+    twitter: false,
+    instagram: false,
+    linkedin: false,
+    github: false,
+    youtube: false,
+  });
+
   // Fetch all social options on mount and when refetch changes
   useEffect(() => {
     const getAllOptionsData = async () => {
@@ -68,7 +79,9 @@ const SocialListTable = () => {
     const updateSocial = () => {
       setFacebook(options.find((option) => option.name === "facebook") || null);
       setTwitter(options.find((option) => option.name === "twitter") || null);
-      setInstagram(options.find((option) => option.name === "instagram") || null);
+      setInstagram(
+        options.find((option) => option.name === "instagram") || null
+      );
       setLinkedin(options.find((option) => option.name === "linkedin") || null);
       setGithub(options.find((option) => option.name === "github") || null);
       setYoutube(options.find((option) => option.name === "youtube") || null);
@@ -99,7 +112,7 @@ const SocialListTable = () => {
       let response;
       if (id) {
         // Update existing social URL
-        response = await updateSocial(id, { name, url });
+        response = await updateSocial({ name, url });
       } else {
         // Create new social URL
         response = await createSocial({ name, url });
@@ -124,146 +137,81 @@ const SocialListTable = () => {
     }
   };
 
+  // Handle delete
+  const handleDelete = async (id: string, name: string) => {
+    setDeleting((prev) => ({ ...prev, [name]: true }));
+
+    try {
+      const response = await deleteSocial(id);
+      if (response?.error) {
+        return toast.error(response.error);
+      } else {
+        toast.success(
+          response?.data?.message || `${name} has been successfully deleted.`
+        );
+        setRefetch((prev) => !prev);
+      }
+    } catch (error) {
+      console.error(`Error deleting ${name}:`, error);
+      toast.error(`An error occurred while deleting ${name}.`);
+    } finally {
+      setDeleting((prev) => ({ ...prev, [name]: false }));
+    }
+  };
+
   return (
     <div className="mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-white dark:bg-[#0A0A0A] rounded-md">
-        {/* Facebook Form */}
-        <form onSubmit={(e) => handleSubmit(e, "facebook", facebook?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="facebook">Facebook</Label>
-            <Input
-              required
-              name="facebook"
-              type="url"
-              placeholder="Enter the Facebook URL"
-              defaultValue={facebook?.url || ""}
-            />
-            <Button type="submit" disabled={loading["facebook"]}>
-              {loading["facebook"]
-                ? facebook
-                  ? "Updating..."
-                  : "Creating..."
-                : facebook
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
-
-        {/* Twitter Form */}
-        <form onSubmit={(e) => handleSubmit(e, "twitter", twitter?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="twitter">Twitter</Label>
-            <Input
-              required
-              name="twitter"
-              type="url"
-              placeholder="Enter the Twitter URL"
-              defaultValue={twitter?.url || ""}
-            />
-            <Button type="submit" disabled={loading["twitter"]}>
-              {loading["twitter"]
-                ? twitter
-                  ? "Updating..."
-                  : "Creating..."
-                : twitter
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
-
-        {/* Instagram Form */}
-        <form onSubmit={(e) => handleSubmit(e, "instagram", instagram?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="instagram">Instagram</Label>
-            <Input
-              required
-              name="instagram"
-              type="url"
-              placeholder="Enter the Instagram URL"
-              defaultValue={instagram?.url || ""}
-            />
-            <Button type="submit" disabled={loading["instagram"]}>
-              {loading["instagram"]
-                ? instagram
-                  ? "Updating..."
-                  : "Creating..."
-                : instagram
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
-
-        {/* LinkedIn Form */}
-        <form onSubmit={(e) => handleSubmit(e, "linkedin", linkedin?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="linkedin">LinkedIn</Label>
-            <Input
-              required
-              name="linkedin"
-              type="url"
-              placeholder="Enter the LinkedIn URL"
-              defaultValue={linkedin?.url || ""}
-            />
-            <Button type="submit" disabled={loading["linkedin"]}>
-              {loading["linkedin"]
-                ? linkedin
-                  ? "Updating..."
-                  : "Creating..."
-                : linkedin
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
-
-        {/* GitHub Form */}
-        <form onSubmit={(e) => handleSubmit(e, "github", github?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="github">GitHub</Label>
-            <Input
-              required
-              name="github"
-              type="url"
-              placeholder="Enter the GitHub URL"
-              defaultValue={github?.url || ""}
-            />
-            <Button type="submit" disabled={loading["github"]}>
-              {loading["github"]
-                ? github
-                  ? "Updating..."
-                  : "Creating..."
-                : github
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
-
-        {/* YouTube Form */}
-        <form onSubmit={(e) => handleSubmit(e, "youtube", youtube?._id || "")}>
-          <div className="col-span-1 space-y-3">
-            <Label htmlFor="youtube">YouTube</Label>
-            <Input
-              required
-              name="youtube"
-              type="url"
-              placeholder="Enter the YouTube URL"
-              defaultValue={youtube?.url || ""}
-            />
-            <Button type="submit" disabled={loading["youtube"]}>
-              {loading["youtube"]
-                ? youtube
-                  ? "Updating..."
-                  : "Creating..."
-                : youtube
-                ? "Update"
-                : "Create"}
-            </Button>
-          </div>
-        </form>
+        {/* Social Forms */}
+        {[
+          { platform: "facebook", data: facebook },
+          { platform: "twitter", data: twitter },
+          { platform: "instagram", data: instagram },
+          { platform: "linkedin", data: linkedin },
+          { platform: "github", data: github },
+          { platform: "youtube", data: youtube },
+        ].map(({ platform, data }) => (
+          <form
+            key={platform}
+            onSubmit={(e) => handleSubmit(e, platform, data?._id || "")}
+          >
+            <div className="col-span-1 space-y-3">
+              <Label htmlFor={platform}>
+                {platform.charAt(0).toUpperCase() + platform.slice(1)}
+              </Label>
+              <Input
+                required
+                name={platform}
+                type="url"
+                placeholder={`Enter the ${
+                  platform.charAt(0).toUpperCase() + platform.slice(1)
+                } URL`}
+                defaultValue={data?.url || ""}
+              />
+              <div className="flex gap-2">
+                <Button type="submit" disabled={loading[platform]}>
+                  {loading[platform]
+                    ? data
+                      ? "Updating..."
+                      : "Creating..."
+                    : data
+                    ? "Update"
+                    : "Create"}
+                </Button>
+                {data && (
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => handleDelete(data._id, platform)}
+                    disabled={deleting[platform]}
+                  >
+                    {deleting[platform] ? "Deleting..." : "Delete"}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </form>
+        ))}
       </div>
     </div>
   );

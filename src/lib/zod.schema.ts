@@ -17,15 +17,15 @@ export const addExperienceSchema = z.object({
 export const editExperienceSchema = z.object({
   companyName: z.string().optional(),
   position: z.string().optional(),
-  startDate: z.string().optional(),
-  endDate: z.string().optional(),
+  startDate: z.date().optional(),
+  endDate: z.date().optional(),
 });
 
 export const editEducationSchema = z.object({
   instituteName: z.string().optional(),
   degreeName: z.string().optional(),
-  startDate: z.string().optional(),
-  endDate: z.string().optional(),
+  startDate: z.date().optional(),
+  endDate: z.date().optional(),
 });
 
 export const updateUserSchema = z.object({
@@ -41,25 +41,35 @@ export const updateUserSchema = z.object({
 });
 
 export const portfolioSchema = z.object({
-  title: z.string({ required_error: "Title is required" }),
-  category: z.string({ required_error: "Category is required" }),
-  description: z.string({ required_error: "Description is required" }),
+  title: z.string({ required_error: "Title is required" }).min(1, {
+    message: "Title is required",
+  }),
+  category: z.string({ required_error: "Category is required" }).min(1, {
+    message: "Category is required",
+  }),
+  description: z.string({ required_error: "Description is required" }).min(1, {
+    message: "Description is required",
+  }),
   technologiesUsed: z
     .array(z.string())
     .min(1, { message: "At least one technology is required" }),
   features: z
     .array(z.string())
     .min(1, { message: "At least one feature is required" }),
-  livePreview: z.string().url().optional(),
-  sourceCode: z.string({ required_error: "Source code is required" }),
-  startDate: z.any().optional(),
-  endDate: z.any().optional(),
+  livePreview: z.string().url().min(1, { message: "Live preview is required" }),
+  sourceCode: z.string().min(1, { message: "Source code is required" }),
+  startDate: z.date({ required_error: "Start date is required" }),
+  endDate: z.date().optional(),
   currentlyWorking: z.boolean().optional(),
 });
 
 export const skillSchema = z.object({
-  skill: z.string({ required_error: "Skill is required" }),
-  level: z.number({ required_error: "Level is required" }),
+  skill: z.string({ required_error: "Skill is required" }).min(1, {
+    message: "Skill Name is required",
+  }),
+  level: z.number({ required_error: "Level is required" }).min(1, {
+    message: "Level must be at least 1",
+  }),
   photo: z.any().optional(),
 });
 

@@ -65,8 +65,8 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
           sourceCode: response?.data?.sourceCode,
           technologiesUsed: response?.data?.technologiesUsed,
           title: response?.data?.title,
-          startDate: response?.data?.startDate,
-          endDate: response?.data?.endDate,
+          startDate: new Date(response?.data?.startDate) as Date,
+          endDate: (new Date(response?.data?.endDate) as Date) || undefined,
         });
       } catch (error) {
         console.log(error);
@@ -101,8 +101,8 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
     formData.append("livePreview", data.livePreview || "");
     formData.append("sourceCode", data.sourceCode);
     formData.append("photo", thumbnail as any);
-    formData.append("startDate", data.startDate);
-    formData.append("endDate", data.endDate);
+    formData.append("startDate", data.startDate as any);
+    formData.append("endDate", data.endDate as any);
     formData.append("currentlyWorking", JSON.stringify(data.currentlyWorking));
 
     try {

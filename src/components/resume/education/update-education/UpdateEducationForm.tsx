@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 import { Form } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
-import { editEducationSchema, editExperienceSchema } from "@/lib/zod.schema";
+import { editEducationSchema } from "@/lib/zod.schema";
 import { getSingleEducation } from "@/actions/resume/education/get-single-education";
 import { editEducation } from "@/actions/resume/education/edit-education";
 import SubmitButton from "@/components/SubmitButton";
@@ -24,8 +24,8 @@ export function UpdateEducationForm({ id }: { id: string }) {
     defaultValues: {
       instituteName: "",
       degreeName: "",
-      startDate: "",
-      endDate: "",
+      startDate: undefined,
+      endDate: undefined,
     },
   });
 
@@ -41,8 +41,8 @@ export function UpdateEducationForm({ id }: { id: string }) {
         reset({
           instituteName: response?.data?.instituteName || "",
           degreeName: response?.data?.degreeName || "",
-          startDate: response?.data?.startDate || "",
-          endDate: response?.data?.endDate || "",
+          startDate: new Date(response?.data?.startDate) as Date,
+          endDate: new Date(response?.data?.endDate) as Date,
         });
       } catch (error) {
         console.log(error);
@@ -50,7 +50,7 @@ export function UpdateEducationForm({ id }: { id: string }) {
     };
     getSingleBlogDetails();
   }, [id, reset]);
-  const onSubmit = async (data: z.infer<typeof editExperienceSchema>) => {
+  const onSubmit = async (data: z.infer<typeof editEducationSchema>) => {
     setLoading(true);
     try {
       const response = await editEducation(id, data);
