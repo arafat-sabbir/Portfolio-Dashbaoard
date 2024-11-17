@@ -22,8 +22,8 @@ export function AddEducationForm() {
     defaultValues: {
       instituteName: "",
       degreeName: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: undefined,
+      endDate: undefined,
     },
   });
 

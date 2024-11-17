@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { skillSchema } from "@/lib/zod.schema";
@@ -61,6 +61,7 @@ export function UpdateSkillForm({ id }: { id: string }) {
   const handleSkillPhoto = useCallback((acceptedFiles: File[]) => {
     const photoFile = acceptedFiles[0]; // Only allow one banner
     setPhoto(photoFile);
+    setServerPhotoPreview(null);
     setPhotoPreview(URL.createObjectURL(photoFile));
   }, []);
 
@@ -79,7 +80,9 @@ export function UpdateSkillForm({ id }: { id: string }) {
       if (data[key] != null || data[key] != undefined)
         formData.append(key, value);
     });
-    formData.append("photo", photo as File);
+    if (photo) {
+      formData.append("photo", photo as File);
+    }
     try {
       const response = await updateSkill(id, formData);
       if (response?.error) {

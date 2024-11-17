@@ -9,13 +9,13 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Form, FormItem, FormLabel } from "@/components/ui/form";
 import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
-import { workSchema } from "@/lib/zod.schema";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { generateImage } from "@/lib/utils";
 import SubmitButton from "@/components/SubmitButton";
 import { getSingleWork } from "@/actions/work/get-single-work";
 import { updateWork } from "@/actions/work/update-work";
+import { workSchema } from "@/lib/zod.schema";
 
 // Define Zod schema for validation
 
@@ -80,7 +80,9 @@ export function UpdateWorkForm({ id }: { id: string }) {
       if (data[key] != null || data[key] != undefined)
         formData.append(key, value);
     });
-    formData.append("photo", photo as File);
+    if (photo) {
+      formData.append("photo", photo as File);
+    }
     try {
       const response = await updateWork(id, formData);
       if (response?.error) {

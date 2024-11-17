@@ -23,8 +23,8 @@ export function AddExperienceForm() {
     defaultValues: {
       companyName: "",
       position: "",
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: undefined,
+      endDate: undefined,
     },
   });
 

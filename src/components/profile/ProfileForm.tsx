@@ -25,14 +25,14 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
-      name: user?.name || "",
-      phone: user?.phone || "",
-      displayEmail: user?.email || "",
-      location: user?.location || "",
-      designation: user?.designation || "",
-      dob: (user?.dob as any) || "",
-      locationLink: user.locationLink || "",
-      bio: user?.bio || "",
+      name: user?.name,
+      phone: user?.phone,
+      displayEmail: user?.email,
+      location: user?.location,
+      designation: user?.designation,
+      dob: new Date(user?.dob as Date),
+      locationLink: user.locationLink,
+      bio: user?.bio,
     },
   });
   const { control, handleSubmit, setValue } = form;
@@ -194,7 +194,7 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
             {isEditing ? "Cancel" : "Edit"}
           </Button>
           <Button
-            disabled={loading}
+            disabled={loading || !isEditing}
             className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600 dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
             type="submit"
           >

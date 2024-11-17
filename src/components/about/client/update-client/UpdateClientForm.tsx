@@ -56,7 +56,12 @@ export function UpdateClientForm({ id }: { id: string }) {
     }
     setLoading(true);
     const formData = new FormData();
-    formData.append("photo", photo as File);
+    if (photo) {
+      formData.append("photo", photo as File);
+    } else {
+      toast.success("Client Image Updated Successfully!");
+      return router.push("/dashboard/about/client");
+    }
     try {
       const response = await updateClient(id, formData);
       if (response?.error) {
@@ -79,7 +84,7 @@ export function UpdateClientForm({ id }: { id: string }) {
 
   return (
     <form onSubmit={onSubmit} className="form-background">
-      <label>Skill Logo</label>
+      <label>Client Logo</label>
       <div
         {...getRootProps()}
         className="border border-dashed rounded p-4 cursor-pointer mt-3 mb-6"

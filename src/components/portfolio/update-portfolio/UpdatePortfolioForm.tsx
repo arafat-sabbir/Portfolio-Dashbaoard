@@ -51,27 +51,40 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
         if (response?.error) {
           return toast.error(response?.error);
         }
+
         setServerThumbnailPreview(response?.data?.thumbnail);
         setThumbnail(response?.data?.thumbnail);
+
+        // Validate and parse dates
+        const parseDate = (date) => {
+          const parsedDate = date ? new Date(date) : undefined;
+          return parsedDate instanceof Date && !isNaN(parsedDate.getTime())
+            ? parsedDate
+            : undefined;
+        };
+
         // Reset form values after fetching data
         reset({
           category: response?.data?.category,
-          currentlyWorking: response.data?.currentlyWorking,
+          currentlyWorking: response?.data?.currentlyWorking,
           description: response?.data?.description,
           livePreview: response?.data?.livePreview,
           features: response?.data?.features,
           sourceCode: response?.data?.sourceCode,
           technologiesUsed: response?.data?.technologiesUsed,
           title: response?.data?.title,
-          startDate: new Date(response?.data?.startDate) as Date,
-          endDate: (new Date(response?.data?.endDate) as Date) || undefined,
+          startDate: parseDate(response?.data?.startDate),
+          endDate: parseDate(response?.data?.endDate),
         });
       } catch (error) {
         console.log(error);
+        toast.error("Failed to fetch blog details");
       }
     };
+
     getSingleBlogDetails();
   }, [id, reset]);
+
   // Watch the currentlyWorking field
   const currentlyWorking = watch("currentlyWorking");
   const handleThumbnail = useCallback((acceptedFiles: File[]) => {
@@ -81,6 +94,9 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
   }, []);
 
   const onSubmit = async (data: z.infer<typeof portfolioSchema>) => {
+    if (!data.currentlyWorking && !data.endDate) {
+      return toast.error("End Date is required");
+    }
     if (!thumbnail) {
       return toast.error("Thumbnail is required");
     }
@@ -98,7 +114,9 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
     });
     formData.append("livePreview", data.livePreview || "");
     formData.append("sourceCode", data.sourceCode);
-    formData.append("photo", thumbnail as any);
+    if (thumbnail) {
+      formData.append("photo", thumbnail as any);
+    }
     formData.append("startDate", data.startDate as any);
     formData.append("endDate", data.endDate as any);
     formData.append("currentlyWorking", JSON.stringify(data.currentlyWorking));
