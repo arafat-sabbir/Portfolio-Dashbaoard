@@ -79,7 +79,6 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
       setIsEditing(false);
     }
   };
-
   return (
     <Form {...form}>
       <form
@@ -90,35 +89,38 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
           <div className="relative">
             <div
               {...getRootProps()}
-              className={`border-dashed border-2 border-gray-300 size-40 rounded-full flex items-center justify-center ${
-                isEditing ? "cursor-pointer" : "cursor-default"
-              }`}
+              className={`border-dashed border-2 rounded-full flex items-center justify-center 
+        ${
+          isEditing
+            ? "border-gray-400 hover:border-gray-600 cursor-pointer"
+            : "border-gray-300 cursor-default"
+        } 
+        w-40 h-40`}
             >
               <input
                 {...getInputProps()}
                 accept="image/*"
                 disabled={!isEditing}
+                className="hidden"
               />
               <Image
-                width={1000}
-                height={1000}
+                width={160}
+                height={160}
                 src={
                   file ? URL.createObjectURL(file) : generateImage(user?.photo)
                 }
-                alt="Profile"
-                className="size-40 rounded-full object-cover"
+                alt="Profile Picture"
+                className="w-full h-full rounded-full object-cover"
               />
               {isEditing && (
-                <div className="absolute p-1 z-50 bg-gray-800 size-40 bg-opacity-20 rounded-full shadow-lg">
-                  <Pencil
-                    size={20}
-                    className="text-gray-600 absolute top-[40%] right-[40%]"
-                  />
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-30 rounded-full">
+                  <Pencil size={24} className="text-white" />
                 </div>
               )}
             </div>
           </div>
         </div>
+
         <CustomFormField
           disabled={!isEditing}
           fieldType={FormFieldType.INPUT}
