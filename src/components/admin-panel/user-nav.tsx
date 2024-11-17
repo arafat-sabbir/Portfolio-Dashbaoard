@@ -41,7 +41,11 @@ export function UserNav({ user }: { user: TUser }) {
                 className="relative h-8 w-8 rounded-full"
               >
                 <Avatar className="h-8 w-8 object-cover">
-                  <AvatarImage src={generateImage(user?.photo)} alt="Avatar" className="object-cover"/>
+                  <AvatarImage
+                    src={generateImage(user?.photo)}
+                    alt="Avatar"
+                    className="object-cover"
+                  />
                   <AvatarFallback className="bg-transparent">
                     {user?.name?.charAt(0) || "A"}
                   </AvatarFallback>
@@ -60,7 +64,7 @@ export function UserNav({ user }: { user: TUser }) {
               {user && user?.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {user?.email || ""}
+              {user?.displayEmail || ""}
             </p>
           </div>
         </DropdownMenuLabel>

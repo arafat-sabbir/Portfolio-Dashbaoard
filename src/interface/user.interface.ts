@@ -8,4 +8,5 @@ export type TUser = {
   dob: Date | string | undefined;
   bio: string;
   locationLink: string;
+  displayEmail: string;
 };

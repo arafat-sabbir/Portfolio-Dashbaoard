@@ -27,7 +27,7 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
     defaultValues: {
       name: user?.name,
       phone: user?.phone,
-      displayEmail: user?.email,
+      displayEmail: user?.displayEmail,
       location: user?.location,
       designation: user?.designation,
       dob: new Date(user?.dob as Date),
