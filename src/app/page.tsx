@@ -6,6 +6,6 @@ export default function Home() {
   if (!token) {
     return permanentRedirect("/sign-in");
   } else {
-    return permanentRedirect("/dashboard/resume/education");
+    return permanentRedirect("/dashboard/profile");
   }
 }
