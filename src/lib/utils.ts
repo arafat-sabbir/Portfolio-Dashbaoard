@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -29,4 +30,3 @@ export const generateImage = (path: string) => {
 
   return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 };
-

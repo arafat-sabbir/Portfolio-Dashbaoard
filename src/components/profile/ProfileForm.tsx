@@ -25,14 +25,14 @@ const UserProfileForm = ({ user }: { user: TUser }) => {
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
-      name: user?.name,
-      phone: user?.phone,
-      displayEmail: user?.displayEmail,
-      location: user?.location,
-      designation: user?.designation,
-      dob: new Date(user?.dob as Date),
-      locationLink: user.locationLink,
-      bio: user?.bio,
+      name: user?.name || "",
+      phone: user?.phone || "",
+      displayEmail: user?.displayEmail || "",
+      location: user?.location || "",
+      designation: user?.designation || "",
+      dob: user?.dob ? new Date(user?.dob as Date) : undefined,
+      locationLink: user?.locationLink || "",
+      bio: user?.bio || "",
     },
   });
   const { control, handleSubmit, setValue } = form;

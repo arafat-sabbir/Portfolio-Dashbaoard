@@ -193,12 +193,12 @@ export const registerUserSchema = z.object({
     .string({ required_error: "Password is required" })
     .nonempty({ message: "Password is required" })
     .min(6, { message: "Password must be at least 6 characters" }),
-  phone: z
-    .string({ required_error: "Phone is required" })
-    .nonempty({ message: "Phone is required" }),
-  location: z
-    .string({ required_error: "Location is required" })
-    .nonempty({ message: "Location is required" }),
+  // phone: z
+  //   .string({ required_error: "Phone is required" })
+  //   .nonempty({ message: "Phone is required" }),
+  // location: z
+  //   .string({ required_error: "Location is required" })
+  //   .nonempty({ message: "Location is required" }),
 });
 
 /**
