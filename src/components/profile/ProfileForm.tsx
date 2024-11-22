@@ -34,7 +34,7 @@ const UserProfileForm = ({ user }: { user: TUser; admin: any }) => {
       try {
         const {data} = await getAdmin();
         console.log(data?._id, tokenAdmin);
-        if (data?._id != tokenAdmin.id) {
+        if (data?._id != (tokenAdmin as any).id) {
           handleLogout();
         }
       } catch (error) {

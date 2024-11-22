@@ -12,7 +12,6 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { loginAdmin } from "@/actions/auth/login-admin";
 import { Form } from "../ui/form";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
@@ -24,7 +23,6 @@ import { z } from "zod";
 type LoginUserFormData = z.infer<typeof loginUserSchema>;
 
 export function Login() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const form = useForm<LoginUserFormData>({
     resolver: zodResolver(loginUserSchema),
