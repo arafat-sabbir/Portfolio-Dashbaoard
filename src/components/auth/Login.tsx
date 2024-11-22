@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import { useState } from "react";
-import {  Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { loginAdmin } from "@/actions/auth/login-admin";
 import { Form } from "../ui/form";
@@ -43,7 +43,7 @@ export function Login() {
       if (response.error) {
         return toast.error(response?.error);
       }
-      router.push("/dashboard");
+      window.location.reload();
       toast.success(response?.message);
     } catch (error) {
       console.log(error);

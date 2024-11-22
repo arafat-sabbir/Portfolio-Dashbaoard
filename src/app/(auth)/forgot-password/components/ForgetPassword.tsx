@@ -13,8 +13,11 @@ import { ArrowRight, Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { forgotPassword } from "../../../../actions/auth/forgot-password";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export function ForgetPassword() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +32,7 @@ export function ForgetPassword() {
         return toast.error(response?.error);
       }
       toast.success(response?.message);
+      router.push(`/verify-forgot-otp?email=${email}`);
     } catch (error) {
       console.log(error);
     } finally {
@@ -54,28 +58,16 @@ export function ForgetPassword() {
           </div>
         </CardContent>
         <CardFooter className="grid">
-          <button
-            disabled={loading}
-            className="bg-gradient-to-br relative group/btn from-black dark:from-black dark:to-black to-neutral-600  dark:bg-black w-full text-white gap-2 items-center justify-center flex rounded-md h-10 font-medium max-w-32"
+          <Button
             type="submit"
+            className="w-full bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90 transition-all"
+            disabled={loading}
           >
-            Submit{" "}
-            {loading ? (
-              <Loader size={22} className="animate-spin" />
-            ) : (
-              <ArrowRight size={22} />
-            )}
-            <BottomGradient />
-          </button>
+            Send Otp <ArrowRight />
+            {loading && <Loader className="animate-spin ml-2" size={22} />}
+          </Button>
         </CardFooter>
       </form>
     </Card>
   );
 }
-
-const BottomGradient = () => (
-  <>
-    <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-    <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-  </>
-);

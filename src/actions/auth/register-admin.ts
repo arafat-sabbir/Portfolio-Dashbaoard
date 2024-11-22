@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 
 export const registerAdmin = async (data: IRegister) => {
   try {
-    const response = await axiosInstance.post(`/user/register`,  data );
+    const response = await axiosInstance.post(`/admin/register`, data);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

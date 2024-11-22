@@ -1,7 +1,7 @@
 import { UserNav } from "@/components/admin-panel/user-nav";
 import { SheetMenu } from "@/components/admin-panel/sheet-menu";
 import { ModeToggle } from "../mode-toggle";
-import { getUser } from "@/actions/auth/get-admin";
+import { getUser } from "@/actions/auth/get-profile";
 import { TUser } from "@/interface/user.interface";
 
 interface NavbarProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,15 +13,36 @@ import CustomFormField, { FormFieldType } from "@/components/CustomFormField";
 import { TUser } from "@/interface/user.interface";
 import { updateUserSchema } from "@/lib/zod.schema"; // Adjust the schema import
 import { useDropzone } from "react-dropzone";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { updateProfile } from "@/actions/auth/update-profile";
-import { generateImage } from "@/lib/utils";
+import { generateImage, getClientToken, getDecodedUser } from "@/lib/utils";
+import { getAdmin } from "@/actions/auth/get-admin";
 
-const UserProfileForm = ({ user }: { user: TUser }) => {
+const UserProfileForm = ({ user }: { user: TUser; admin: any }) => {
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-
+  const token = getClientToken();
+  const handleLogout = () => {
+    Cookies.remove("accessToken");
+    window.location.reload();
+  };
+  const tokenAdmin = getDecodedUser(token!);
+  useEffect(() => {
+    const getAdminData = async () => {
+      try {
+        const {data} = await getAdmin();
+        console.log(data?._id, tokenAdmin);
+        if (data?._id != tokenAdmin.id) {
+          handleLogout();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getAdminData();
+  }, [tokenAdmin]);
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {

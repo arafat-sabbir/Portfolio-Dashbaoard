@@ -32,16 +32,12 @@ export function CreateAccount() {
   const form = useForm<RegisterUserFormData>({
     resolver: zodResolver(registerUserSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-  } = form;
+  const { control, handleSubmit } = form;
 
   const onSubmit = async (data: RegisterUserFormData) => {
     setLoading(true);
@@ -51,7 +47,7 @@ export function CreateAccount() {
         toast.error(response.error);
       } else {
         toast.success(response.message);
-        router.push("/sign-in");
+        router.push("/verify-otp");
       }
     } catch (error) {
       console.log(error);
@@ -75,15 +71,6 @@ export function CreateAccount() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-              {/* Full Name Field */}
-              <CustomFormField
-                control={control}
-                name="name"
-                label="Full Name"
-                fieldType={FormFieldType.INPUT}
-                placeholder="Enter Full Name"
-              />
-
               {/* Email Field */}
               <CustomFormField
                 control={control}

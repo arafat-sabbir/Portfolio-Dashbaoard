@@ -2,21 +2,14 @@
 "use server";
 import handleAxiosError from "@/handlers/axios/error";
 import { ErrorResponse } from "@/interface/error";
-import { axiosInstance } from "@/lib/axios";
+import {axiosInstance} from "@/lib/axios";
 import { AxiosError } from "axios";
-import { cookies } from "next/headers";
 
-export const updateProfile = async (data: FormData) => {
+export const verifyOtp = async (data: {otp:string}) => {
   try {
-    const token = cookies().get("accessToken");
-    const response = await axiosInstance.patch(`/user/update`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.patch(`/admin/verify-opt`, data);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);
   }
 };
-

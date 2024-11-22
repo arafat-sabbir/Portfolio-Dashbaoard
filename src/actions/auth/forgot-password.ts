@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 
 export const forgotPassword = async (data: {email:string}) => {
   try {
-    const response = await axiosInstance.post(`/auth/forget-password`, data);
+    const response = await axiosInstance.patch(`/admin/send-forgot-email`, data);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

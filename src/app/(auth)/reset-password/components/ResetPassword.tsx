@@ -2,10 +2,17 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {  Eye, EyeOff, Loader } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { resetPassword } from "../../../../actions/auth/reset-password";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -16,14 +23,20 @@ function ResetPasswordForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const searchParams = useSearchParams();
-  const resetPasswordToken = searchParams.get("token") || "";
+  const otp = searchParams.get("otp") || "";
+  const email = searchParams.get("email") || "";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("submitting");
     e.preventDefault();
     setLoading(true);
     const form = e.currentTarget;
-    const newPassword = (form.elements.namedItem("newPassword") as HTMLInputElement).value;
-    const confirmPassword = (form.elements.namedItem("confirmPassword") as HTMLInputElement).value;
+    const newPassword = (
+      form.elements.namedItem("newPassword") as HTMLInputElement
+    ).value;
+    const confirmPassword = (
+      form.elements.namedItem("confirmPassword") as HTMLInputElement
+    ).value;
 
     if (newPassword !== confirmPassword) {
       setLoading(false);
@@ -31,7 +44,11 @@ function ResetPasswordForm() {
     }
 
     try {
-      const response = await resetPassword(newPassword, resetPasswordToken);
+      const response = await resetPassword({
+        password: newPassword,
+        otp,
+        email,
+      });
       if (response.error) {
         return toast.error(response.error);
       }
@@ -64,10 +81,10 @@ function ResetPasswordForm() {
                 />
                 <Button
                   type="button"
-                  className="absolute inset-y-0 right-0 px-3 bg-transparent"
+                  className="absolute inset-y-0 right-0 shadow-none px-3 bg-transparent"
                   onClick={() => setShowNewPassword(!showNewPassword)}
                 >
-                  {showNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showNewPassword ? <EyeOff size={16} className="text-black dark:text-gray-200"/> : <Eye size={16} className="text-black dark:text-gray-200"/>}
                 </Button>
               </div>
             </div>
@@ -82,10 +99,14 @@ function ResetPasswordForm() {
                 />
                 <Button
                   type="button"
-                  className="absolute inset-y-0 right-0 px-3 bg-transparent"
+                  className="absolute shadow-none inset-y-0 right-0 px-3 bg-transparent"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showConfirmPassword ? (
+                    <EyeOff size={16} className="text-black dark:text-gray-200"/>
+                  ) : (
+                    <Eye size={16} className="text-black dark:text-gray-200"/>
+                  )}
                 </Button>
               </div>
             </div>
@@ -97,7 +118,8 @@ function ResetPasswordForm() {
             className="bg-gradient-to-br relative from-black to-neutral-600 w-full text-white flex items-center justify-center rounded-md h-10 font-medium"
             type="submit"
           >
-            Submit {loading && <Loader size={22} className="animate-spin ml-2" />}
+            Submit{" "}
+            {loading && <Loader size={22} className="animate-spin ml-2" />}
           </button>
         </CardFooter>
       </form>
@@ -105,11 +127,11 @@ function ResetPasswordForm() {
   );
 }
 
-const ResetPassword=()=> {
+const ResetPassword = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ResetPasswordForm />
     </Suspense>
   );
-}
+};
 export default ResetPassword;
