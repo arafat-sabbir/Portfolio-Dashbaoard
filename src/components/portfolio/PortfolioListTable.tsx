@@ -46,7 +46,6 @@ interface TPortfolio {
   technologiesUsed: string[];
   features: string[];
   livePreview?: string;
-  sourceCode: string;
   thumbnail: string;
   duration?: string;
   reviews: string[];
@@ -158,15 +157,6 @@ const PortfolioListsTable = () => {
         ) : (
           "N/A"
         ),
-    },
-    {
-      accessorKey: "sourceCode",
-      header: "Source Code",
-      cell: ({ row }) => (
-        <Link href={row.getValue("sourceCode")} target="_blank">
-          Source Link
-        </Link>
-      ),
     },
     {
       id: "actions",

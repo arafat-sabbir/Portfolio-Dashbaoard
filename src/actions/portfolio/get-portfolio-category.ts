@@ -5,9 +5,9 @@ import { ErrorResponse } from "@/interface/error";
 import { axiosInstance } from "@/lib/axios";
 import { AxiosError } from "axios";
 
-export const addNewCategory = async (data: {category:string}) => {
+export const getPortfolioCategories = async () => {
   try {
-    const response = await axiosInstance.post(`/categories`, data);
+    const response = await axiosInstance.get(`/categories`);
     return response.data;
   } catch (error: any) {
     return handleAxiosError(error as AxiosError<ErrorResponse>);

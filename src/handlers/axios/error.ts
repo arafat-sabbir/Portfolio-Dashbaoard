@@ -6,13 +6,22 @@ const handleAxiosError = (
   error: AxiosError<ErrorResponse>
 ): { error: string } => {
   const { response, request, message } = error;
+
   if (response) {
     const data = response?.data as any;
+
+    // Handle `data.message` if it's a string or an array of strings
+    const formattedMessage =
+      Array.isArray(data?.message)
+        ? data.message.join(", ") // Join array elements with a comma
+        : data?.message || "An error occurred.";
+
     const errorMessages =
-      data.errors?.map((error: { message: string }) => error.message) || [];
+      data.errors?.map((err: { message: string }) => err.message).join(", ") ||
+      "";
 
     return {
-      error: data?.message || errorMessages,
+      error: formattedMessage || errorMessages,
     };
   }
 

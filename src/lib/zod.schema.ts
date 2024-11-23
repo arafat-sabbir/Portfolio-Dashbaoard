@@ -145,9 +145,6 @@ export const portfolioSchema = z.object({
     .string({ required_error: "Live preview is required" })
     .nonempty({ message: "Live preview is required" })
     .url(),
-  sourceCode: z
-    .string({ required_error: "Source code is required" })
-    .nonempty({ message: "Source code is required" }),
   startDate: z.date({ required_error: "Start date is required" }),
   endDate: z.date().optional(),
   currentlyWorking: z.boolean().optional(),
