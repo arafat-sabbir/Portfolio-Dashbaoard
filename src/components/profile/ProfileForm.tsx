@@ -32,7 +32,7 @@ const UserProfileForm = ({ user }: { user: TUser; admin: any }) => {
   useEffect(() => {
     const getAdminData = async () => {
       try {
-        const {data} = await getAdmin();
+        const { data } = await getAdmin();
         if (data?._id != (tokenAdmin as any).id) {
           handleLogout();
         }
@@ -100,10 +100,10 @@ const UserProfileForm = ({ user }: { user: TUser; admin: any }) => {
     }
   };
   return (
-    <Form {...form}>
+    <Form {...form} >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6 max-w-4xl mx-auto min-h-[90vh] flex flex-col justify-center "
+        className="space-y-6 max-w-4xl mx-auto min-h-[90vh] flex flex-col justify-center form-background"
       >
         <div className="flex items-center justify-center">
           <div className="relative">
