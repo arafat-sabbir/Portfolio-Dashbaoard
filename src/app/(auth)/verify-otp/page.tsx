@@ -45,8 +45,8 @@ function VerifyOtp() {
       <Card className="w-full mx-4 md:max-w-96">
         <form onSubmit={handleSubmit}>
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Forgot Password</CardTitle>
-            <CardDescription>Enter your email below to confirm</CardDescription>
+            <CardTitle className="text-2xl">Verify Account</CardTitle>
+            <CardDescription>Enter The Otp From Your Email To Verify Your Account</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
