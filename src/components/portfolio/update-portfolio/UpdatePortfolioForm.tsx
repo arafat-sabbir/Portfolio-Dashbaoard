@@ -179,7 +179,6 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
   const handleAddCategory = async (e) => {
     e.preventDefault();
     setCategoryLoading(true);
-    console.log(newCategory);
     try {
       const response = await addNewCategory({ category: newCategory });
       if (response?.error) {

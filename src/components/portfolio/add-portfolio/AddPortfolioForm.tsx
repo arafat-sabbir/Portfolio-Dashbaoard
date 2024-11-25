@@ -87,7 +87,6 @@ export function AddPortfolioForm() {
   };
 
   const onSubmit = async (data: z.infer<typeof portfolioSchema>) => {
-    console.log(data?.category, "category");
     if (!thumbnail) {
       return toast.error("Thumbnail is required");
     }
@@ -133,7 +132,6 @@ export function AddPortfolioForm() {
   const handleAddCategory = async (e) => {
     e.preventDefault();
     setCategoryLoading(true);
-    console.log(newCategory);
     try {
       const response = await addNewCategory({ category: newCategory });
       if (response?.error) {

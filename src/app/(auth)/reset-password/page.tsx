@@ -27,7 +27,6 @@ function ResetPasswordForm() {
   const email = searchParams.get("email") || "";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("submitting");
     e.preventDefault();
     setLoading(true);
     const form = e.currentTarget;

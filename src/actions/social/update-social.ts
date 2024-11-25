@@ -8,7 +8,6 @@ import { AxiosError } from "axios";
 export const updateSocial = async (
   data: { name: string; url: string }
 ) => {
-  console.log(data);
   try {
     const response = await axiosInstance.patch(`/socials`, data);
     return response.data;
