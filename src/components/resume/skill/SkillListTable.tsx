@@ -36,8 +36,6 @@ import { useEffect, useState } from "react";
 import { skillSchema } from "@/lib/zod.schema";
 import { z } from "zod";
 import { getAllSkills } from "@/actions/skill/get-all-skill";
-import Image from "next/image";
-import { generateImage } from "@/lib/utils";
 import { deleteSkill } from "@/actions/skill/delete-skill";
 import AddButton from "@/components/AddButton";
 
