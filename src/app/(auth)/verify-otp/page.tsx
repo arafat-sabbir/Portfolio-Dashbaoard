@@ -46,7 +46,9 @@ function VerifyOtp() {
         <form onSubmit={handleSubmit}>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Verify Account</CardTitle>
-            <CardDescription>Enter The Otp From Your Email To Verify Your Account</CardDescription>
+            <CardDescription>
+              Enter The Otp From Your Email To Verify Your Account
+            </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
@@ -69,7 +71,7 @@ function VerifyOtp() {
               className="w-full bg-primary hover:bg-primary/90 text-white dark:bg-primary dark:hover:bg-primary/90 transition-all"
               disabled={loading}
             >
-              Verify Otp <ArrowRight />
+              Verify Otp {!loading && <ArrowRight />}
               {loading && <Loader className="animate-spin ml-2" size={22} />}
             </Button>
           </CardFooter>

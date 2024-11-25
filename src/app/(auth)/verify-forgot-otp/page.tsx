@@ -48,7 +48,7 @@ function VerifyForgotOtp() {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <Card className="w-full mx-4 md:max-w-lg">
+      <Card className="w-full mx-4 md:max-w-96">
         <form onSubmit={handleSubmit}>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Verify OTP</CardTitle>
