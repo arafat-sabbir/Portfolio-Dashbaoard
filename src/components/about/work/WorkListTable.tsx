@@ -79,7 +79,7 @@ const WorkListsTable = () => {
       header: "Work Photo | Logo",
       cell: ({ row }) => (
         <Image
-          className="rounded-md w-60 h-32 object-cover"
+          className="rounded-md size-32 p-6 object-cover"
           height={1000}
           width={1000}
           src={generateImage(row.getValue("photo"))}

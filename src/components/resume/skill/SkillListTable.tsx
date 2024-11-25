@@ -41,8 +41,6 @@ import { generateImage } from "@/lib/utils";
 import { deleteSkill } from "@/actions/skill/delete-skill";
 import AddButton from "@/components/AddButton";
 
-
-
 type TSkill = z.infer<typeof skillSchema> & { _id: string };
 
 const SkillListsTable = () => {
@@ -97,19 +95,6 @@ const SkillListsTable = () => {
       cell: ({ row }) => <div>{row.getValue("level")}%</div>,
     },
     {
-      accessorKey: "photo",
-      header: "Skill Photo",
-      cell: ({ row }) => (
-        <Image
-          className="rounded-md w-60 h-32 object-cover"
-          height={1000}
-          width={1000}
-          src={generateImage(row.getValue("photo"))}
-          alt={`Blog Image`}
-        />
-      ),
-    },
-    {
       id: "actions",
       header: "Action",
       enableHiding: false,
@@ -122,9 +107,7 @@ const SkillListsTable = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link
-              href={`/dashboard/resume/skill/${row?.original?._id}/update`}
-            >
+            <Link href={`/dashboard/resume/skill/${row?.original?._id}/update`}>
               <DropdownMenuItem className="cursor-pointer">
                 Edit
               </DropdownMenuItem>

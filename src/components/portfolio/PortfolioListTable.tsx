@@ -87,6 +87,19 @@ const PortfolioListsTable = () => {
 
   const columns: ColumnDef<TPortfolio>[] = [
     {
+      accessorKey: "thumbnail",
+      header: "Thumbnail",
+      cell: ({ row }) => (
+        <Image
+          className="rounded-md size-40 m-6 object-cover"
+          height={1000}
+          width={1000}
+          src={generateImage(row.getValue("thumbnail"))}
+          alt={`Thumbnail`}
+        />
+      ),
+    },
+    {
       accessorKey: "title",
       header: ({ column }) => (
         <Button
@@ -106,19 +119,7 @@ const PortfolioListsTable = () => {
       header: "Category",
       cell: ({ row }) => <div>{row.getValue("category")}</div>,
     },
-    {
-      accessorKey: "thumbnail",
-      header: "Thumbnail",
-      cell: ({ row }) => (
-        <Image
-          className="rounded-md w-60 h-32 object-cover"
-          height={1000}
-          width={1000}
-          src={generateImage(row.getValue("thumbnail"))}
-          alt={`Thumbnail`}
-        />
-      ),
-    },
+
     {
       accessorKey: "technologiesUsed",
       header: "Technologies Used",

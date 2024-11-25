@@ -77,6 +77,19 @@ const BlogListsTable = () => {
 
   const columns: ColumnDef<IBlogs>[] = [
     {
+      accessorKey: "photo",
+      header: "Blog Thumbnail",
+      cell: ({ row }) => (
+        <Image
+          className="rounded-md size-40 m-6 object-cover"
+          height={1000}
+          width={1000}
+          src={generateImage(row.getValue("photo"))}
+          alt={`Blog Image`}
+        />
+      ),
+    },
+    {
       accessorKey: "title",
       header: ({ column }) => {
         return (
@@ -93,28 +106,7 @@ const BlogListsTable = () => {
         <div className="capitalize">{row.getValue("title")}</div>
       ),
     },
-    {
-      accessorKey: "photo",
-      header: "Blog Thumbnail",
-      cell: ({ row }) => (
-        <Image
-          className="rounded-md w-60 h-32 object-cover"
-          height={1000}
-          width={1000}
-          src={generateImage(row.getValue("photo"))}
-          alt={`Blog Image`}
-        />
-      ),
-    },
-    {
-      accessorKey: "content",
-      header: "Blog Content",
-      cell: ({ row }) => (
-        <div
-          dangerouslySetInnerHTML={{ __html: row.getValue("content") }}
-        ></div>
-      ),
-    },
+   
     {
       id: "actions",
       header: "Action",

@@ -79,11 +79,11 @@ const ClientListsTable = () => {
       header: "Client Photo | Logo",
       cell: ({ row }) => (
         <Image
-          className="rounded-md w-60 h-32 object-cover"
+          className="rounded-md size-40 p-6 object-cover dark:bg-[#18181B] bg-gray-500"
           height={1000}
           width={1000}
           src={generateImage(row.getValue("photo"))}
-          alt={`Blog Image`}
+          alt={`Client Image`}
         />
       ),
     },
