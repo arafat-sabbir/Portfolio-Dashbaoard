@@ -122,7 +122,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="px-2 focus:outline-none "
+            className="p-2 rounded-r-md focus:outline-none bg-inherit"
           >
             {showPassword ? (
               <EyeOff className="text-gray-500" size={20} />
@@ -215,7 +215,7 @@ const RenderIField = ({ field, props }: { field: any; props: CustomProps }) => {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-full flex items-center justify-between px-3 py-2 rounded-md border focus:ring-0 focus:outline-none",
+                  "w-full flex items-center justify-between px-3 py-2 dark:bg-inherit rounded-md border focus:ring-0 focus:outline-none",
                   className
                 )}
               >

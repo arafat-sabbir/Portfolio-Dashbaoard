@@ -19,10 +19,12 @@ import { useForm } from "react-hook-form";
 import { loginUserSchema } from "@/lib/zod.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 type LoginUserFormData = z.infer<typeof loginUserSchema>;
 
 export function Login() {
+  const router = useRouter()
   const [loading, setLoading] = useState(false);
   const form = useForm<LoginUserFormData>({
     resolver: zodResolver(loginUserSchema),
@@ -41,7 +43,7 @@ export function Login() {
       if (response.error) {
         return toast.error(response?.error);
       }
-      window.location.reload();
+      router.push("/dashboard/profile");
       toast.success(response?.message);
     } catch (error) {
       console.log(error);
