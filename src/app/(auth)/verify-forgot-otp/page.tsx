@@ -1,5 +1,6 @@
 "use client";
 
+import React, { Suspense, useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Loader } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { verifyForgotOtp } from "@/actions/auth/verify-forgot-otp";
@@ -21,6 +21,7 @@ function VerifyForgotOtp() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -94,4 +95,19 @@ function VerifyForgotOtp() {
   );
 }
 
-export default VerifyForgotOtp;
+export default function VerifyForgotOtpWithSuspense() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-screen flex justify-center items-center">
+          <div className="text-center">
+            <Loader className="animate-spin text-primary" size={50} />
+            <p className="text-lg mt-4">Loading Verify OTP Page...</p>
+          </div>
+        </div>
+      }
+    >
+      <VerifyForgotOtp />
+    </Suspense>
+  );
+}

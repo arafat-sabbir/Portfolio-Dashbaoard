@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Loader } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { verifyOtp } from "@/actions/auth/verify-otp";
@@ -81,4 +81,19 @@ function VerifyOtp() {
   );
 }
 
-export default VerifyOtp;
+export default function VerifyForgotOtpWithSuspense() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-screen flex justify-center items-center">
+          <div className="text-center">
+            <Loader className="animate-spin text-primary" size={50} />
+            <p className="text-lg mt-4">Loading Verify OTP Page...</p>
+          </div>
+        </div>
+      }
+    >
+      <VerifyOtp />
+    </Suspense>
+  );
+}
