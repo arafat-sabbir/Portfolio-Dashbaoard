@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader, Loader2, Plus } from "lucide-react";
+import { Loader, Plus } from "lucide-react";
 import { getPortfolioCategories } from "@/actions/portfolio/get-portfolio-category";
 import { SelectItem } from "@/components/ui/select";
 import { addPortfolio } from "@/actions/portfolio/add-new-category";

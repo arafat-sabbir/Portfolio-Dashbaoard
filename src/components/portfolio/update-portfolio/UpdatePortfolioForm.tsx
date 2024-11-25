@@ -102,7 +102,6 @@ export function UpdatePortfolioForm({ id }: { id: string }) {
           description: response?.data?.description,
           livePreview: response?.data?.livePreview,
           features: response?.data?.features,
-          sourceCode: response?.data?.sourceCode,
           technologiesUsed: response?.data?.technologiesUsed,
           title: response?.data?.title,
           startDate: parseDate(response?.data?.startDate),
