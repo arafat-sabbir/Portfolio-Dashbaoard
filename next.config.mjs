@@ -3,13 +3,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: "http",
+        hostname: "localhost",
       },
       {
-        protocol: 'https',
-        hostname: 'api.portfolio.finaltry-innovations.site',
-        pathname: '/uploads/**', // Allows images from /uploads folder
+        protocol: "https",
+        hostname: "portfolio-server.finaltry-innovations.site",
+        port: "",
+        pathname: "/uploads/**", // Match all images under /uploads
       },
     ],
   },
